@@ -10,6 +10,7 @@ import { AnimatedCarousel } from "@/components/ui/logo-carousel"
 import { HeroScrollDemo } from "@/components/ui/hero-scroll-demo"
 import { FeedbackSection } from "@/components/ui/feedback-section"
 import { MinimalFooter } from "@/components/ui/minimal-footer"
+import Demo from "@/components/ui/demo"
 import { useSEO } from "@/lib/useSEO"
 
 // Public pages
@@ -109,6 +110,7 @@ function HomePage() {
           secondaryCtaLabel="Install Free Apps"
           secondaryCtaHref="https://apps.shopify.com/partners/solvify-tech2"
         />
+        <Demo />
         <SectionlyShowcase />
         {/* <CoverflowShowcase /> */}
         <HomepageTemplatesSection />
