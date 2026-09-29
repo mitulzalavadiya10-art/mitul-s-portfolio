@@ -3,7 +3,8 @@ import { Header1 } from "@/components/ui/header"
 import { Hero } from "@/components/ui/hero-1"
 import { CursorFollower } from "@/components/ui/cursor-follower"
 import { AppShowcase } from "@/components/ui/app-showcase"
-import { CoverflowShowcase } from "@/components/ui/coverflow-showcase"
+// import { CoverflowShowcase } from "@/components/ui/coverflow-showcase"
+import { SectionlyShowcase } from "@/components/ui/sectionly-showcase"
 import { HomepageTemplatesSection } from "@/components/ui/homepage-templates"
 import { AnimatedCarousel } from "@/components/ui/logo-carousel"
 import { HeroScrollDemo } from "@/components/ui/hero-scroll-demo"
@@ -108,8 +109,8 @@ function HomePage() {
           secondaryCtaLabel="Install Free Apps"
           secondaryCtaHref="https://apps.shopify.com/partners/solvify-tech2"
         />
-        {/* <SectionlyShowcase /> */}
-        <CoverflowShowcase />
+        <SectionlyShowcase />
+        {/* <CoverflowShowcase /> */}
         <HomepageTemplatesSection />
         <AppShowcase />
         <AnimatedCarousel

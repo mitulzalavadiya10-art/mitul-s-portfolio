@@ -93,9 +93,9 @@ export function HomepageTemplatesSection() {
           </div>
 
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-headings leading-tight max-w-4xl mx-auto">
-            Explore 100+ Native Liquid Sections & <br />
+            Ready-Made Homepage Templates & <br />
             <span className="bg-gradient-to-r from-white via-zinc-300 to-zinc-500 bg-clip-text text-transparent">
-              Ready-Made Homepage Templates
+              High-Converting Store Layouts
             </span>
           </h2>
 
@@ -113,7 +113,7 @@ export function HomepageTemplatesSection() {
               onClick={() => setSelectedTemplate(template)}
             >
               {/* Image Viewport Container with Accelerating 3s Hover Auto-Scroll */}
-              <div className="relative w-full h-[500px] sm:h-[560px] lg:h-[640px] rounded-3xl overflow-hidden bg-zinc-900 border border-zinc-800/80 hover:border-zinc-700 shadow-2xl transition-all duration-300 group-hover:-translate-y-1.5">
+              <div className="relative w-full h-[500px] sm:h-[560px] lg:h-[640px] rounded-3xl overflow-hidden bg-zinc-950 border border-zinc-800/80 hover:border-zinc-700 shadow-2xl transition-all duration-300 group-hover:-translate-y-1.5">
                 {/* Circular Badge Overlay (HOT / TRENDING / NEW) */}
                 {template.badge && (
                   <div className="absolute top-3.5 right-3.5 z-20 pointer-events-none">
@@ -137,6 +137,8 @@ export function HomepageTemplatesSection() {
                 <img
                   src={template.src}
                   alt={template.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-cover object-top transition-transform duration-[1000ms] group-hover:duration-[3000ms] ease-in group-hover:-translate-y-[calc(100%-500px)] sm:group-hover:-translate-y-[calc(100%-560px)] lg:group-hover:-translate-y-[calc(100%-640px)]"
                 />
 

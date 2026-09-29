@@ -27,7 +27,7 @@ const row1 = [row1Img1, row1Img2, row1Img3, row1Img4, row1Img5, row1Img6, row1Im
 const row2 = [row2Img1, row2Img2, row2Img3, row2Img4, row2Img5, row2Img6, row2Img7];
 
 function MarqueeRow({ images, direction }: { images: string[]; direction: "left" | "right" }) {
-  const doubled = [...images, ...images]; // duplicate for seamless loop
+  const repeated = [...images, ...images, ...images, ...images]; // 4x repetition for seamless ultra-wide coverage
 
   return (
     <div className="overflow-hidden w-full">
@@ -35,20 +35,20 @@ function MarqueeRow({ images, direction }: { images: string[]; direction: "left"
         className="flex gap-4 items-center"
         animate={{
           x: direction === "left"
-            ? ["0%", "-50%"]
-            : ["-50%", "0%"],
+            ? ["0%", "-25%"]
+            : ["-25%", "0%"],
         }}
         transition={{
-          duration: 25,
+          duration: 30,
           repeat: Infinity,
           ease: "linear",
         }}
         style={{ width: "max-content" }}
       >
-        {doubled.map((src, i) => (
+        {repeated.map((src, i) => (
           <div
             key={i}
-            className="shrink-0 h-44 w-72 rounded-xl overflow-hidden border border-zinc-800 bg-white flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity duration-300"
+            className="shrink-0 h-44 w-72 rounded-xl overflow-hidden border border-zinc-800 bg-white flex items-center justify-center opacity-90 hover:opacity-100 transition-opacity duration-300"
           >
             <img
               src={src}
@@ -56,6 +56,7 @@ function MarqueeRow({ images, direction }: { images: string[]; direction: "left"
               width={288}
               height={176}
               loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover"
             />
           </div>
@@ -133,33 +134,34 @@ export function SectionlyShowcase() {
             </motion.button>
           </div>
         </div>
+      </div>
 
-        {/* 2. MIDDLE — Full-Width Dual Marquee Rows */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="relative flex flex-col gap-4 overflow-hidden w-full mt-4"
-        >
-          {/* Left fade mask */}
-          <div className="pointer-events-none absolute left-0 top-0 h-full w-12 md:w-28 z-10 bg-gradient-to-r from-black to-transparent" />
-          {/* Right fade mask */}
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-12 md:w-28 z-10 bg-gradient-to-l from-black to-transparent" />
+      {/* 2. MIDDLE — Full-Bleed 100% Edge-to-Edge Dual Marquee Rows (Zero side margins) */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="relative flex flex-col gap-4 overflow-hidden w-full my-6"
+      >
+        {/* Subtle Edge Fade Masks */}
+        <div className="pointer-events-none absolute left-0 top-0 h-full w-8 md:w-16 z-10 bg-gradient-to-r from-black to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-8 md:w-16 z-10 bg-gradient-to-l from-black to-transparent" />
 
-          {/* Row 1: scrolls right → left */}
-          <MarqueeRow images={row1} direction="left" />
-          {/* Row 2: scrolls left → right */}
-          <MarqueeRow images={row2} direction="right" />
-        </motion.div>
+        {/* Row 1: scrolls right → left */}
+        <MarqueeRow images={row1} direction="left" />
+        {/* Row 2: scrolls left → right */}
+        <MarqueeRow images={row2} direction="right" />
+      </motion.div>
 
-        {/* 3. BOTTOM — Minimal Trust & Stats Bar */}
+      {/* 3. BOTTOM — Minimal Trust & Stats Bar */}
+      <div className="w-full max-w-[1500px] mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mt-10 text-xs md:text-sm text-zinc-400 font-medium border-t border-zinc-900 pt-8 max-w-4xl mx-auto"
+          className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs md:text-sm text-zinc-400 font-medium border-t border-zinc-900 pt-8 max-w-4xl mx-auto"
         >
           <div>
             <span><strong className="text-white font-bold">300+</strong> Active Shopify Stores</span>

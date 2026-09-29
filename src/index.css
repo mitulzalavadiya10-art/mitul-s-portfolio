@@ -38,6 +38,12 @@
   --radius-sm: calc(var(--radius) - 4px);
 }
 
+html, body {
+  background-color: #000000;
+  color: #ffffff;
+  color-scheme: dark;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
