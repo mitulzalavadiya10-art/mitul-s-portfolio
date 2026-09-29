@@ -8,8 +8,8 @@ import { updateVelocityUniform, updateWaveDimensions, createSliderMaterial } fro
 
 useTexture.preload(imagePaths);
 
-const PLANE_ASPECT = 5 / 3;
-const GAP_RATIO = 0.015;
+const PLANE_ASPECT = 1.38;
+const GAP_RATIO = 0.02;
 
 interface MeshesProps {
     onSelectImage?: (img: typeof images[0]) => void;
@@ -20,8 +20,8 @@ function Meshes({ onSelectImage, onLoaded }: MeshesProps) {
     const textures = useTexture(imagePaths) as THREE.Texture[];
     const viewport = useThree((s) => s.viewport);
     const isPortrait = viewport.aspect < 1.1;
-    const maxAllowedWidth = viewport.width * (isPortrait ? 0.70 : 0.42);
-    const nominalHeight = viewport.height * (isPortrait ? 0.35 : 0.40);
+    const maxAllowedWidth = viewport.width * (isPortrait ? 0.88 : 0.58);
+    const nominalHeight = viewport.height * (isPortrait ? 0.48 : 0.54);
     const nominalWidth = nominalHeight * PLANE_ASPECT;
     const planeWidth = Math.min(nominalWidth, maxAllowedWidth);
     const planeHeight = planeWidth / PLANE_ASPECT;
@@ -70,6 +70,12 @@ function Meshes({ onSelectImage, onLoaded }: MeshesProps) {
         }
     });
 
+    useEffect(() => {
+        return () => {
+            document.body.style.cursor = "auto";
+        };
+    }, []);
+
     return (
         <group>
             {materials.map((material, i) => (
@@ -78,6 +84,8 @@ function Meshes({ onSelectImage, onLoaded }: MeshesProps) {
                     ref={(el) => { meshRefs.current[i] = el; }}
                     geometry={geometry}
                     material={material}
+                    onPointerOver={() => { document.body.style.cursor = "pointer"; }}
+                    onPointerOut={() => { document.body.style.cursor = "auto"; }}
                     onClick={() => {
                         if (onSelectImage && images[i]) {
                             onSelectImage(images[i]);

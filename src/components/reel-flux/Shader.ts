@@ -57,13 +57,14 @@ void main() {
 const fragmentShader = `
 uniform sampler2D uTexture;
 uniform vec2 uScale;
+uniform vec2 uOffset;
 uniform float uVelocity;
 
 varying vec2 vUv;
 varying float vCosW;
 
 void main() {
-    vec2 coverUv = (vUv - 0.5) * uScale + 0.5;
+    vec2 coverUv = (vUv - 0.5) * uScale + 0.5 + uOffset;
     vec4 baseColor = texture2D(uTexture, coverUv);
 
     float luma = dot(baseColor.rgb, vec3(0.2126, 0.7152, 0.0722));
@@ -87,10 +88,23 @@ export function createSliderMaterial(tex: THREE.Texture, planeAspect: number) {
     const img = tex.image as { width?: number; height?: number } | undefined;
     const imageAspect = (img && img.width && img.height) ? img.width / img.height : planeAspect;
 
-    const scale =
-        imageAspect > planeAspect
-            ? new THREE.Vector2(planeAspect / imageAspect, 1)
-            : new THREE.Vector2(1, imageAspect / planeAspect);
+    let scale = new THREE.Vector2(1, 1);
+    let offset = new THREE.Vector2(0, 0);
+
+    // If image aspect ratio is close to card aspect ratio (within 15%), display full image 1:1 without cutting
+    if (Math.abs(imageAspect - planeAspect) < 0.15) {
+        scale = new THREE.Vector2(1, 1);
+        offset = new THREE.Vector2(0, 0);
+    } else if (imageAspect > planeAspect) {
+        // Landscape photo wider than card: fit height, center horizontally
+        scale = new THREE.Vector2(planeAspect / imageAspect, 1);
+        offset = new THREE.Vector2(0, 0);
+    } else {
+        // Image is taller than card: fit width, align to top to preserve logo and header
+        const s = imageAspect / planeAspect;
+        scale = new THREE.Vector2(1, s);
+        offset = new THREE.Vector2(0, (1.0 - s) * 0.48);
+    }
 
     return new THREE.ShaderMaterial({
         vertexShader,
@@ -98,6 +112,7 @@ export function createSliderMaterial(tex: THREE.Texture, planeAspect: number) {
         uniforms: {
             uTexture: { value: tex },
             uScale: { value: scale },
+            uOffset: { value: offset },
             uVelocity: shaderUniforms.uVelocity,
             uWaveFreq: shaderUniforms.uWaveFreq,
             uAmpY: shaderUniforms.uAmpY,

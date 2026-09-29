@@ -38,7 +38,13 @@ export default function ReelFlux() {
 
             <div className={styles.canvasWrapper}>
                 <Scene
-                    onSelectImage={(img) => setSelectedItem(img)}
+                    onSelectImage={(img) => {
+                        if (img.url) {
+                            window.open(img.url, "_blank", "noopener,noreferrer");
+                            return;
+                        }
+                        setSelectedItem(img);
+                    }}
                     onLoaded={() => setIsSceneReady(true)}
                 />
             </div>
@@ -105,32 +111,47 @@ export default function ReelFlux() {
                             <X className="w-5 h-5" />
                         </button>
 
-                        <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden mb-5 border border-zinc-800">
+                        <div
+                            className={`relative aspect-[16/10] w-full rounded-xl overflow-hidden mb-5 border border-zinc-800 ${selectedItem.url ? "cursor-pointer group" : ""}`}
+                            onClick={() => {
+                                if (selectedItem.url) {
+                                    window.open(selectedItem.url, "_blank", "noopener,noreferrer");
+                                }
+                            }}
+                        >
                             <img
                                 src={selectedItem.src}
                                 alt={selectedItem.title}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                             />
                             <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-black/60 backdrop-blur-md border border-white/20 text-white">
                                 {selectedItem.category || "Shopify Store"}
                             </div>
+                            {selectedItem.url && (
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-semibold text-sm backdrop-blur-[2px]">
+                                    <span>Open Live Website</span>
+                                    <ExternalLink className="w-4 h-4" />
+                                </div>
+                            )}
                         </div>
 
-                        <div className="flex items-center justify-between">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
                                 <h3 className="text-xl font-bold">{selectedItem.title}</h3>
                                 <p className="text-sm text-zinc-400 mt-0.5">
-                                    Crafted with high-performance Liquid templates and AI Section Hub
+                                    {selectedItem.url
+                                        ? "Live Custom Shopify Storefront Architecture"
+                                        : "Crafted with high-performance Liquid templates and AI Section Hub"}
                                 </p>
                             </div>
 
                             <a
-                                href="https://apps.shopify.com/ai-section-hub"
+                                href={selectedItem.url || "https://apps.shopify.com/ai-section-hub"}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-sm transition shadow-lg shadow-emerald-500/20"
+                                className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-sm transition shadow-lg shadow-emerald-500/20"
                             >
-                                <span>Install App</span>
+                                <span>{selectedItem.url ? "Visit Live Store" : "Install App"}</span>
                                 <ExternalLink className="w-4 h-4" />
                             </a>
                         </div>

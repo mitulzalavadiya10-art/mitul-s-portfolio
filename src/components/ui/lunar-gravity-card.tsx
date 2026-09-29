@@ -4,7 +4,7 @@ import React, { useRef, useMemo, Suspense, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useTexture, Environment } from "@react-three/drei";
 import * as THREE from "three";
-import { ArrowUpRight, Sparkles, GraduationCap, Mail } from "lucide-react";
+import { ArrowUpRight, Sparkles, Mail } from "lucide-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 

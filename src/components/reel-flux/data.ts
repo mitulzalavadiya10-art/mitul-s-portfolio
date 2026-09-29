@@ -3,6 +3,7 @@ export interface ImageData {
     title: string;
     category?: string;
     src: string;
+    url?: string;
 }
 
 export const images: ImageData[] = [
@@ -16,8 +17,8 @@ export const images: ImageData[] = [
     { id: 8, title: "Fuji Lifestyle", category: "Japanese Goods", src: "/images/fuji.jpg" },
     { id: 9, title: "Snow Peak Gear", category: "Outdoor Apparel", src: "/images/heyoh.jpg" },
     { id: 10, title: "House & Living", category: "Modern Interior", src: "/images/house.jpg" },
-    { id: 11, title: "Nova Cosmetics", category: "Beauty Essentials", src: "/images/img1.jpg" },
-    { id: 12, title: "Aura Fragrances", category: "Luxury Perfume", src: "/images/img2.jpg" },
+    { id: 11, title: "Only Carat", category: "Lab-Grown Diamond Jewelry", src: "/images/onlycarat.png", url: "https://www.onlycarat.com/" },
+    { id: 12, title: "Loista Jewels", category: "Fine Diamond & Jewelry", src: "/images/loista-diamond.png", url: "https://loista-diamond.myshopify.com/" },
     { id: 13, title: "Vogue Atelier", category: "High Fashion", src: "/images/img3.jpg" },
     { id: 14, title: "Urban Pulse", category: "Activewear", src: "/images/img4.jpg" },
     { id: 15, title: "Lumina Home", category: "Lighting & Decor", src: "/images/img5.jpg" },
