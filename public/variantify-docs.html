@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Klenzo: AI Variants — Official Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@450;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-sans: 'Inter', sans-serif;
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      --bg: #000000;
+      --text: #ffffff;
+      --text-muted: #a1a1aa; /* zinc-400 */
+      --border: rgba(255, 255, 255, 0.08);
+      --accent: #ffffff;
+      --accent-hover: #e4e4e7;
+      --accent-light: rgba(255, 255, 255, 0.02);
+      --sidebar-width: 290px;
+
+      /* Swatch Accent Palette */
+      --purple-accent: #9b6bb0;
+      --purple-deep: #5b3a6b;
+      --amber-accent: #c98a2c;
+      --amber-bg: rgba(201, 138, 44, 0.08);
+      --amber-border: rgba(201, 138, 44, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+
+    /* Scrollbar Style */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #000000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #18181b;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #27272a;
+    }
+
+    /* Background Glows */
+    .bg-glow-top {
+      position: fixed;
+      top: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(155, 107, 176, 0.07) 0%, rgba(0, 0, 0, 0) 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .bg-glow-bottom {
+      position: fixed;
+      bottom: -200px;
+      left: 10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201, 138, 44, 0.04) 0%, rgba(0, 0, 0, 0) 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Top Navigation Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background-color: rgba(9, 9, 11, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+    }
+
+    .app-switcher-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #09090b;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 4px;
+    }
+
+    .app-tab {
+      padding: 6px 16px;
+      border-radius: 18px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      font-family: var(--font-display);
+      white-space: nowrap;
+    }
+
+    .app-tab:hover {
+      color: #ffffff;
+    }
+
+    .app-tab.active {
+      background: #ffffff;
+      color: #000000;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 8px 18px;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      background-color: rgba(255, 255, 255, 0.03);
+      font-family: var(--font-display);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .back-btn:hover {
+      background-color: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+    }
+
+    .mobile-only-back { display: none; }
+    .desktop-only-back { display: flex; }
+
+    /* Mobile Quick TOC Dropdown */
+    .mobile-toc-bar {
+      display: none;
+      margin-bottom: 24px;
+    }
+
+    .mobile-toc-select {
+      width: 100%;
+      padding: 12px 16px;
+      background: #09090b;
+      color: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 13.5px;
+      font-weight: 600;
+      font-family: var(--font-display);
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px;
+      padding-right: 40px;
+    }
+
+    /* Layout Wrapper */
+    .layout {
+      display: flex;
+      padding-top: 70px;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Sidebar Styling */
+    .sidebar {
+      width: var(--sidebar-width);
+      position: fixed;
+      top: 70px;
+      bottom: 0;
+      left: 0;
+      background-color: #050505;
+      border-right: 1px solid var(--border);
+      padding: 32px 24px;
+      overflow-y: auto;
+      z-index: 40;
+    }
+
+    .nav-section {
+      margin-bottom: 28px;
+    }
+
+    .nav-title {
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-family: var(--font-display);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 8px 12px;
+      color: #a1a1aa;
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      font-family: var(--font-display);
+    }
+
+    .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+    }
+
+    .nav-link.active {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Main Content Container */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 48px 60px 80px 60px;
+      max-width: 1000px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Typography & Core Styles */
+    .eyebrow {
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 11px;
+      color: var(--amber-accent);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-top: 48px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      color: #ffffff;
+    }
+
+    h3 {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 700;
+      margin-top: 32px;
+      margin-bottom: 14px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    p {
+      color: #a1a1aa;
+      font-size: 15.5px;
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    p.lead {
+      color: #d4d4d8;
+      font-size: 16.5px;
+      line-height: 1.8;
+    }
+
+    ul, ol {
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: #a1a1aa;
+      font-size: 15px;
+    }
+
+    a {
+      color: #ffffff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: #d4d4d8;
+    }
+
+    .step-num {
+      font-family: var(--font-mono);
+      color: var(--amber-accent);
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    /* Callout Boxes */
+    .callout {
+      background-color: var(--amber-bg);
+      border-left: 4px solid var(--amber-accent);
+      border-top: 1px solid var(--amber-border);
+      border-right: 1px solid var(--amber-border);
+      border-bottom: 1px solid var(--amber-border);
+      padding: 18px 22px;
+      border-radius: 0 12px 12px 0;
+      margin: 28px 0;
+      font-size: 14.5px;
+      color: #fef08a;
+    }
+
+    .callout p {
+      margin: 0;
+      color: #fef08a;
+      font-size: 14.5px;
+      font-weight: 500;
+    }
+
+    .callout strong {
+      color: #ffffff;
+    }
+
+    /* Visual Panels & Interactive Mockups */
+    .panel {
+      background-color: #050505;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 24px 0 34px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .panel-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 16px;
+      font-family: var(--font-mono);
+    }
+
+    /* Media Grid Mockup */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(4, 1fr);
+      grid-template-rows: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .swatch-grid .hero-cell {
+      grid-row: 1/3;
+    }
+
+    .cell {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.95);
+      text-transform: uppercase;
+      min-height: 75px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+      font-family: var(--font-display);
+    }
+
+    .cell.yellow { background: linear-gradient(160deg, #e8c65a, #c9a13a); }
+    .cell.red    { background: linear-gradient(160deg, #c4444f, #8f1f2b); }
+    .cell.black  { background: linear-gradient(160deg, #3f3f46, #18181b); }
+    .cell.purple { background: linear-gradient(160deg, #9b6bb0, #5b3a6b); }
+    .cell.add    {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1.5px dashed var(--border);
+      text-shadow: none;
+      font-size: 22px;
+    }
+
+    /* Variant Table Mockup */
+    .vtable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      background-color: #000000;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .vtable thead th {
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 700;
+      background-color: #09090b;
+      font-family: var(--font-display);
+    }
+
+    .vtable td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .vtable tr:last-child td { border-bottom: none; }
+
+    .swash {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: inline-block;
+      vertical-align: middle;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .vname { font-weight: 700; color: #ffffff; font-family: var(--font-display); }
+    .vsub  { color: var(--text-muted); font-size: 12px; }
+    
+    .price-pill {
+      display: inline-block;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4px 10px;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      background-color: #09090b;
+    }
+
+    .vtable td.right { text-align: right; color: var(--text-muted); font-weight: 600; }
+
+    /* Product Page Preview Card */
+    .preview {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 640px) { .preview { grid-template-columns: 1fr; } }
+
+    .preview-image {
+      aspect-ratio: 3/4;
+      border-radius: 12px;
+      background: linear-gradient(150deg, #9b6bb0, #5b3a6b 60%, #3d2649);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .preview-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.2), transparent 60%);
+    }
+
+    .preview-thumbs { display: flex; gap: 8px; margin-top: 10px; }
+    .preview-thumbs .t {
+      width: 46px;
+      height: 58px;
+      border-radius: 8px;
+      background: linear-gradient(150deg, #9b6bb0, #5b3a6b);
+      border: 1px solid var(--border);
+    }
+
+    .pp-title { font-weight: 800; font-size: 18px; margin-bottom: 6px; color: #ffffff; font-family: var(--font-display); }
+    .pp-price { margin-bottom: 14px; }
+    .pp-price .old { color: #71717a; text-decoration: line-through; margin-right: 8px; font-size: 14px; }
+    .pp-price .new { color: #ffffff; font-weight: 800; font-size: 17px; }
+    
+    .pp-note {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .pp-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin: 18px 0 8px;
+      font-family: var(--font-mono);
+    }
+
+    .colorpills { display: flex; gap: 8px; }
+    .colorpill {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid #000000;
+      box-shadow: 0 0 0 1px var(--border);
+      cursor: pointer;
+    }
+
+    .colorpill.arrowed { box-shadow: 0 0 0 2px #ffffff; }
+
+    .stylepills { display: flex; gap: 8px; margin-top: 4px; }
+    .stylepill {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      background-color: #09090b;
+      font-weight: 600;
+    }
+
+    .stylepill.on {
+      background-color: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      font-weight: 800;
+    }
+
+    code.pathline {
+      display: inline-block;
+      background-color: #09090b;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      color: #ffffff;
+    }
+
+    /* Browser Mockup Window */
+    .browser-mock {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #050505;
+      margin: 24px 0;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    }
+
+    .browser-bar {
+      background: #09090b;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .browser-bar span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .browser-body {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 0;
+      min-height: 190px;
+    }
+
+    .browser-body .col {
+      padding: 18px;
+      border-right: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .browser-body .col:last-child { border-right: none; }
+    .browser-body .col.mid { background: #000000; }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #09090b;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: 14px;
+      font-size: 12.5px;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .toggle {
+      width: 36px;
+      height: 20px;
+      border-radius: 999px;
+      background: #ffffff;
+      position: relative;
+    }
+
+    .toggle::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #000000;
+    }
+
+    /* Video Link Callout Card */
+    .video-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: #050505;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin: 28px 0;
+      flex-wrap: wrap;
+    }
+
+    .video-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      color: #000000;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: var(--font-display);
+      transition: all 0.2s ease;
+    }
+
+    .video-link-btn:hover {
+      background: #e4e4e7;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Code Block Formatting */
+    pre {
+      background-color: #050505;
+      color: #e4e4e7;
+      padding: 20px;
+      border-radius: 12px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      margin: 20px 0;
+      border: 1px solid var(--border);
+    }
+
+    code {
+      font-family: var(--font-mono);
+      background-color: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+      padding: 3px 6px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    pre code {
+      background-color: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+      border: none;
+    }
+
+    .footer-help {
+      margin-top: 56px;
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .footer-help a {
+      color: #ffffff;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .docs-section {
+      margin-bottom: 64px;
+      animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive adjustments for Mobile & Tablets */
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none !important;
+      }
+
+      .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 20px 16px 60px 16px !important;
+        box-sizing: border-box !important;
+      }
+
+      .mobile-only-back { display: flex !important; }
+      .desktop-only-back { display: none !important; }
+
+      .header {
+        height: auto !important;
+        padding: 10px 16px 12px 16px !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        align-items: stretch !important;
+      }
+
+      .header-nav-row {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+      }
+
+      .brand {
+        font-size: 17px !important;
+      }
+
+      .back-btn {
+        padding: 6px 14px !important;
+        font-size: 12px !important;
+        border-radius: 16px !important;
+      }
+
+      .app-switcher-header {
+        width: 100% !important;
+        display: flex !important;
+        gap: 4px !important;
+        background: #09090b !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 16px !important;
+        padding: 4px !important;
+      }
+
+      .app-tab {
+        flex: 1 1 50% !important;
+        text-align: center !important;
+        padding: 8px 6px !important;
+        font-size: 11.5px !important;
+        border-radius: 12px !important;
+        white-space: nowrap !important;
+      }
+
+      .layout {
+        padding-top: 118px !important;
+      }
+
+      .mobile-toc-bar {
+        display: block !important;
+      }
+
+      h1 { font-size: 26px !important; line-height: 1.2 !important; }
+      h2 { font-size: 20px !important; line-height: 1.3 !important; }
+      pre { font-size: 12.5px !important; padding: 14px !important; overflow-x: auto !important; }
+      table { display: block !important; overflow-x: auto !important; width: 100% !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Glow Accents -->
+  <div class="bg-glow-top"></div>
+  <div class="bg-glow-bottom"></div>
+
+  <!-- Top Header -->
+  <header class="header">
+    <div class="header-nav-row">
+      <a href="/" class="brand">
+        <div class="logo-dot"></div>
+        Klenzo Docs
+      </a>
+      <a href="/" class="back-btn mobile-only-back">
+        ← Back to Site
+      </a>
+    </div>
+
+    <!-- App Documentation Switcher -->
+    <div class="app-switcher-header">
+      <a href="/docs.html" class="app-tab">AI Section Hub</a>
+      <a href="/variantify-docs.html" class="app-tab active">Variant Swatch</a>
+    </div>
+
+    <a href="/" class="back-btn desktop-only-back">
+      ← Back to Site
+    </a>
+  </header>
+
+  <div class="layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="nav-section">
+        <h4 class="nav-title">Select App Documentation</h4>
+        <ul class="nav-links">
+          <li><a href="/docs.html" class="nav-link">🚀 AI Section Hub Docs</a></li>
+          <li><a href="/variantify-docs.html" class="nav-link active">🎨 Klenzo: Variant Swatch Docs</a></li>
+        </ul>
+      </div>
+
+      <div class="nav-section">
+        <h4 class="nav-title">Klenzo: Variant Swatch</h4>
+        <ul class="nav-links">
+          <li><a href="#introduction" class="nav-link active">Introduction</a></li>
+          <li><a href="#media-setup" class="nav-link">Product Media Setup</a></li>
+          <li><a href="#step-1-arrange" class="nav-link">1. Arrange by Variant</a></li>
+          <li><a href="#step-2-assign" class="nav-link">2. Assign First Image</a></li>
+          <li><a href="#step-3-check" class="nav-link">3. Double-Check Setup</a></li>
+          <li><a href="#theme-activation" class="nav-link">Activate in Theme</a></li>
+          <li><a href="#color-mapping" class="nav-link">Color Code Mapping</a></li>
+          <li><a href="#video-guide" class="nav-link">Video Walkthrough</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Mobile Quick Jump Section Selector -->
+      <div class="mobile-toc-bar">
+        <select class="mobile-toc-select" onchange="if(this.value) window.location.hash=this.value;">
+          <option value="">📍 Quick Jump to Section...</option>
+          <option value="#introduction">Introduction</option>
+          <option value="#media-setup">Product Media Setup</option>
+          <option value="#step-1-arrange">1. Arrange by Variant</option>
+          <option value="#step-2-assign">2. Assign First Image</option>
+          <option value="#step-3-check">3. Double-Check Setup</option>
+          <option value="#theme-activation">Activate in Theme</option>
+          <option value="#color-mapping">Color Code Mapping</option>
+          <option value="#video-guide">Video Walkthrough</option>
+          <option value="/docs.html">🚀 AI Section Hub Docs</option>
+        </select>
+      </div>
+
+      <!-- Introduction Header -->
+      <section id="introduction" class="docs-section">
+        <div class="eyebrow">Official App Guide · Klenzo Variant Swatch</div>
+        <h1>How to Show Only the Selected Variant's Media on Your Product Page</h1>
+        
+        <p class="lead">
+          When enabled, the <strong>“Only show media of the selected variant”</strong> setting ensures that customers see only the images linked to the variant they've chosen. For example, if a shopper selects the <strong>Red</strong> variant of a product, only the Red variant's images will be displayed, while all other variant media is hidden. This creates a cleaner product page and helps customers focus on the option they're interested in.
+        </p>
+
+        <div class="callout">
+          <p>💡 Tip: Replacing traditional Shopify dropdown selectors with visual color bubbles and image swatches increases conversion rates by up to 24% by improving visual clarity for buyers.</p>
+        </div>
+      </section>
+
+      <!-- Media Setup Section -->
+      <section id="media-setup" class="docs-section">
+        <h2>Setting up your product media</h2>
+        <p>To make sure the <strong>“Only show media of the selected variant”</strong> setting works properly, you'll need to organize and assign your product images in Shopify. Follow these 3 essential steps:</p>
+
+        <!-- Step 1 -->
+        <div id="step-1-arrange">
+          <h3><span class="step-num">Step 1:</span> Arrange your product images by variant</h3>
+          <p>Start by uploading all the product images for each variant. Then, group them together in the same order as your variant options.</p>
+          <p>For example, if your product comes in <strong>Yellow, Red, Black, and Purple</strong>, arrange the images in your Shopify Admin media gallery so that:</p>
+          <ul>
+            <li>All Yellow images appear first</li>
+            <li>All Red images appear next</li>
+            <li>Then all Black images</li>
+            <li>Finally, all Purple images</li>
+          </ul>
+          <p>This exact order is essential for the feature to group variant media correctly.</p>
+
+          <div class="callout">
+            <p><strong>⚠️ Remember:</strong> It's important to ensure your images are grouped and assigned correctly in Shopify. If the images aren't in the right sequence order, the wrong images might display when a customer clicks a swatch button.</p>
+          </div>
+
+          <!-- Media Grid Panel -->
+          <div class="panel">
+            <div class="panel-label">Media Gallery Sequence · Shopify Product Admin</div>
+            <div class="swatch-grid">
+              <div class="cell hero-cell yellow">Yellow 1</div>
+              <div class="cell yellow">Yellow 2</div>
+              <div class="cell red">Red 1</div>
+              <div class="cell red">Red 2</div>
+              <div class="cell black">Black 1</div>
+              <div class="cell yellow">Yellow 3</div>
+              <div class="cell red">Red 3</div>
+              <div class="cell black">Black 2</div>
+              <div class="cell black">Black 3</div>
+              <div class="cell purple">Purple 1</div>
+              <div class="cell purple">Purple 2</div>
+              <div class="cell purple">Purple 3</div>
+              <div class="cell add">+</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div id="step-2-assign" style="margin-top: 40px;">
+          <h3><span class="step-num">Step 2:</span> Assign the first image of each group to the correct variant</h3>
+          <p>Next, assign the first image from each color group to its matching variant in your Shopify product admin table:</p>
+          <ul>
+            <li>The <strong>first Yellow image</strong> &rarr; assigned to the <em>Yellow</em> variant</li>
+            <li>The <strong>first Red image</strong> &rarr; assigned to the <em>Red</em> variant</li>
+            <li>The <strong>first Black image</strong> &rarr; assigned to the <em>Black</em> variant</li>
+            <li>The <strong>first Purple image</strong> &rarr; assigned to the <em>Purple</em> variant</li>
+          </ul>
+          <p>This step tells Shopify where each variant's set of images begins and ends. When a customer selects a variant (e.g., Red), only the images from that group will show.</p>
+
+          <!-- Variant Table Panel -->
+          <div class="panel">
+            <div class="panel-label">Shopify Admin · Variants Table</div>
+            <table class="vtable">
+              <thead>
+                <tr>
+                  <th>Swatch</th>
+                  <th>Variant Name</th>
+                  <th>Price</th>
+                  <th class="right">Available Inventory</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="swash" style="background:linear-gradient(160deg,#e8c65a,#c9a13a);"></span></td>
+                  <td><div class="vname">Yellow</div><div class="vsub">3 sizes (S, M, L)</div></td>
+                  <td><span class="price-pill">$ 30.00</span></td>
+                  <td class="right">23 in stock</td>
+                </tr>
+                <tr>
+                  <td><span class="swash" style="background:linear-gradient(160deg,#c4444f,#8f1f2b);"></span></td>
+                  <td><div class="vname">Red</div><div class="vsub">3 sizes (S, M, L)</div></td>
+                  <td><span class="price-pill">$ 30.00</span></td>
+                  <td class="right">Out of stock</td>
+                </tr>
+                <tr>
+                  <td><span class="swash" style="background:linear-gradient(160deg,#3f3f46,#18181b);"></span></td>
+                  <td><div class="vname">Black</div><div class="vsub">3 sizes (S, M, L)</div></td>
+                  <td><span class="price-pill">$ 30.00</span></td>
+                  <td class="right">7 in stock</td>
+                </tr>
+                <tr>
+                  <td><span class="swash" style="background:linear-gradient(160deg,#9b6bb0,#5b3a6b);"></span></td>
+                  <td><div class="vname">Purple</div><div class="vsub">3 sizes (S, M, L)</div></td>
+                  <td><span class="price-pill">$ 30.00</span></td>
+                  <td class="right">6 in stock</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div id="step-3-check" style="margin-top: 40px;">
+          <h3><span class="step-num">Step 3:</span> Double-check your setup</h3>
+          <p>Once your images are arranged and assigned in your product admin:</p>
+          <ul>
+            <li>Select each variant option in your Shopify product editor.</li>
+            <li>Make sure the correct thumbnail images appear for that specific variant.</li>
+            <li>Adjust order if anything looks out of sequence.</li>
+          </ul>
+
+          <!-- Live Preview Panel -->
+          <div class="panel">
+            <div class="panel-label">Live Store Preview · Variant Filter Active</div>
+            <div class="preview">
+              <div>
+                <div class="preview-image"></div>
+                <div class="preview-thumbs">
+                  <div class="t"></div><div class="t"></div><div class="t"></div>
+                </div>
+              </div>
+              <div>
+                <div class="pp-title">Luxury Velvet Dress — Swatch Filter Active</div>
+                <div class="pp-price"><span class="old">$34.00</span><span class="new">$30.00</span></div>
+                <div class="pp-note">⚡ Selling fast — 6 left in stock</div>
+                <div class="pp-note">🚚 Free Express Shipping Available</div>
+                <div class="pp-note">🎁 Special Bundle: Buy 2 Get 1 Free</div>
+
+                <div class="pp-label">Color · Purple (Selected)</div>
+                <div class="colorpills">
+                  <span class="colorpill" style="background:#dfd54c;" title="Yellow"></span>
+                  <span class="colorpill" style="background:#c4444f;" title="Red"></span>
+                  <span class="colorpill" style="background:#18181b;" title="Black"></span>
+                  <span class="colorpill arrowed" style="background:#7a4f92;" title="Purple (Selected)"></span>
+                </div>
+
+                <div class="pp-label">Style</div>
+                <div class="stylepills">
+                  <span class="stylepill on">Full-sleeve</span>
+                  <span class="stylepill">Off-shoulder</span>
+                  <span class="stylepill">Short-sleeve</span>
+                </div>
+
+                <div class="pp-label">Quantity</div>
+                <div class="stylepills">
+                  <span class="stylepill">− &nbsp; 1 &nbsp; +</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Theme Activation -->
+      <section id="theme-activation" class="docs-section">
+        <h2>Activate the setting in the theme</h2>
+        <p>In order for this feature to filter your product media dynamically, enable it inside your Shopify Theme Settings:</p>
+        
+        <p><code class="pathline">Online Store &gt; Themes &gt; Click Customize</code> on your active theme.</p>
+        <p>From here, open any product page template that contains variant options.</p>
+        <p>In the sections sidebar menu on the left, click <strong>Product Information</strong>, and on the right-hand settings panel toggle the setting <strong>“Only show media of the selected variant.”</strong></p>
+
+        <!-- Browser Mockup Window -->
+        <div class="browser-mock">
+          <div class="browser-bar"><span></span><span></span><span></span></div>
+          <div class="browser-body">
+            <div class="col">
+              <div style="font-weight:800; color:#ffffff; margin-bottom:10px; font-family:var(--font-display);">Sections</div>
+              <div style="color:#ffffff; font-weight:700;">&rarr; Product Information</div>
+              <div style="margin-top:6px;">Header</div>
+              <div>Footer</div>
+            </div>
+            <div class="col mid">
+              <div style="background:linear-gradient(150deg,#9b6bb0,#5b3a6b); border-radius:10px; height:100px; margin-bottom:12px; border:1px solid var(--border);"></div>
+              <div style="font-weight:800; color:#ffffff; font-family:var(--font-display);">Testing Dress</div>
+              <div class="colorpills" style="margin-top:10px;">
+                <span class="colorpill" style="background:#dfd54c;"></span>
+                <span class="colorpill" style="background:#c4444f;"></span>
+                <span class="colorpill" style="background:#18181b;"></span>
+              </div>
+            </div>
+            <div class="col">
+              <div style="font-weight:800; color:#ffffff; margin-bottom:10px; font-family:var(--font-display);">Product App Settings</div>
+              <div class="toggle-row">
+                <span>Only show media of selected variant</span>
+                <span class="toggle"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Color Code Mapping -->
+      <section id="color-mapping" class="docs-section">
+        <h2>Custom Color Code Mapping</h2>
+        <p>By default, Klenzo AI Variants detects standard variant color names automatically. To specify exact HEX color codes or custom dual-tone gradients:</p>
+        <p>Open the app settings dashboard, navigate to <strong>Color Mapping</strong>, and paste your custom JSON mapping:</p>
+
+<pre><code>{
+  "Olive Green": "#6b7c3f",
+  "Charcoal Gray": "#2b2b2b",
+  "Ocean Blue": "#0077b6",
+  "Sunset Rose": "linear-gradient(135deg, #ff7e5f, #feb47b)"
+}</code></pre>
+      </section>
+
+      <!-- Video Walkthrough -->
+      <section id="video-guide" class="docs-section">
+        <h2>Video Walkthrough Guide</h2>
+        <p>Prefer a video demonstration? Watch our step-by-step video guide showing how to set up variant images and activate the setting in Shopify:</p>
+
+        <div class="video-card">
+          <div>
+            <h4 style="font-size: 16px; margin: 0 0 4px; color: #ffffff;">▶ Watch Walkthrough Video</h4>
+            <p style="margin: 0; font-size: 13.5px; color: var(--text-muted);">Step-by-step video assistant for Shopify merchants</p>
+          </div>
+          <a href="https://share.zight.com/Z4uBO8nQ" target="_blank" rel="noopener" class="video-link-btn">
+            Open Video Walkthrough &rarr;
+          </a>
+        </div>
+      </section>
+
+      <!-- Footer Help Card -->
+      <div id="support-help" class="footer-help">
+        <span>✉ Still need assistance? <a href="mailto:mitulzalavadiya10@gmail.com">mitulzalavadiya10@gmail.com</a></span>
+        <span>Klenzo AI Variants · Updated 2026</span>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    // Highlight active link based on scroll position
+    const links = document.querySelectorAll('.sidebar .nav-link');
+    const sections = document.querySelectorAll('section, div[id^="step-"]');
+
+    window.addEventListener('scroll', () => {
+      let currentId = '';
+      sections.forEach(sec => {
+        const id = sec.getAttribute('id');
+        if (id) {
+          const top = sec.offsetTop - 130;
+          if (window.scrollY >= top) {
+            currentId = id;
+          }
+        }
+      });
+
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          link.classList.remove('active');
+          if (href.substring(1) === currentId) {
+            link.classList.add('active');
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+Options -MultiViews
+RewriteEngine On
+
+# ── If accessed via admin.klenzo.app and on homepage, redirect to admin login ──
+RewriteCond %{HTTP_HOST} ^admin\.klenzo\.app$ [NC]
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^$ /admin/login [R=301,L]
+
+# ── React Router — serve index.html for all routes ──
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]

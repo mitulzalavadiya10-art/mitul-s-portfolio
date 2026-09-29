@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Show Only the Selected Variant's Media on Your Product Page — Klenzo Product Variant Swatch</title>
+<style>
+  :root{
+    --paper:#f6f4ee;
+    --card:#ffffff;
+    --ink:#1c1b19;
+    --ink-soft:#5a564d;
+    --line:#e4e0d5;
+    --plum:#5b3a6b;
+    --plum-deep:#3d2649;
+    --amber:#c98a2c;
+    --amber-bg:#fbf1de;
+    --amber-line:#eccf9a;
+    --font-display: Georgia, 'Times New Roman', serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--plum-deep);}
+
+  /* NAV */
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 40px;
+    background:var(--card);
+    border-bottom:1px solid var(--line);
+    position:sticky;
+    top:0;
+    z-index:20;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .brand{
+    font-family:var(--font-mono);
+    font-weight:700;
+    letter-spacing:.14em;
+    font-size:13px;
+    text-transform:uppercase;
+    color:var(--plum-deep);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+  }
+  .brand .dot{
+    width:9px;height:9px;border-radius:2px;
+    background:linear-gradient(135deg,#d9c14a,var(--plum));
+    display:inline-block;
+    transform:rotate(45deg);
+  }
+  .navlinks{
+    display:flex;
+    gap:26px;
+    font-size:13px;
+    color:var(--ink-soft);
+    flex-wrap:wrap;
+  }
+  .navlinks a{
+    text-decoration:none;
+    color:var(--ink-soft);
+    padding-bottom:4px;
+    border-bottom:2px solid transparent;
+  }
+  .navlinks a.active{
+    color:var(--plum-deep);
+    border-bottom-color:var(--amber);
+    font-weight:600;
+  }
+  .contact-btn{
+    background:var(--plum-deep);
+    color:#fff;
+    border:none;
+    border-radius:999px;
+    padding:9px 20px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    font-family:var(--font-body);
+  }
+
+  /* LAYOUT */
+  main{
+    max-width:800px;
+    margin:0 auto;
+    padding:56px 24px 100px;
+  }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:11px;
+    color:var(--amber);
+    font-weight:700;
+    margin-bottom:14px;
+  }
+
+  h1{
+    font-family:var(--font-display);
+    font-size:2.5rem;
+    line-height:1.15;
+    margin:0 0 36px;
+    color:var(--plum-deep);
+    letter-spacing:-.01em;
+  }
+
+  h2{
+    font-family:var(--font-display);
+    font-size:1.5rem;
+    margin:52px 0 14px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+    color:var(--ink);
+  }
+
+  h3{
+    font-size:1.02rem;
+    margin:34px 0 10px;
+    color:var(--plum-deep);
+    font-weight:700;
+  }
+
+  p{margin:0 0 14px; color:var(--ink);}
+  p.lead{color:var(--ink-soft); font-size:1.02rem;}
+
+  ul{margin:0 0 16px; padding-left:0; list-style:none;}
+  ul li{
+    position:relative;
+    padding-left:22px;
+    margin-bottom:8px;
+    color:var(--ink);
+  }
+  ul li::before{
+    content:"";
+    position:absolute;
+    left:2px;
+    top:9px;
+    width:6px;height:6px;
+    background:var(--amber);
+    border-radius:1px;
+    transform:rotate(45deg);
+  }
+
+  strong{color:var(--plum-deep);}
+  em{color:var(--ink-soft);}
+
+  .callout{
+    display:flex;
+    gap:14px;
+    background:var(--amber-bg);
+    border:1px solid var(--amber-line);
+    border-radius:10px;
+    padding:18px 20px;
+    margin:22px 0 30px;
+    font-size:.94rem;
+    color:#5c4420;
+  }
+  .callout .icon{
+    flex:0 0 auto;
+    width:22px;height:22px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--amber);
+    font-weight:900;
+    font-size:16px;
+  }
+  .callout strong{color:#5c4420;}
+
+  /* MEDIA GRID MOCKUP */
+  .panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px;
+    margin:20px 0 34px;
+    box-shadow:0 1px 2px rgba(28,27,25,.03);
+  }
+  .panel-label{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--ink-soft);
+    font-weight:700;
+    margin-bottom:14px;
+    font-family:var(--font-mono);
+  }
+  .swatch-grid{
+    display:grid;
+    grid-template-columns:1.4fr repeat(4, 1fr);
+    grid-template-rows:1fr 1fr;
+    gap:8px;
+  }
+  .swatch-grid .hero-cell{grid-row:1/3;}
+  .cell{
+    border-radius:8px;
+    border:1px solid var(--line);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    padding-bottom:6px;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.05em;
+    color:rgba(255,255,255,.92);
+    text-transform:uppercase;
+    min-height:70px;
+    text-shadow:0 1px 2px rgba(0,0,0,.35);
+  }
+  .cell.yellow{background:linear-gradient(160deg,#e8c65a,#c9a13a);}
+  .cell.red{background:linear-gradient(160deg,#c4444f,#8f1f2b);}
+  .cell.black{background:linear-gradient(160deg,#4a4642,#221f1c);}
+  .cell.purple{background:linear-gradient(160deg,#9b6bb0,#5b3a6b);}
+  .cell.add{
+    background:transparent;
+    color:var(--ink-soft);
+    border:1.5px dashed var(--line);
+    text-shadow:none;
+    font-size:20px;
+  }
+
+  /* VARIANT TABLE MOCKUP */
+  .vtable{width:100%; border-collapse:collapse; font-size:.92rem;}
+  .vtable thead th{
+    text-align:left;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--ink-soft);
+    padding:0 10px 10px;
+    border-bottom:1px solid var(--line);
+    font-weight:700;
+  }
+  .vtable td{
+    padding:12px 10px;
+    border-bottom:1px solid var(--line);
+    vertical-align:middle;
+  }
+  .vtable tr:last-child td{border-bottom:none;}
+  .swash{
+    width:34px;height:34px;
+    border-radius:7px;
+    display:inline-block;
+    vertical-align:middle;
+  }
+  .vname{font-weight:700; color:var(--ink);}
+  .vsub{color:var(--ink-soft); font-size:.82rem;}
+  .price-pill{
+    display:inline-block;
+    border:1px solid var(--line);
+    border-radius:7px;
+    padding:6px 12px;
+    color:var(--ink-soft);
+    font-size:.86rem;
+  }
+  .vtable td.right{text-align:right; color:var(--ink-soft);}
+
+  /* PRODUCT PAGE PREVIEW */
+  .preview{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:26px;
+    align-items:start;
+  }
+  @media (max-width:640px){ .preview{grid-template-columns:1fr;} }
+  .preview-image{
+    aspect-ratio:3/4;
+    border-radius:10px;
+    background:linear-gradient(150deg,#9b6bb0,#5b3a6b 60%, #3d2649);
+    position:relative;
+    overflow:hidden;
+  }
+  .preview-image::after{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 30% 20%, rgba(255,255,255,.18), transparent 55%);
+  }
+  .preview-thumbs{display:flex; gap:8px; margin-top:8px;}
+  .preview-thumbs .t{
+    width:44px;height:56px;border-radius:6px;
+    background:linear-gradient(150deg,#9b6bb0,#5b3a6b);
+    border:1px solid var(--line);
+  }
+  .pp-title{font-weight:700; font-size:1.05rem; margin-bottom:4px;}
+  .pp-price{margin-bottom:14px;}
+  .pp-price .old{color:#b0a99a; text-decoration:line-through; margin-right:8px; font-size:.9rem;}
+  .pp-price .new{color:var(--plum-deep); font-weight:700;}
+  .pp-note{
+    display:flex; gap:8px; align-items:center;
+    font-size:.82rem; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .pp-label{
+    font-size:11px; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--ink-soft); font-weight:700; margin:16px 0 8px;
+  }
+  .colorpills{display:flex; gap:8px;}
+  .colorpill{width:24px;height:24px; border-radius:50%; border:2px solid var(--card); box-shadow:0 0 0 1px var(--line);}
+  .colorpill.arrowed{box-shadow:0 0 0 2px var(--plum-deep);}
+  .stylepills{display:flex; gap:8px; margin-top:4px;}
+  .stylepill{
+    border:1px solid var(--line); border-radius:6px; padding:6px 12px; font-size:.8rem; color:var(--ink-soft);
+  }
+  .stylepill.on{background:var(--plum-deep); color:#fff; border-color:var(--plum-deep);}
+
+  /* STEPS */
+  .step-num{
+    font-family:var(--font-mono);
+    color:var(--amber);
+    font-weight:700;
+    margin-right:8px;
+  }
+
+  code.pathline{
+    display:inline-block;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:2px 8px;
+    font-family:var(--font-mono);
+    font-size:.85em;
+  }
+
+  .browser-mock{
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:#fff;
+  }
+  .browser-bar{
+    background:var(--plum-deep);
+    height:34px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:0 14px;
+  }
+  .browser-bar span{
+    width:9px;height:9px;border-radius:50%;
+    background:rgba(255,255,255,.35);
+  }
+  .browser-body{
+    display:grid;
+    grid-template-columns:1fr 2fr 1fr;
+    gap:0;
+    min-height:180px;
+  }
+  .browser-body .col{
+    padding:16px;
+    border-right:1px solid var(--line);
+    font-size:.78rem;
+    color:var(--ink-soft);
+  }
+  .browser-body .col:last-child{border-right:none;}
+  .browser-body .col.mid{
+    background:var(--paper);
+  }
+  .toggle-row{
+    display:flex; align-items:center; justify-content:space-between;
+    background:#fff; border:1px solid var(--line); border-radius:8px;
+    padding:10px 12px; margin-top:14px; font-size:.8rem;
+  }
+  .toggle{
+    width:34px;height:18px; border-radius:999px;
+    background:var(--plum-deep); position:relative;
+  }
+  .toggle::after{
+    content:"";
+    position:absolute; top:2px; right:2px;
+    width:14px;height:14px; border-radius:50%; background:#fff;
+  }
+
+  .footer-help{
+    margin-top:56px;
+    padding:22px 24px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    font-size:.85rem;
+    color:var(--ink-soft);
+  }
+  .footer-help a{
+    color:var(--plum-deep);
+    font-weight:700;
+    text-decoration:none;
+  }
+
+  .site-footer{
+    text-align:center;
+    padding:26px;
+    color:var(--ink-soft);
+    font-size:.78rem;
+    font-family:var(--font-mono);
+    letter-spacing:.04em;
+  }
+
+  .video-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:6px;
+    text-decoration:none;
+    font-weight:600;
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="eyebrow">How-to guide</div>
+  <h1>How to Show Only the Selected Variant's Media on Your Product Page</h1>
+
+  <h2>Introduction</h2>
+  <p class="lead">When enabled, the <strong>“Only show media of the selected variant”</strong> setting ensures that customers see only the images linked to the variant they've chosen. For example, if a shopper selects the <strong>Red</strong> variant of a product, only the Red variant's images will be displayed, while all other variant media is hidden. This creates a cleaner product page and helps customers focus on the option they're interested in.</p>
+
+  <h2>Setting up your product media</h2>
+  <p>To make sure the <strong>“Only show media of the selected variant”</strong> setting works properly, you'll need to organize and assign your product images in Shopify. Follow these steps:</p>
+
+  <h3><span class="step-num">1.</span>Arrange your product images by variant</h3>
+  <p>Start by uploading all the product images for each variant. Then, group them together in the same order as your variant options.</p>
+  <p>For example, if your product comes in <strong>Yellow, Red, Black, and Purple</strong>, arrange the images so that:</p>
+  <ul>
+    <li>All Yellow images appear first</li>
+    <li>All Red images appear next</li>
+    <li>Then the Black images</li>
+    <li>Finally, the Purple images</li>
+  </ul>
+  <p>This order is essential for the feature to work as expected.</p>
+
+  <div class="callout">
+    <div class="icon">&#9888;</div>
+    <div><strong>Remember:</strong> It's up to you to ensure your images are grouped and assigned correctly. If the images aren't in the right order, the wrong images might display for a variant. Our support team are unable to assist you with this.</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-label">Media</div>
+    <div class="swatch-grid">
+      <div class="cell hero-cell yellow">Yellow</div>
+      <div class="cell yellow">Yellow</div>
+      <div class="cell red">Red</div>
+      <div class="cell red">Red</div>
+      <div class="cell black">Black</div>
+      <div class="cell yellow">Yellow</div>
+      <div class="cell red">Red</div>
+      <div class="cell black">Black</div>
+      <div class="cell black">Black</div>
+      <div class="cell purple">Purple</div>
+      <div class="cell purple">Purple</div>
+      <div class="cell purple">Purple</div>
+      <div class="cell add">+</div>
+    </div>
+  </div>
+
+  <h3><span class="step-num">2.</span>Assign the first image of each group to the correct variant</h3>
+  <p>Next, assign the first image from each color group to its matching variant.</p>
+  <ul>
+    <li>The <strong>first Yellow image</strong> → assigned to the <em>Yellow</em> variant</li>
+    <li>The <strong>first Red image</strong> → assigned to the <em>Red</em> variant</li>
+    <li>The <strong>first Black image</strong> → assigned to the <em>Black</em> variant</li>
+    <li>The <strong>first Purple image</strong> → assigned to the <em>Purple</em> variant</li>
+  </ul>
+  <p>This step tells Shopify where each variant's set of images begins and ends. When a customer selects a variant (e.g., Red), only the images from that group will show.</p>
+
+  <div class="panel">
+    <div class="panel-label">Variants · grouped by color</div>
+    <table class="vtable">
+      <thead>
+        <tr><th></th><th>Variant</th><th>Price</th><th class="right">Available</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="swash" style="background:linear-gradient(160deg,#e8c65a,#c9a13a);"></span></td>
+          <td><div class="vname">Yellow</div><div class="vsub">3 variants</div></td>
+          <td><span class="price-pill">$ 30.00</span></td>
+          <td class="right">23</td>
+        </tr>
+        <tr>
+          <td><span class="swash" style="background:linear-gradient(160deg,#c4444f,#8f1f2b);"></span></td>
+          <td><div class="vname">Red</div><div class="vsub">3 variants</div></td>
+          <td><span class="price-pill">$ 30.00</span></td>
+          <td class="right">0</td>
+        </tr>
+        <tr>
+          <td><span class="swash" style="background:linear-gradient(160deg,#4a4642,#221f1c);"></span></td>
+          <td><div class="vname">Black</div><div class="vsub">3 variants</div></td>
+          <td><span class="price-pill">$ 30.00</span></td>
+          <td class="right">7</td>
+        </tr>
+        <tr>
+          <td><span class="swash" style="background:linear-gradient(160deg,#9b6bb0,#5b3a6b);"></span></td>
+          <td><div class="vname">Purple</div><div class="vsub">3 variants</div></td>
+          <td><span class="price-pill">$ 30.00</span></td>
+          <td class="right">6</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3><span class="step-num">3.</span>Double-check your setup</h3>
+  <p>Once your images are arranged and assigned:</p>
+  <ul>
+    <li>Select each variant in the product editor.</li>
+    <li>Make sure the correct images appear for that variant.</li>
+    <li>Adjust if anything looks out of order.</li>
+  </ul>
+
+  <div class="panel">
+    <div class="preview">
+      <div>
+        <div class="preview-image"></div>
+        <div class="preview-thumbs">
+          <div class="t"></div><div class="t"></div><div class="t"></div>
+        </div>
+      </div>
+      <div>
+        <div class="pp-title">Variant test — Variant images only</div>
+        <div class="pp-price"><span class="old">$34.00</span><span class="new">$30.00</span></div>
+        <div class="pp-note">● Selling fast — 6 left</div>
+        <div class="pp-note">🚚 Worldwide shipping available</div>
+        <div class="pp-note">🎁 Buy 5 and get 2 free!</div>
+
+        <div class="pp-label">Color · Purple</div>
+        <div class="colorpills">
+          <span class="colorpill" style="background:#dfd54c;"></span>
+          <span class="colorpill" style="background:#c4444f;"></span>
+          <span class="colorpill" style="background:#221f1c;"></span>
+          <span class="colorpill arrowed" style="background:#7a4f92;"></span>
+        </div>
+
+        <div class="pp-label">Style</div>
+        <div class="stylepills">
+          <span class="stylepill on">Full-sleeve</span>
+          <span class="stylepill">Off-shoulder</span>
+          <span class="stylepill">Short-sleeve</span>
+        </div>
+
+        <div class="pp-label">Quantity</div>
+        <div class="stylepills">
+          <span class="stylepill">−&nbsp; 1 &nbsp;+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Activate the setting in the theme</h2>
+  <p>In order for this feature to work, it will need to be activated in the theme settings. You can navigate to</p>
+  <p><code class="pathline">Online Store &gt; Themes &gt; click Customize</code> on the required theme.</p>
+  <p>From here, search for and open any product that has variants.</p>
+  <p>As per the mockup below, in the sections list on the left menu click <strong>Product</strong>, and on the right-hand side of the screen toggle the new setting <strong>“Only show media of the selected variant.”</strong></p>
+
+  <div class="browser-mock">
+    <div class="browser-bar"><span></span><span></span><span></span></div>
+    <div class="browser-body">
+      <div class="col">
+        <div style="font-weight:700; color:var(--ink); margin-bottom:8px;">Sections</div>
+        <div style="color:var(--plum-deep); font-weight:700;">→ Product</div>
+        <div>Header</div>
+        <div>Footer</div>
+      </div>
+      <div class="col mid">
+        <div style="background:linear-gradient(150deg,#9b6bb0,#5b3a6b); border-radius:8px; height:90px; margin-bottom:10px;"></div>
+        <div style="font-weight:700; color:var(--ink);">Testing dress</div>
+        <div class="colorpills" style="margin-top:8px;">
+          <span class="colorpill" style="background:#dfd54c;"></span>
+          <span class="colorpill" style="background:#c4444f;"></span>
+          <span class="colorpill" style="background:#221f1c;"></span>
+        </div>
+      </div>
+      <div class="col">
+        <div style="font-weight:700; color:var(--ink); margin-bottom:8px;">Product settings</div>
+        <div class="toggle-row">
+          <span>Only show media of the selected variant</span>
+          <span class="toggle"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top:28px;">If you would like to see the process, we have created a handy video to assist you:</p>
+  <a class="video-link" href="https://share.zight.com/Z4uBO8nQ" target="_blank" rel="noopener">▶ Watch the walkthrough video</a>
+
+  <div class="footer-help">
+    <span>✉ Still need help? <a href="mailto:mitulzalavadiya10@gmail.com">mitulzalavadiya10@gmail.com</a></span>
+    <span>Last updated on November 18, 2025</span>
+  </div>
+</main>
+
+<div class="site-footer">© klenzo product variant swatch 2026 · <a href="https://klenzo.app" target="_blank" rel="noopener" style="color:var(--ink-soft);">klenzo.app</a></div>
+
+</body>
+</html>

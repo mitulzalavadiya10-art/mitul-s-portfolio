@@ -1,0 +1,18 @@
+# ═══════════════════════════════════════════════════════════
+# robots.txt — klenzo.app
+# Last updated: 2026-07-14
+# ═══════════════════════════════════════════════════════════
+
+# Allow all well-behaved crawlers
+User-agent: *
+Allow: /
+
+# Block private/auth routes — no SEO value, avoid index waste
+Disallow: /dashboard
+Disallow: /login
+
+# Allow FAQ search params for Sitelinks Searchbox
+Allow: /faq?
+
+# ─── Sitemap Declaration ────────────────────────────────────
+Sitemap: https://klenzo.app/sitemap.xml

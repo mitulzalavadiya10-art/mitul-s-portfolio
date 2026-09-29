@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Klenzo - Apps Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@450;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-sans: 'Inter', sans-serif;
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --bg: #000000;
+      --text: #ffffff;
+      --text-muted: #a1a1aa; /* zinc-400 */
+      --border: rgba(255, 255, 255, 0.08);
+      --accent: #ffffff;
+      --accent-hover: #e4e4e7;
+      --accent-light: rgba(255, 255, 255, 0.02);
+      --sidebar-width: 290px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+
+    /* Scrollbar Style */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #000000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #18181b;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #27272a;
+    }
+
+    /* Background Glows */
+    .bg-glow-top {
+      position: fixed;
+      top: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0) 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .bg-glow-bottom {
+      position: fixed;
+      bottom: -200px;
+      left: 10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, rgba(0, 0, 0, 0) 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Top Navigation Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background-color: rgba(9, 9, 11, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+    }
+
+    .app-switcher-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #09090b;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 4px;
+    }
+
+    .app-tab {
+      padding: 6px 16px;
+      border-radius: 18px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      font-family: var(--font-display);
+      white-space: nowrap;
+    }
+
+    .app-tab:hover {
+      color: #ffffff;
+    }
+
+    .app-tab.active {
+      background: #ffffff;
+      color: #000000;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 8px 18px;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      background-color: rgba(255, 255, 255, 0.03);
+      font-family: var(--font-display);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .back-btn:hover {
+      background-color: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+    }
+
+    .mobile-only-back { display: none; }
+    .desktop-only-back { display: flex; }
+
+    /* Mobile Quick TOC Dropdown */
+    .mobile-toc-bar {
+      display: none;
+      margin-bottom: 24px;
+    }
+
+    .mobile-toc-select {
+      width: 100%;
+      padding: 12px 16px;
+      background: #09090b;
+      color: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 13.5px;
+      font-weight: 600;
+      font-family: var(--font-display);
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px;
+      padding-right: 40px;
+    }
+
+    /* Layout Wrapper */
+    .layout {
+      display: flex;
+      padding-top: 70px;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Sidebar Styling */
+    .sidebar {
+      width: var(--sidebar-width);
+      position: fixed;
+      top: 70px;
+      bottom: 0;
+      left: 0;
+      background-color: #050505;
+      border-right: 1px solid var(--border);
+      padding: 32px 24px;
+      overflow-y: auto;
+      z-index: 40;
+    }
+
+    .nav-section {
+      margin-bottom: 28px;
+    }
+
+    .nav-title {
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-family: var(--font-display);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 8px 12px;
+      color: #a1a1aa;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      font-family: var(--font-display);
+    }
+
+    .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+    }
+
+    .nav-link.active {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Main Content Container */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 48px 60px 80px 60px;
+      max-width: 1000px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Typography & Core Styles */
+    h1 {
+      font-family: var(--font-display);
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+      color: #ffffff;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-top: 48px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      color: #ffffff;
+    }
+
+    h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 32px;
+      margin-bottom: 14px;
+      color: #ffffff;
+    }
+
+    h4 {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    p {
+      color: #a1a1aa;
+      font-size: 16px;
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    ol, ul {
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: #a1a1aa;
+      font-size: 15px;
+    }
+
+    a {
+      color: #ffffff;
+      text-decoration: underline;
+      text-underline-offset: 2.5px;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: #d4d4d8;
+    }
+
+    /* Table Styling */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 28px 0;
+      font-size: 14px;
+      line-height: 1.6;
+      background-color: #050505;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 14px 18px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #0c0c0e;
+      font-weight: 600;
+      color: #ffffff;
+      font-family: var(--font-display);
+    }
+
+    tr {
+      transition: background-color 0.2s ease;
+    }
+
+    tr:nth-child(even) {
+      background-color: #08080a;
+    }
+
+    tr:hover {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Code Block Formatting */
+    pre {
+      background-color: #050505;
+      color: #e4e4e7;
+      padding: 20px;
+      border-radius: 12px;
+      overflow-x: auto;
+      font-family: monospace, monospace;
+      font-size: 14.5px;
+      margin: 24px 0;
+      border: 1px solid var(--border);
+    }
+
+    code {
+      font-family: monospace, monospace;
+      background-color: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+      padding: 3px 6px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    pre code {
+      background-color: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+      border: none;
+    }
+
+    /* Callout Boxes */
+    .callout {
+      background-color: rgba(255, 255, 255, 0.02);
+      border-left: 4px solid #ffffff;
+      padding: 18px 22px;
+      border-radius: 0 12px 12px 0;
+      margin: 28px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      border-right: 1px solid rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .callout p {
+      margin: 0;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .docs-section {
+      margin-bottom: 64px;
+      animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive adjustments for Mobile & Tablets */
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none !important;
+      }
+
+      .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 20px 16px 60px 16px !important;
+        box-sizing: border-box !important;
+      }
+
+      .mobile-only-back { display: flex !important; }
+      .desktop-only-back { display: none !important; }
+
+      .header {
+        height: auto !important;
+        padding: 10px 16px 12px 16px !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        align-items: stretch !important;
+      }
+
+      .header-nav-row {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+      }
+
+      .brand {
+        font-size: 17px !important;
+      }
+
+      .back-btn {
+        padding: 6px 14px !important;
+        font-size: 12px !important;
+        border-radius: 16px !important;
+      }
+
+      .app-switcher-header {
+        width: 100% !important;
+        display: flex !important;
+        gap: 4px !important;
+        background: #09090b !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 16px !important;
+        padding: 4px !important;
+      }
+
+      .app-tab {
+        flex: 1 1 50% !important;
+        text-align: center !important;
+        padding: 8px 6px !important;
+        font-size: 11.5px !important;
+        border-radius: 12px !important;
+        white-space: nowrap !important;
+      }
+
+      .layout {
+        padding-top: 118px !important;
+      }
+
+      .mobile-toc-bar {
+        display: block !important;
+      }
+
+      h1 { font-size: 26px !important; line-height: 1.2 !important; }
+      h2 { font-size: 20px !important; line-height: 1.3 !important; }
+      pre { font-size: 12.5px !important; padding: 14px !important; overflow-x: auto !important; }
+      table { display: block !important; overflow-x: auto !important; width: 100% !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Glowing Accents in Background -->
+  <div class="bg-glow-top"></div>
+  <div class="bg-glow-bottom"></div>
+
+  <!-- Top Header -->
+  <header class="header">
+    <div class="header-nav-row">
+      <a href="/" class="brand">
+        <div class="logo-dot"></div>
+        Klenzo Docs
+      </a>
+      <a href="/" class="back-btn mobile-only-back">
+        ← Back to Site
+      </a>
+    </div>
+
+    <!-- App Documentation Switcher -->
+    <div class="app-switcher-header">
+      <a href="/docs.html" class="app-tab active">AI Section Hub</a>
+      <a href="/variantify-docs.html" class="app-tab">Variant Swatch</a>
+    </div>
+
+    <a href="/" class="back-btn desktop-only-back">
+      ← Back to Site
+    </a>
+  </header>
+
+  <div class="layout">
+    <!-- Navigation Sidebar -->
+    <aside class="sidebar">
+      <div class="nav-section">
+        <h4 class="nav-title">Select App Documentation</h4>
+        <ul class="nav-links">
+          <li><a href="/docs.html" class="nav-link active">🚀 AI Section Hub Docs</a></li>
+          <li><a href="/variantify-docs.html" class="nav-link">🎨 Klenzo: Variant Swatch Docs</a></li>
+        </ul>
+      </div>
+      <div class="nav-section">
+        <h4 class="nav-title">Welcome</h4>
+        <ul class="nav-links">
+          <li><a href="#getting-started" class="nav-link">Getting Started</a></li>
+        </ul>
+      </div>
+      <div class="nav-section">
+        <h4 class="nav-title">AI Section Hub</h4>
+        <ul class="nav-links">
+          <li><a href="#ash-introduction" class="nav-link">What is AI Section Hub?</a></li>
+          <li><a href="#ash-features" class="nav-link">Key Features</a></li>
+          <li><a href="#ash-library" class="nav-link">Section Library</a></li>
+          <li><a href="#ash-ai-studio" class="nav-link">AI Studio</a></li>
+          <li><a href="#ash-reels" class="nav-link">Instagram Reels Feed</a></li>
+          <li><a href="#ash-rewards" class="nav-link">Grow & Rewards</a></li>
+          <li><a href="#ash-blocks" class="nav-link">Conversion Blocks</a></li>
+          <li><a href="#ash-dashboard" class="nav-link">Dashboard &amp; Score</a></li>
+          <li><a href="#ash-guide" class="nav-link">Getting Started Guide</a></li>
+          <li><a href="#ash-faq" class="nav-link">FAQ</a></li>
+          <li><a href="#ash-specs" class="nav-link">Technical Specs</a></li>
+        </ul>
+      </div>
+      <div class="nav-section">
+        <h4 class="nav-title">Klenzo: Variant Swatch</h4>
+        <ul class="nav-links">
+          <li><a href="#klenzo-introduction" class="nav-link">Introduction</a></li>
+          <li><a href="#klenzo-setup" class="nav-link">Setup Swatches</a></li>
+          <li><a href="#klenzo-customizations" class="nav-link">Customizations</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Mobile Quick Jump Section Selector -->
+      <div class="mobile-toc-bar">
+        <select class="mobile-toc-select" onchange="if(this.value) window.location.hash=this.value;">
+          <option value="">📍 Quick Jump to Section...</option>
+          <option value="#getting-started">Getting Started</option>
+          <option value="#ash-introduction">What is AI Section Hub?</option>
+          <option value="#ash-features">Key Features</option>
+          <option value="#ash-library">Section Library</option>
+          <option value="#ash-ai-studio">AI Studio</option>
+          <option value="#ash-reels">Instagram Reels Feed</option>
+          <option value="#ash-rewards">Grow & Rewards</option>
+          <option value="#ash-blocks">Conversion Blocks</option>
+          <option value="#ash-dashboard">Dashboard & Score</option>
+          <option value="#ash-guide">Getting Started Guide</option>
+          <option value="#ash-faq">FAQ</option>
+          <option value="#ash-specs">Technical Specs</option>
+          <option value="/variantify-docs.html">🎨 Variant Swatch Docs</option>
+        </select>
+      </div>
+
+      <!-- Welcome Section -->
+      <section id="getting-started" class="docs-section">
+        <h1>Klenzo Apps Documentation</h1>
+        <p>Welcome to the official developer and merchant documentation for Klenzo Shopify apps. Our apps are built natively for Shopify using theme-extension architecture to guarantee peak performance, zero speed loss, and 100% theme compatibility.</p>
+        
+        <div class="callout">
+          <p>💡 Tip: You don't need any coding skills to install and run these apps. We automatically handle all theme integration via Shopify App Embeds.</p>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- AI SECTION HUB SECTIONS -->
+      <!-- ========================================================================= -->
+      
+      <!-- 1. What is AI Section Hub -->
+      <section id="ash-introduction" class="docs-section">
+        <h2>AI Section Hub — Complete Documentation</h2>
+        
+        <!-- Presentation PDF Banner Callout -->
+        <div class="callout" style="border-left-color: #d4af37; background-color: rgba(212, 175, 55, 0.03); margin-top: 16px;">
+          <p style="color: #d4af37; font-weight: 700; display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            📄 App Presentation & Pitch Deck PDF
+          </p>
+          <p style="margin-top: 6px; font-size: 14.5px; color: #d4d4d8; margin-bottom: 0;">
+            View or download our official app pitch deck detailing features, merchant value proposition, and user experience screens:
+            <a href="/AI-Section-Hub.pdf" target="_blank" style="color: #ffffff; text-decoration: underline; margin-left: 8px; font-weight: bold; text-underline-offset: 3px;">
+              Open Presentation PDF →
+            </a>
+          </p>
+        </div>
+
+        <p><strong>AI Section Hub</strong> is a feature-rich Shopify embedded app designed for modern e-commerce merchants who want to build high-converting, visually stunning storefronts — without writing a single line of code.</p>
+        <p>The app provides:</p>
+        <ul>
+          <li>A <strong>library of 25+ professionally designed theme sections</strong> that can be installed directly into any Shopify 2.0 theme</li>
+          <li>A full <strong>AI Studio</strong> with 13 intelligent tools powered by Google Gemini and Groq AI</li>
+          <li>An <strong>Instagram Reels Feed</strong> manager that scrapes and displays your public reels beautifully on your store</li>
+          <li><strong>Hero Banners & Dynamic Sliders</strong> for landing and product pages</li>
+          <li>A <strong>Grow & Rewards</strong> system with community voting, monthly free sections, custom requests, and store showcase</li>
+          <li><strong>Conversion Blocks</strong> — high-performance product page buy-boxes</li>
+          <li>Real-time <strong>Live Human Support</strong> chat (Tawk.to)</li>
+        </ul>
+        
+        <h3>Who is it for?</h3>
+        <ul>
+          <li>Shopify store owners who want premium design without hiring a developer</li>
+          <li>D2C brands wanting to elevate store design and conversions</li>
+          <li>Merchants who want to leverage AI for marketing copy, SEO, and store audits</li>
+          <li>Social commerce stores wanting to turn Instagram Reels into shoppable content</li>
+        </ul>
+
+        <h3>Theme Compatibility</h3>
+        <p>Works with <strong>all Shopify Online Store 2.0 themes</strong> including Dawn, Sense, Craft, Refresh, Horizon, Debut, and most third-party themes that support app blocks.</p>
+      </section>
+
+      <!-- 2. Key Features Overview -->
+      <section id="ash-features" class="docs-section">
+        <h2>Key Features Overview</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Description</th>
+              <th>Plan Required</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Section Library</td>
+              <td>25+ premium Liquid sections</td>
+              <td>Free to All Access</td>
+            </tr>
+            <tr>
+              <td>AI Studio</td>
+              <td>13 AI-powered tools (Gemini and Groq)</td>
+              <td>Free to Growth</td>
+            </tr>
+            <tr>
+              <td>Instagram Reels Feed</td>
+              <td>Scrape and display up to 400 reels on your store</td>
+              <td>Growth+</td>
+            </tr>
+            <tr>
+              <td>Hero & Banner Sections</td>
+              <td>Interactive sliders, video heroes, and dynamic headers</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>Grow & Rewards</td>
+              <td>Monthly free sections, roadmap voting, custom requests</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>Conversion Blocks</td>
+              <td>High-converting product page buy-boxes</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>Store Analytics</td>
+              <td>Dynamic store score and optimization suggestions</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>Live Support</td>
+              <td>Real-time human chat support</td>
+              <td>Free</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 3. Section Library -->
+      <section id="ash-library" class="docs-section">
+        <h2>Section Library</h2>
+        <p>The Section Library is the heart of AI Section Hub — a curated catalog of <strong>25+ professionally designed Shopify Liquid sections</strong> you can install in one click.</p>
+        
+        <h3>How It Works</h3>
+        <ol>
+          <li>Browse the section catalog with live previews inside the app.</li>
+          <li>Click <strong>"Add to Theme"</strong> — the section file is dynamically injected into your active Shopify theme files.</li>
+          <li>Open the Shopify Theme Editor &gt; Click <strong>"Add Section"</strong> &gt; Find your section under <strong>"Apps"</strong>.</li>
+          <li>Drag, drop, and customize colors, fonts, images, and content.</li>
+        </ol>
+
+        <h3>Available Sections Catalog</h3>
+        
+        <h4>Free Sections</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Section Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Loved By Customers</td>
+              <td>Social proof review grid with star ratings and photos</td>
+            </tr>
+            <tr>
+              <td>Trust Badges Bar</td>
+              <td>Animated trust badges bar (free shipping, secure checkout, etc.)</td>
+            </tr>
+            <tr>
+              <td>FAQ Accordion</td>
+              <td>Collapsible FAQ section with smooth animations</td>
+            </tr>
+            <tr>
+              <td>Hero Split Banner</td>
+              <td>Full-width hero with image and text split layout</td>
+            </tr>
+            <tr>
+              <td>Newsletter Signup</td>
+              <td>Email capture section with conversion-optimized design</td>
+            </tr>
+            <tr>
+              <td>Features Bar</td>
+              <td>Highlight key store features in a horizontal bar</td>
+            </tr>
+            <tr>
+              <td>About Excellence</td>
+              <td>Premium brand story section with parallax effect</td>
+            </tr>
+            <tr>
+              <td>Custom HTML/Liquid</td>
+              <td>Add custom scripts or tracker codes anywhere</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Growth Plan Sections</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Section Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Collection Arch Slider</td>
+              <td>Gorgeous curved arch layout for collection browsing</td>
+            </tr>
+            <tr>
+              <td>Instagram Reels Feed</td>
+              <td>Full-width Instagram reels feed embedded in your store</td>
+            </tr>
+            <tr>
+              <td>Fully Customizable Reels Section</td>
+              <td>Grid/carousel layout for displaying video reels</td>
+            </tr>
+            <tr>
+              <td>Floating Mini Reel</td>
+              <td>Corner floating reel widget for product pages</td>
+            </tr>
+            <tr>
+              <td>Shoppable Reels</td>
+              <td>Click-to-buy reels with product overlays</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Premium Sections</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Section Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dynamic Hero Slider</td>
+              <td>Auto-playing hero with multiple slides and CTAs</td>
+            </tr>
+            <tr>
+              <td>Promo Split Banner</td>
+              <td>Promotional offers with split image/text design</td>
+            </tr>
+            <tr>
+              <td>Collections Showcase</td>
+              <td>Magazine-style multi-collection grid</td>
+            </tr>
+            <tr>
+              <td>Trend Report Slider</td>
+              <td>Editorial trend-showcase slider</td>
+            </tr>
+            <tr>
+              <td>Sticky Collection Slider</td>
+              <td>Scroll-pinned collection browsing experience</td>
+            </tr>
+            <tr>
+              <td>Logo Marquee Ticker</td>
+              <td>Infinite scrolling brand/partner logos strip</td>
+            </tr>
+            <tr>
+              <td>Before and After Slider</td>
+              <td>Drag-to-reveal comparison slider</td>
+            </tr>
+            <tr>
+              <td>Shop by Category</td>
+              <td>Visual category filter grid</td>
+            </tr>
+            <tr>
+              <td>Luxury Story Parallax</td>
+              <td>Full-page parallax storytelling section</td>
+            </tr>
+            <tr>
+              <td>Staggered Reviews</td>
+              <td>Masonry-style review cards with stagger animations</td>
+            </tr>
+            <tr>
+              <td>Hover Image Showcase</td>
+              <td>Product reveal on hover with smooth transitions</td>
+            </tr>
+            <tr>
+              <td>Premium Split Testimonials</td>
+              <td>Editorial testimonials with quote highlights</td>
+            </tr>
+            <tr>
+              <td>Animated Countdown Timer</td>
+              <td>Live urgency countdown for promotions/launches</td>
+            </tr>
+            <tr>
+              <td>Shop by Shape</td>
+              <td>Interactive product-shape filtering visual</td>
+            </tr>
+            <tr>
+              <td>Jewelry Reveal Text</td>
+              <td>Animated text reveal effect (perfect for luxury brands)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Core Library Features</h3>
+        <ul>
+          <li><strong>One-Click Install:</strong> Injects natively into your active theme.</li>
+          <li><strong>Zero Performance Impact:</strong> Made with native Shopify Liquid, HTML, and CSS (no heavy external Javascript runtimes).</li>
+          <li><strong>Theme Customizer Compatible:</strong> Fully customizable colors, headings, images, and text.</li>
+          <li><strong>Mobile Responsive:</strong> Completely optimized layouts for mobile, tablets, and desktop.</li>
+        </ul>
+      </section>
+
+      <!-- 4. AI Studio -->
+      <section id="ash-ai-studio" class="docs-section">
+        <h2>AI Studio</h2>
+        <p>The AI Studio is a full-featured suite of <strong>13 AI-powered tools</strong> built directly into the app, powered by <strong>Google Gemini 2.5 Flash</strong> (for text, vision, and code) and <strong>Groq models</strong> (llama-3.3-70b-versatile and llama-4-scout-17b) for rapid processing.</p>
+        <p>All AI results can be saved to local history (15 entries per tool) and restored at any time.</p>
+
+        <h3>13 Available AI Tools</h3>
+        
+        <h4>1. Brand Scanner</h4>
+        <p>Analyzes your live Shopify store — reads your theme colors, top products, shop name, currency, and product count — then generates a complete Brand Identity Profile (Primary and accent colors, Recommended font pairings, Brand tone of voice, Brand positioning summary).</p>
+        
+        <h4>2. Section Builder (Text to Liquid)</h4>
+        <p>Type a description of any custom section you want, and AI generates a complete, production-ready Shopify Liquid section with CSS, Javascript, and Shopify schema settings ready to inject to your theme.</p>
+        
+        <h4>3. Vision AI (Image to Liquid)</h4>
+        <p>Upload a screenshot or design mockup — AI analyzes the layout and generates the matching Shopify Liquid code. Recreate competitor designs or Canva/Figma mockups instantly.</p>
+        
+        <h4>4. Copy AI (Marketing Copy Generator)</h4>
+        <p>Generates high-converting marketing copy variations for headlines, product descriptions, social media captions, email subject lines, and ad banners.</p>
+        
+        <h4>5. Section Recommender</h4>
+        <p>AI analyzes your store elements and suggests which templates from our library would boost your conversion scores.</p>
+        
+        <h4>6. Product Title & Hook Generator</h4>
+        <p>Generates creative, brandable names and marketing hooks for your product pages.</p>
+        
+        <h4>7. Color Palette Generator</h4>
+        <p>Generates complete brand color palettes based on your niche, mood, or brand keywords in HEX codes.</p>
+        
+        <h4>8. FAQ Generator</h4>
+        <p>Auto-generates relevant FAQ questions and answers based on your store niche and products.</p>
+        
+        <h4>9. Product Description Writer</h4>
+        <p>Writes compelling, SEO-optimized product descriptions using product metadata fetched from your store.</p>
+        
+        <h4>10. SEO Meta Tags Generator</h4>
+        <p>Generates optimized title, meta description, Open Graph, and Twitter Card tags.</p>
+        
+        <h4>11. Store Audit</h4>
+        <p>Runs a comprehensive SEO + UX + Conversion audit of your store and returns detailed reports with actionable recommendations.</p>
+        
+        <h4>12. Push Notification Copy Generator</h4>
+        <p>Generates compelling push notifications for promotions, abandoned carts, restocks, and flash sales.</p>
+        
+        <h4>13. Manage AI Sections</h4>
+        <p>View, toggle active states, or completely delete all sections generated and injected by AI Studio.</p>
+      </section>
+
+      <!-- 5. Instagram Reels Feed -->
+      <section id="ash-reels" class="docs-section">
+        <h2>Instagram Reels Feed Manager</h2>
+        <p>Display your video reels beautifully on your store without going through Instagram's complex API approval process. Simply connect your public Instagram handle to get started.</p>
+
+        <h3>Multi-Layer Fallback Scraping Strategy</h3>
+        <p>We use a robust fallback structure to fetch public feeds reliably:</p>
+        <ol>
+          <li>Instagram Clips API</li>
+          <li>GraphQL API (using 3 document ID fallbacks)</li>
+          <li>Timeline feed pagination</li>
+          <li>HTML script tag parsing</li>
+        </ol>
+
+        <h3>Storage and Features</h3>
+        <ul>
+          <li><strong>Storage:</strong> Up to 400 reels stored securely (80 reels x 5 Shopify Shop metafield chunks).</li>
+          <li><strong>Shoppable Reels:</strong> Add product overlay tags to video reels, letting customers click-to-buy directly from the video player.</li>
+          <li><strong>Reel URLs:</strong> Manually add individual reels via direct Instagram link.</li>
+        </ul>
+      </section>
+
+      <!-- 6. Interactive Hero & Sliders -->
+      <section id="ash-bundle" class="docs-section">
+        <h2>Interactive Hero & Slider Sections</h2>
+        <p>Enhance your store layout with <strong>dynamic hero sections and interactive image/video sliders</strong> that appear directly on your store — increasing visual engagement and conversions without any theme code modifications.</p>
+
+        <h3>How to Add a Section</h3>
+        <ol>
+          <li>Go to <strong>Section Library</strong> in the app navigation dashboard.</li>
+          <li>Browse and select your desired hero banner or slider section.</li>
+          <li>Customize the layout, colors, typography, and images.</li>
+          <li>Click <strong>"Install to Theme"</strong> — the section is added automatically to your Shopify Online Store 2.0 theme.</li>
+        </ol>
+      </section>
+
+      <!-- 7. Grow & Rewards -->
+      <section id="ash-rewards" class="docs-section">
+        <h2>Grow & Rewards</h2>
+        <p>The Grow & Rewards page is a community engagement hub that helps you grow your store with free value and feedback tools.</p>
+        
+        <ul>
+          <li><strong>Free Monthly Section:</strong> Every month, AI Section Hub releases one premium section for free. Click "Claim Free Section" to inject it into your active theme permanently.</li>
+          <li><strong>Trust Badge Customizer:</strong> Customize "Powered by AI Section Hub" badges to build store credibility.</li>
+          <li><strong>Roadmap and Voting:</strong> Vote on upcoming section ideas. Popular proposals include:
+            <ul>
+              <li>Multi-Product Shoppable Video Grid (42 votes)</li>
+              <li>Bento Grid Promotion Layout (31 votes)</li>
+              <li>Sticky Drawer Cart with Progress Milestones (28 votes)</li>
+              <li>Dynamic Before/After Comparison Slider (24 votes)</li>
+            </ul>
+          </li>
+          <li><strong>Custom Requests & Audits:</strong> Submit custom section requests or full Shopify store build inquiries to our development team.</li>
+        </ul>
+      </section>
+
+      <!-- 8. Conversion Blocks -->
+      <section id="ash-blocks" class="docs-section">
+        <h2>Conversion Blocks</h2>
+        <p>Conversion Blocks generates high-performance buy-boxes for your product page template to showcase ratings, features, quantity options, delivery estimations, and guarantee badges in a clean format.</p>
+
+        <h3>Available Styles</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Style Preset</th>
+              <th>Visual Feel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Modern</td>
+              <td>Clean, contemporary layout, subtle borders</td>
+            </tr>
+            <tr>
+              <td>Bold</td>
+              <td>High contrast, vibrant call-to-actions, thick borders</td>
+            </tr>
+            <tr>
+              <td>Luxury</td>
+              <td>Elegant serif typography, muted tones, premium feel</td>
+            </tr>
+            <tr>
+              <td>Minimal</td>
+              <td>Plenty of whitespace, editorial style, thin dividers</td>
+            </tr>
+            <tr>
+              <td>Playful</td>
+              <td>Rounded edges, colorful badges, casual brand vibe</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 9. Dashboard & Store Analytics -->
+      <section id="ash-dashboard" class="docs-section">
+        <h2>Dashboard & Store Analytics</h2>
+        <p>Monitor your optimization scores and track your store's optimization health dynamically inside the app dashboard.</p>
+
+        <h3>Store Score Calculator</h3>
+        <p>A dynamic scoring system that calculates 4 key metrics based on installed theme enhancements:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Base Score</th>
+              <th>Optimization Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Theme Customizer Score</td>
+              <td>70</td>
+              <td>+5 per installed section (Max 98)</td>
+            </tr>
+            <tr>
+              <td>Speed Score</td>
+              <td>97</td>
+              <td>-1.5 per section above 3 (Min 82)</td>
+            </tr>
+            <tr>
+              <td>Mobile Usability Score</td>
+              <td>72</td>
+              <td>+4 per installed section (Max 96)</td>
+            </tr>
+            <tr>
+              <td>SEO Score</td>
+              <td>78</td>
+              <td>+3 per installed section (Max 98)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Revenue Chart</h3>
+        <p>Displays a 31-day store revenue trend line visualization generated dynamically via SVG from your Shopify order database.</p>
+      </section>
+
+      <!-- 10. Getting Started Guide -->
+
+      <!-- 11. Getting Started Guide -->
+      <section id="ash-guide" class="docs-section">
+        <h2>Getting Started Guide</h2>
+        
+        <h3>Step 1: Install the App</h3>
+        <p>Install the app from the Shopify App Store on your merchant dashboard.</p>
+
+        <h3>Step 2: Enable App Embed</h3>
+        <p>Enable the App Embed within the Shopify Theme Customizer:</p>
+        <ol>
+          <li>Click the "Enable App Embed" link in the app dashboard.</li>
+          <li>In your Shopify theme settings editor, navigate to the <strong>App Embeds</strong> tab.</li>
+          <li>Toggle the <strong>AI Section Hub</strong> embed to <strong>ON</strong>.</li>
+          <li>Click <strong>Save</strong> in the top right.</li>
+        </ol>
+
+        <h3>Step 3: Browse and Install Sections</h3>
+        <p>Navigate to <strong>Explore Sections</strong>, preview the templates, and click <strong>Add to Theme</strong> to inject them.</p>
+
+        <h3>Step 4: Place Section on Page</h3>
+        <p>Inside the Theme Editor, navigate to the page (e.g. Home, Product page), click <strong>Add Section</strong> in the sidebar, find your section under the <strong>Apps</strong> dropdown, and drag it to your desired location.</p>
+      </section>
+
+      <!-- 12. Frequently Asked Questions -->
+      <section id="ash-faq" class="docs-section">
+        <h2>Frequently Asked Questions</h2>
+        
+        <h3>Sections & Installation</h3>
+        <p><strong>Will sections slow down my store?</strong><br>
+        No. The sections are native Liquid templates served via Shopify CDN. They load without external Javascript runtimes and have zero impact on PageSpeed scores.</p>
+        
+        <p><strong>Can I use sections on multiple pages?</strong><br>
+        Yes. You can add any installed section template to multiple pages, and customize settings independently on each page template.</p>
+        
+        <p><strong>Can I customize section source code?</strong><br>
+        Yes. Sections are written directly into your theme's code under the <code>Sections</code> directory, and can be edited via Online Store &gt; Edit Code.</p>
+
+        <h3>AI Studio</h3>
+        <p><strong>Is my customer data shared with AI models?</strong><br>
+        No. Only store metadata (such as product name, theme colors) is shared to generate tailored designs or copy. No sensitive customer data is accessed.</p>
+
+        <h3>Instagram Reels</h3>
+        <p><strong>Does this app require official Instagram API approval?</strong><br>
+        No. The app uses an advanced multi-fallback public scraping technique, eliminating the need to set up Facebook developer applications or request access.</p>
+      </section>
+
+      <!-- 13. Technical Specifications -->
+      <section id="ash-specs" class="docs-section">
+        <h2>Technical Specifications</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Spec</th>
+              <th>Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Platform Architecture</td>
+              <td>Shopify Embedded App (App Embed Extension)</td>
+            </tr>
+            <tr>
+              <td>Theme Compatibility</td>
+              <td>Shopify Online Store 2.0+ (Liquid Themes)</td>
+            </tr>
+            <tr>
+              <td>Tech Stack</td>
+              <td>React Router v7 (Remix framework), TypeScript, Tailwind CSS</td>
+            </tr>
+            <tr>
+              <td>Database</td>
+              <td>PostgreSQL (managed with Prisma ORM)</td>
+            </tr>
+            <tr>
+              <td>AI Processing API</td>
+              <td>Google Gemini 2.5 Flash, Groq llama-3.3-70b & llama-4-scout-17b</td>
+            </tr>
+            <tr>
+              <td>Support Channel</td>
+              <td>Tawk.to real-time human chat & Email (mitulzalavadiya10@gmail.com)</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- KLENZO: AI VARIANTS SECTIONS -->
+      <!-- ========================================================================= -->
+
+      <!-- Klenzo: AI Variants Documentation -->
+      <section id="klenzo-introduction" class="docs-section">
+        <h2>Klenzo: AI Variants</h2>
+        <h3>Introduction</h3>
+        <p>Klenzo: AI Variants replaces standard dropdown selectors with vibrant color swatches, dynamic image buttons, and responsive size blocks. Powered by AI, it reads your variant names (e.g., "Olive Green", "Charcoal Gray") and automatically fetches matching styles.</p>
+      </section>
+
+      <section id="klenzo-setup" class="docs-section">
+        <h3>Setup Swatches</h3>
+        <p>To set up swatches on your product pages:</p>
+        <ol>
+          <li>Open the Klenzo Dashboard from your Shopify apps dashboard.</li>
+          <li>Choose your swatch styles (Color bubble, image preview, custom text button).</li>
+          <li>Go to the Shopify Theme Customizer, add the <strong>Klenzo Swatch block</strong> inside your Product Information section, and drag it next to the variant selector.</li>
+        </ol>
+      </section>
+
+      <section id="klenzo-customizations" class="docs-section">
+        <h3>Customizing Color Codes</h3>
+        <p>By default, Klenzo detects variant names automatically. To specify exact HEX color codes:</p>
+        <p>Open the app settings dashboard, click <strong>Color Mapping</strong>, and map custom variant names to custom colors:</p>
+        <pre><code>{
+  "Olive Green": "#6b7c3f",
+  "Charcoal Gray": "#2b2b2b",
+  "Ocean Blue": "#0077b6"
+}</code></pre>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Highlight sidebar links based on scroll position
+    const links = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
+
+    window.addEventListener('scroll', () => {
+      let currentSectionId = '';
+      
+      sections.forEach(section => {
+        const sectionId = section.getAttribute('id');
+        if (sectionId) {
+          const top = section.offsetTop - 120;
+          if (window.scrollY >= top) {
+            currentSectionId = sectionId;
+          }
+        }
+      });
+
+      links.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').substring(1) === currentSectionId) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Rounded Black Background Box -->
+  <rect width="32" height="32" rx="8" fill="#000000"/>
+  <!-- Modern Geometric K shape in White to match Klenzo logo -->
+  <path d="M9 7H13V14.5L19 7H24L16.5 15L24 25H19L13 17V25H9V7Z" fill="#FFFFFF"/>
+</svg>
