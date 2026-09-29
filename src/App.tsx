@@ -20,6 +20,7 @@ import { PrivacyPage }  from "@/pages/privacy"
 import { TermsPage }    from "@/pages/terms"
 import { GuidePage }    from "@/pages/guide"
 import { FaqPage }      from "@/pages/faq"
+import { ShopifyWebsitePage } from "@/pages/shopify-website"
 import { NotFoundPage } from "@/pages/not-found"
 
 // Auth + protected
@@ -151,6 +152,8 @@ function App() {
           <Route path="/terms"   element={<TermsPage />} />
           <Route path="/guide"   element={<GuidePage />} />
           <Route path="/faq"     element={<FaqPage />} />
+          <Route path="/shopify-website"  element={<ShopifyWebsitePage />} />
+          <Route path="/shopify-websites" element={<ShopifyWebsitePage />} />
 
           {/* ── Merchant auth ──────────────────────────── */}
           <Route path="/login"   element={<LoginPage />} />

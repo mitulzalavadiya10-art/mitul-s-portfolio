@@ -65,7 +65,7 @@ function Header1() {
         },
         {
             title: "Shopify Website",
-            href: "#",
+            href: "/shopify-website",
             description: "",
         },
     ];
@@ -96,7 +96,8 @@ function Header1() {
       location.pathname.startsWith('/guide') || 
       location.pathname === '/faq' || 
       location.pathname === '/login' || 
-      location.pathname === '/dashboard';
+      location.pathname === '/dashboard' ||
+      location.pathname.startsWith('/shopify-website');
 
     useEffect(() => {
         const handleScroll = () => {
@@ -131,13 +132,15 @@ function Header1() {
                                 <NavigationMenuItem key={item.title}>
                                     {item.href ? (
                                         <>
-                                            <NavigationMenuLink href={item.href}>
-                                                <Button 
-                                                    variant="ghost"
-                                                    className={`font-headings ${isDarkPage ? "text-zinc-200 hover:text-white hover:bg-zinc-900" : ""}`}
-                                                >
-                                                    {item.title}
-                                                </Button>
+                                            <NavigationMenuLink asChild>
+                                                <Link to={item.href}>
+                                                    <Button 
+                                                        variant="ghost"
+                                                        className={`font-headings ${isDarkPage ? "text-zinc-200 hover:text-white hover:bg-zinc-900" : ""}`}
+                                                    >
+                                                        {item.title}
+                                                    </Button>
+                                                </Link>
                                             </NavigationMenuLink>
                                         </>
                                     ) : (
@@ -301,16 +304,31 @@ function Header1() {
                                 <div key={item.title}>
                                     <div className="flex flex-col gap-2">
                                         {item.href ? (
-                                            <a
-                                                href={item.href}
-                                                onClick={() => setOpen(false)}
-                                                className={`flex justify-between items-center py-1 font-semibold ${
-                                                    isDarkPage ? "text-zinc-100 hover:text-white" : "text-foreground"
-                                                }`}
-                                            >
-                                                <span className="text-lg font-medium">{item.title}</span>
-                                                <MoveRight className={`w-4 h-4 stroke-1 ${isDarkPage ? "text-zinc-500" : "text-muted-foreground"}`} />
-                                            </a>
+                                            item.href.startsWith("http") ? (
+                                                <a
+                                                    href={item.href}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    onClick={() => setOpen(false)}
+                                                    className={`flex justify-between items-center py-1 font-semibold ${
+                                                        isDarkPage ? "text-zinc-100 hover:text-white" : "text-foreground"
+                                                    }`}
+                                                >
+                                                    <span className="text-lg font-medium">{item.title}</span>
+                                                    <MoveRight className={`w-4 h-4 stroke-1 ${isDarkPage ? "text-zinc-500" : "text-muted-foreground"}`} />
+                                                </a>
+                                            ) : (
+                                                <Link
+                                                    to={item.href}
+                                                    onClick={() => setOpen(false)}
+                                                    className={`flex justify-between items-center py-1 font-semibold ${
+                                                        isDarkPage ? "text-zinc-100 hover:text-white" : "text-foreground"
+                                                    }`}
+                                                >
+                                                    <span className="text-lg font-medium">{item.title}</span>
+                                                    <MoveRight className={`w-4 h-4 stroke-1 ${isDarkPage ? "text-zinc-500" : "text-muted-foreground"}`} />
+                                                </Link>
+                                            )
                                         ) : (
                                             <p className={`text-lg font-semibold ${isDarkPage ? "text-zinc-300" : "text-foreground"}`}>{item.title}</p>
                                         )}
