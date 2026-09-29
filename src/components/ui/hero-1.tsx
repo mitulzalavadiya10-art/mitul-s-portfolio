@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 
 interface HeroProps {
@@ -6,6 +7,8 @@ interface HeroProps {
   subtitle: string
   ctaLabel?: string
   ctaHref?: string
+  secondaryCtaLabel?: string
+  secondaryCtaHref?: string
 }
 
 export function Hero({
@@ -14,6 +17,8 @@ export function Hero({
   subtitle,
   ctaLabel = "Explore Now",
   ctaHref = "#",
+  secondaryCtaLabel,
+  secondaryCtaHref,
 }: HeroProps) {
   return (
     <section
@@ -63,23 +68,51 @@ export function Hero({
       <p
         className="animate-fade-in mb-12 -translate-y-4 text-balance 
         text-lg tracking-tight text-gray-600 
-        opacity-0 md:text-xl max-w-2xl mx-auto"
+        opacity-0 md:text-xl max-w-3xl mx-auto"
       >
         {subtitle}
       </p>
 
-      {/* CTA */}
-      {ctaLabel && (
-        <div className="flex justify-center">
-          <Button
-            asChild
-            variant="outline"
-            className="mt-[-20px] w-fit md:w-52 z-20 tracking-tighter text-center text-lg border-black text-black hover:bg-zinc-100"
-          >
-            <a href={ctaHref} target="_blank" rel="noopener noreferrer">{ctaLabel}</a>
-          </Button>
-        </div>
-      )}
+      {/* CTA Buttons */}
+      <div className="flex flex-wrap justify-center items-center gap-3.5 z-20 relative">
+        {ctaLabel && (
+          ctaHref.startsWith("http") ? (
+            <Button
+              asChild
+              className="w-fit md:w-56 tracking-tight text-center text-base bg-black text-white hover:bg-zinc-800 shadow-md cursor-pointer rounded-lg h-12 px-6"
+            >
+              <a href={ctaHref} target="_blank" rel="noopener noreferrer">{ctaLabel}</a>
+            </Button>
+          ) : (
+            <Button
+              asChild
+              className="w-fit md:w-56 tracking-tight text-center text-base bg-black text-white hover:bg-zinc-800 shadow-md cursor-pointer rounded-lg h-12 px-6"
+            >
+              <Link to={ctaHref}>{ctaLabel}</Link>
+            </Button>
+          )
+        )}
+
+        {secondaryCtaLabel && (
+          secondaryCtaHref && secondaryCtaHref.startsWith("http") ? (
+            <Button
+              asChild
+              variant="outline"
+              className="w-fit md:w-52 tracking-tight text-center text-base border-zinc-300 text-zinc-900 hover:bg-zinc-100 rounded-lg h-12 px-6 shadow-sm"
+            >
+              <a href={secondaryCtaHref} target="_blank" rel="noopener noreferrer">{secondaryCtaLabel}</a>
+            </Button>
+          ) : (
+            <Button
+              asChild
+              variant="outline"
+              className="w-fit md:w-52 tracking-tight text-center text-base border-zinc-300 text-zinc-900 hover:bg-zinc-100 rounded-lg h-12 px-6 shadow-sm"
+            >
+              <Link to={secondaryCtaHref || "/shopify-website"}>{secondaryCtaLabel}</Link>
+            </Button>
+          )
+        )}
+      </div>
 
       {/* Bottom Fade */}
       <div

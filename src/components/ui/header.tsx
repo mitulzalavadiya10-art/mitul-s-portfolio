@@ -24,20 +24,6 @@ function Header1() {
             description: "",
         },
         {
-            title: "Shopify Apps",
-            description: "Install our powerful Shopify apps to grow your store instantly.",
-            items: [
-                {
-                    title: "AI Section Hub",
-                    href: "https://apps.shopify.com/ai-section-hub",
-                },
-                {
-                    title: "Klenzo: Variant Swatch",
-                    href: "https://apps.shopify.com/klenzo-product-variant-swatch",
-                },
-            ],
-        },
-        {
             title: "Company",
             description: "Klenzo builds high-performance tools for modern Shopify merchants.",
             items: [
@@ -64,8 +50,27 @@ function Header1() {
             ],
         },
         {
+            title: "Shopify Apps",
+            description: "Install our powerful Shopify apps to grow your store instantly.",
+            items: [
+                {
+                    title: "AI Section Hub",
+                    href: "https://apps.shopify.com/ai-section-hub",
+                },
+                {
+                    title: "Klenzo: Variant Swatch",
+                    href: "https://apps.shopify.com/klenzo-product-variant-swatch",
+                },
+            ],
+        },
+        {
             title: "Shopify Website",
             href: "/shopify-website",
+            description: "",
+        },
+        {
+            title: "About us",
+            href: "/about",
             description: "",
         },
     ];
@@ -124,10 +129,23 @@ function Header1() {
         } ${
             visible ? "translate-y-0" : "-translate-y-full"
         }`}>
-            <div className="container relative mx-auto min-h-20 flex gap-4 flex-row lg:grid lg:grid-cols-3 items-center px-4">
-                <div className="justify-start items-center gap-4 lg:flex hidden flex-row">
-                    <NavigationMenu className="flex justify-start items-start">
-                        <NavigationMenuList className="flex justify-start gap-4 flex-row">
+            <div className="container relative mx-auto min-h-20 flex justify-between items-center px-4 lg:px-6">
+                {/* Logo on Left */}
+                <div className="flex items-center shrink-0">
+                    <Link to="/" className="cursor-pointer flex items-center">
+                        <img 
+                            src={logo1} 
+                            alt="App Logo" 
+                            className="h-12 md:h-14 w-auto object-contain" 
+                            style={{ filter: isDarkPage ? 'invert(0)' : 'invert(1)' }} 
+                        />
+                    </Link>
+                </div>
+
+                {/* Desktop Navigation in Center */}
+                <div className="justify-center items-center lg:flex hidden flex-row flex-1 mx-2 xl:mx-6">
+                    <NavigationMenu className="flex justify-center items-center max-w-full">
+                        <NavigationMenuList className="flex justify-center gap-1 xl:gap-2 flex-row">
                             {navigationItems.map((item) => (
                                 <NavigationMenuItem key={item.title}>
                                     {item.href ? (
@@ -136,7 +154,7 @@ function Header1() {
                                                 <Link to={item.href}>
                                                     <Button 
                                                         variant="ghost"
-                                                        className={`font-headings ${isDarkPage ? "text-zinc-200 hover:text-white hover:bg-zinc-900" : ""}`}
+                                                        className={`font-headings text-sm px-2.5 xl:px-3 ${isDarkPage ? "text-zinc-200 hover:text-white hover:bg-zinc-900" : ""}`}
                                                     >
                                                         {item.title}
                                                     </Button>
@@ -146,7 +164,7 @@ function Header1() {
                                     ) : (
                                         <>
                                             <NavigationMenuTrigger 
-                                                className={`font-headings font-medium text-sm ${
+                                                className={`font-headings font-medium text-sm px-2.5 xl:px-3 ${
                                                     isDarkPage 
                                                       ? "text-zinc-200 hover:text-white hover:bg-zinc-900 bg-transparent focus:bg-transparent data-[state=open]:bg-zinc-900" 
                                                       : ""
@@ -200,19 +218,11 @@ function Header1() {
                         </NavigationMenuList>
                     </NavigationMenu>
                 </div>
-                <div className="flex lg:justify-center">
-                    <Link to="/" className="cursor-pointer flex items-center justify-center">
-                        <img 
-                            src={logo1} 
-                            alt="App Logo" 
-                            className="h-14 w-auto object-contain" 
-                            style={{ filter: isDarkPage ? 'invert(0)' : 'invert(1)' }} 
-                        />
-                    </Link>
-                </div>
-                 <div className="flex justify-end w-full gap-4 items-center z-20">
+
+                {/* Actions on Right */}
+                <div className="flex justify-end items-center gap-3 sm:gap-4 shrink-0 z-20">
                     <a href="https://apps.shopify.com/partners/solvify-tech2" target="_blank" rel="noopener noreferrer" className="hidden xl:inline-block">
-                        <img src={shopifyBadge} alt="Shopify Badge" className="h-11 w-auto object-contain hover:scale-105 transition-transform duration-300" />
+                        <img src={shopifyBadge} alt="Shopify Badge" className="h-10 w-auto object-contain hover:scale-105 transition-transform duration-300" />
                     </a>
                     {token && user ? (
                         /* ── Logged-in: Profile Avatar + Dropdown ── */
@@ -284,17 +294,21 @@ function Header1() {
                             </Button>
                         </Link>
                     )}
+
+                    {/* Mobile Hamburger Toggle */}
+                    <div className="flex lg:hidden items-center">
+                        <Button 
+                            variant="ghost" 
+                            onClick={() => setOpen(!isOpen)} 
+                            size="icon"
+                            className={isDarkPage ? "text-white hover:bg-zinc-900" : ""}
+                        >
+                            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                        </Button>
+                    </div>
                 </div>
-                <div className="flex w-12 shrink lg:hidden items-end justify-end">
-                    <Button 
-                        variant="ghost" 
-                        onClick={() => setOpen(!isOpen)} 
-                        size="icon"
-                        className={isDarkPage ? "text-white hover:bg-zinc-900" : ""}
-                    >
-                        {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                    </Button>
-                    {isOpen && (
+
+                {isOpen && (
                         <div className={`absolute top-20 border-t flex flex-col w-full right-0 shadow-2xl py-6 px-6 gap-6 z-50 transition-all ${
                             isDarkPage 
                               ? "bg-zinc-950 border-zinc-800 text-white" 
@@ -409,7 +423,6 @@ function Header1() {
                              </div>
                         </div>
                     )}
-                </div>
             </div>
         </header>
     );

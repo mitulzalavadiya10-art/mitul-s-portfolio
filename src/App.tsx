@@ -7,7 +7,6 @@ import { CoverflowShowcase } from "@/components/ui/coverflow-showcase"
 import { HomepageTemplatesSection } from "@/components/ui/homepage-templates"
 import { AnimatedCarousel } from "@/components/ui/logo-carousel"
 import { HeroScrollDemo } from "@/components/ui/hero-scroll-demo"
-import { FaqSection } from "@/components/ui/faq-section"
 import { FeedbackSection } from "@/components/ui/feedback-section"
 import { MinimalFooter } from "@/components/ui/minimal-footer"
 import { useSEO } from "@/lib/useSEO"
@@ -101,11 +100,13 @@ function HomePage() {
       <Header1 />
       <main className="pt-16 md:pt-20">
         <Hero
-          title="Boost Shopify Sales with AI-Powered Sections & Templates"
-          subtitle="Transform your store design instantly. Add 150+ premium theme sections and replace dropdowns with AI-powered color swatches. No coding required."
-          eyebrow="AI-Powered Shopify Apps"
-          ctaLabel="Install Free on Shopify"
-          ctaHref="https://apps.shopify.com/ai-section-hub"
+          eyebrow="Shopify & Frontend Developer • BCA (GLS University)"
+          title="Building Advanced E-Commerce Experiences & Custom Shopify Apps"
+          subtitle="Hi, I'm Mitul Zalavadiya. I build bespoke Online Store 2.0 storefronts, pixel-perfect Liquid sections, and custom Shopify apps by fusing mobile app architecture with advanced frontend web technologies."
+          ctaLabel="Explore Shopify Websites"
+          ctaHref="/shopify-website"
+          secondaryCtaLabel="Install Free Apps"
+          secondaryCtaHref="https://apps.shopify.com/partners/solvify-tech2"
         />
         {/* <SectionlyShowcase /> */}
         <CoverflowShowcase />
@@ -125,7 +126,6 @@ function HomePage() {
           padding="pt-12 lg:pt-16 pb-0"
         />
         <HeroScrollDemo />
-        <FaqSection />
         <FeedbackSection />
         <TechStackSection />
       </main>
