@@ -13,9 +13,10 @@ const GAP_RATIO = 0.015;
 
 interface MeshesProps {
     onSelectImage?: (img: typeof images[0]) => void;
+    onLoaded?: () => void;
 }
 
-function Meshes({ onSelectImage }: MeshesProps) {
+function Meshes({ onSelectImage, onLoaded }: MeshesProps) {
     const textures = useTexture(imagePaths) as THREE.Texture[];
     const viewport = useThree((s) => s.viewport);
     const isPortrait = viewport.aspect < 1.1;
@@ -28,6 +29,12 @@ function Meshes({ onSelectImage }: MeshesProps) {
     const total = textures.length;
     const totalWidth = total * stride;
     const half = totalWidth / 2;
+
+    useEffect(() => {
+        if (onLoaded) {
+            onLoaded();
+        }
+    }, [onLoaded]);
 
     useEffect(() => {
         updateWaveDimensions(stride, planeHeight);
@@ -82,10 +89,10 @@ function Meshes({ onSelectImage }: MeshesProps) {
     );
 }
 
-export default function Mesh({ onSelectImage }: MeshesProps) {
+export default function Mesh({ onSelectImage, onLoaded }: MeshesProps) {
     return (
         <Suspense fallback={null}>
-            <Meshes onSelectImage={onSelectImage} />
+            <Meshes onSelectImage={onSelectImage} onLoaded={onLoaded} />
         </Suspense>
     );
 }

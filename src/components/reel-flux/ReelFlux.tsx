@@ -4,13 +4,14 @@ import styles from "./ReelFlux.module.css";
 import { images, type ImageData } from "./data";
 import { useLenisScroll } from "./useScroll";
 import Scene from "./scene";
-import { ArrowLeft, Moon, Sun, X, ExternalLink } from "lucide-react";
+import { ArrowLeft, Moon, Sun, X, ExternalLink, Loader2 } from "lucide-react";
 
 export default function ReelFlux() {
     const wrapperRef = useRef<HTMLElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const [isLightMode, setIsLightMode] = useState(false);
     const [selectedItem, setSelectedItem] = useState<ImageData | null>(null);
+    const [isSceneReady, setIsSceneReady] = useState(false);
 
     useLenisScroll(wrapperRef, contentRef);
 
@@ -25,8 +26,21 @@ export default function ReelFlux() {
                 style={{ height: `calc(100dvh + ${images.length * 60}vh)` }}
             />
 
+            {/* Loading Indicator */}
+            {!isSceneReady && (
+                <div className="fixed inset-0 z-30 flex flex-col items-center justify-center pointer-events-none transition-opacity duration-500">
+                    <div className="flex items-center gap-3 px-5 py-3 rounded-full bg-zinc-900/80 border border-zinc-700/60 backdrop-blur-md shadow-2xl text-zinc-300">
+                        <Loader2 className="w-5 h-5 animate-spin text-emerald-400" />
+                        <span className="text-sm font-medium tracking-wide">Loading 3D Reel Gallery...</span>
+                    </div>
+                </div>
+            )}
+
             <div className={styles.canvasWrapper}>
-                <Scene onSelectImage={(img) => setSelectedItem(img)} />
+                <Scene
+                    onSelectImage={(img) => setSelectedItem(img)}
+                    onLoaded={() => setIsSceneReady(true)}
+                />
             </div>
 
             <div className={styles.overlay}>
@@ -76,7 +90,7 @@ export default function ReelFlux() {
             {/* Click Preview Modal */}
             {selectedItem && (
                 <div
-                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fadeIn"
+                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fadeIn"
                     onClick={() => setSelectedItem(null)}
                 >
                     <div
