@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Send, CheckCircle2 } from "lucide-react";
 import logo1 from "@/app logo/logo1.png";
 import { addLead } from "@/lib/blogStore";
@@ -98,6 +99,14 @@ export function MinimalFooter() {
 		{
 			title: 'Klenzo: Variant Swatch',
 			href: 'https://apps.shopify.com/klenzo-product-variant-swatch',
+		},
+		{
+			title: 'Shopify Apps',
+			href: '/shopify-apps',
+		},
+		{
+			title: 'Shopify Websites',
+			href: '/shopify-website',
 		},
 	];
 
@@ -254,15 +263,25 @@ export function MinimalFooter() {
 								Products
 							</span>
 							{products.map(({ href, title }, i) => (
-								<a
-									key={i}
-									className="text-xs text-zinc-400 duration-200 hover:text-white hover:underline leading-snug"
-									target={href.startsWith("http") ? "_blank" : undefined}
-									rel="noreferrer"
-									href={href}
-								>
-									{title}
-								</a>
+								href.startsWith("http") ? (
+									<a
+										key={i}
+										className="text-xs text-zinc-400 duration-200 hover:text-white hover:underline leading-snug"
+										target="_blank"
+										rel="noreferrer"
+										href={href}
+									>
+										{title}
+									</a>
+								) : (
+									<Link
+										key={i}
+										className="text-xs text-zinc-400 duration-200 hover:text-white hover:underline leading-snug"
+										to={href}
+									>
+										{title}
+									</Link>
+								)
 							))}
 						</div>
 						{/* Company */}
@@ -326,15 +345,25 @@ export function MinimalFooter() {
 							</span>
 							<div className="flex flex-col gap-2">
 								{products.map(({ href, title }, i) => (
-									<a
-										key={i}
-										className="w-max text-sm text-zinc-400 duration-200 hover:text-white hover:underline"
-										target={href.startsWith("http") ? "_blank" : undefined}
-										rel="noreferrer"
-										href={href}
-									>
-										{title}
-									</a>
+									href.startsWith("http") ? (
+										<a
+											key={i}
+											className="w-max text-sm text-zinc-400 duration-200 hover:text-white hover:underline"
+											target="_blank"
+											rel="noreferrer"
+											href={href}
+										>
+											{title}
+										</a>
+									) : (
+										<Link
+											key={i}
+											className="w-max text-sm text-zinc-400 duration-200 hover:text-white hover:underline"
+											to={href}
+										>
+											{title}
+										</Link>
+									)
 								))}
 							</div>
 						</div>

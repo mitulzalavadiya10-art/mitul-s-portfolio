@@ -25,7 +25,7 @@ function Header1() {
         },
         {
             title: "Company",
-            description: "Klenzo builds high-performance tools for modern Shopify merchants.",
+            description: "Learn more about Klenzo, tutorials, community and merchant resources.",
             items: [
                 {
                     title: "About us",
@@ -50,27 +50,27 @@ function Header1() {
             ],
         },
         {
-            title: "Shopify Apps",
-            description: "Install our powerful Shopify apps to grow your store instantly.",
+            title: "Work",
+            description: "Explore our production-ready Shopify apps and 3D client store websites.",
             items: [
                 {
-                    title: "AI Section Hub",
-                    href: "https://apps.shopify.com/ai-section-hub",
+                    title: "Shopify Apps",
+                    href: "/shopify-apps",
                 },
                 {
-                    title: "Klenzo: Variant Swatch",
-                    href: "https://apps.shopify.com/klenzo-product-variant-swatch",
+                    title: "Shopify Websites",
+                    href: "/shopify-website",
                 },
             ],
         },
         {
-            title: "Shopify Website",
-            href: "/shopify-website",
+            title: "About us",
+            href: "/about",
             description: "",
         },
         {
-            title: "About us",
-            href: "/about",
+            title: "Contact us",
+            href: "/contact",
             description: "",
         },
     ];
@@ -102,7 +102,8 @@ function Header1() {
       location.pathname === '/faq' || 
       location.pathname === '/login' || 
       location.pathname === '/dashboard' ||
-      location.pathname.startsWith('/shopify-website');
+      location.pathname.startsWith('/shopify-website') ||
+      location.pathname.startsWith('/shopify-app');
 
     useEffect(() => {
         const handleScroll = () => {
@@ -193,20 +194,43 @@ function Header1() {
                                                     </div>
                                                     <div className="flex flex-col text-sm h-full justify-start gap-1">
                                                         {item.items?.map((subItem) => (
-                                                            <NavigationMenuLink
-                                                                href={subItem.href}
-                                                                target={subItem.href.startsWith("http") ? "_blank" : undefined}
-                                                                rel={subItem.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                                                key={subItem.title}
-                                                                className={`flex flex-row justify-between items-center py-2 px-4 rounded transition-colors ${
-                                                                    isDarkPage 
-                                                                      ? "hover:bg-zinc-800/60 text-zinc-300 hover:text-white" 
-                                                                      : "hover:bg-muted text-foreground"
-                                                                }`}
-                                                            >
-                                                                <span>{subItem.title}</span>
-                                                                <MoveRight className={`w-4 h-4 ${isDarkPage ? "text-zinc-500" : "text-muted-foreground"}`} />
-                                                            </NavigationMenuLink>
+                                                            subItem.href.startsWith("http") ? (
+                                                                <NavigationMenuLink
+                                                                    asChild
+                                                                    key={subItem.title}
+                                                                >
+                                                                    <a
+                                                                        href={subItem.href}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        className={`flex flex-row justify-between items-center py-2 px-4 rounded transition-colors ${
+                                                                            isDarkPage 
+                                                                              ? "hover:bg-zinc-800/60 text-zinc-300 hover:text-white" 
+                                                                              : "hover:bg-muted text-foreground"
+                                                                        }`}
+                                                                    >
+                                                                        <span>{subItem.title}</span>
+                                                                        <MoveRight className={`w-4 h-4 ${isDarkPage ? "text-zinc-500" : "text-muted-foreground"}`} />
+                                                                    </a>
+                                                                </NavigationMenuLink>
+                                                            ) : (
+                                                                <NavigationMenuLink
+                                                                    asChild
+                                                                    key={subItem.title}
+                                                                >
+                                                                    <Link
+                                                                        to={subItem.href}
+                                                                        className={`flex flex-row justify-between items-center py-2 px-4 rounded transition-colors ${
+                                                                            isDarkPage 
+                                                                              ? "hover:bg-zinc-800/60 text-zinc-300 hover:text-white" 
+                                                                              : "hover:bg-muted text-foreground"
+                                                                        }`}
+                                                                    >
+                                                                        <span>{subItem.title}</span>
+                                                                        <MoveRight className={`w-4 h-4 ${isDarkPage ? "text-zinc-500" : "text-muted-foreground"}`} />
+                                                                    </Link>
+                                                                </NavigationMenuLink>
+                                                            )
                                                         ))}
                                                     </div>
                                                 </div>
@@ -348,23 +372,41 @@ function Header1() {
                                         )}
                                         {item.items &&
                                             item.items.map((subItem) => (
-                                                <a
-                                                    key={subItem.title}
-                                                    href={subItem.href}
-                                                    onClick={() => setOpen(false)}
-                                                    target={subItem.href.startsWith("http") ? "_blank" : undefined}
-                                                    rel={subItem.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                                    className={`flex justify-between items-center pl-4 py-1.5 transition-colors ${
-                                                        isDarkPage 
-                                                          ? "text-zinc-400 hover:text-white" 
-                                                          : "text-muted-foreground hover:text-foreground"
-                                                    }`}
-                                                >
-                                                    <span>
-                                                        {subItem.title}
-                                                    </span>
-                                                    <MoveRight className="w-4 h-4 stroke-1 opacity-60" />
-                                                </a>
+                                                subItem.href.startsWith("http") ? (
+                                                    <a
+                                                        key={subItem.title}
+                                                        href={subItem.href}
+                                                        onClick={() => setOpen(false)}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className={`flex justify-between items-center pl-4 py-1.5 transition-colors ${
+                                                            isDarkPage 
+                                                              ? "text-zinc-400 hover:text-white" 
+                                                              : "text-muted-foreground hover:text-foreground"
+                                                        }`}
+                                                    >
+                                                        <span>
+                                                            {subItem.title}
+                                                        </span>
+                                                        <MoveRight className="w-4 h-4 stroke-1 opacity-60" />
+                                                    </a>
+                                                ) : (
+                                                    <Link
+                                                        key={subItem.title}
+                                                        to={subItem.href}
+                                                        onClick={() => setOpen(false)}
+                                                        className={`flex justify-between items-center pl-4 py-1.5 transition-colors ${
+                                                            isDarkPage 
+                                                              ? "text-zinc-400 hover:text-white" 
+                                                              : "text-muted-foreground hover:text-foreground"
+                                                        }`}
+                                                    >
+                                                        <span>
+                                                            {subItem.title}
+                                                        </span>
+                                                        <MoveRight className="w-4 h-4 stroke-1 opacity-60" />
+                                                    </Link>
+                                                )
                                             ))}
                                     </div>
                                 </div>
