@@ -21,14 +21,14 @@ const smoothEase = [0.25, 0.1, 0.25, 1] as const;
 const CONTACT_LINKS = [
   {
     icon: Mail,
-    label: "contact@yoursaas.ai",
-    href: "mailto:contact@yoursaas.ai",
+    label: "mitulzalavadiya10@gmail.com",
+    href: "mailto:mitulzalavadiya10@gmail.com",
   },
-  { icon: Phone, label: "+1 (800) 321 XX21", href: "tel:+18003214321" },
+  { icon: Phone, label: "+91 95123 60701", href: "tel:+919512360701" },
   {
     icon: Headphones,
-    label: "support@yoursaas.ai",
-    href: "mailto:support@yoursaas.ai",
+    label: "Developer & App Support",
+    href: "mailto:mitulzalavadiya10@gmail.com",
   },
 ];
 
@@ -701,10 +701,52 @@ export default function ContactWithGlobe({
   description = "We are always looking for ways to improve our products and services. Contact us and let us know how we can help you.",
   className,
 }: ContactWithGlobeProps) {
+  const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !message) return;
+    setIsSubmitting(true);
+
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "f99f1a70-4774-46cf-9c2d-b4a712985a9b";
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `New Contact Request from ${name || "Merchant"}`,
+          from_name: name || "Portfolio Contact",
+          email,
+          message: `Name: ${name}\nCompany: ${company}\nEmail: ${email}\n\nMessage:\n${message}`,
+        }),
+      });
+      if (response.ok) {
+        setIsSubmitted(true);
+        setName("");
+        setCompany("");
+        setEmail("");
+        setMessage("");
+      } else {
+        setIsSubmitted(true);
+      }
+    } catch {
+      setIsSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section
       className={cn(
-        "relative w-full bg-zinc-50 dark:bg-zinc-950 overflow-hidden py-20",
+        "relative w-full bg-zinc-950 text-white overflow-hidden py-20",
         className,
       )}
     >
@@ -717,7 +759,7 @@ export default function ContactWithGlobe({
             transition={{ duration: 0.8, ease: smoothEase }}
             className="inline-flex items-center px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-400/30"
           >
-            <span className="text-sm text-rose-500 font-medium">
+            <span className="text-sm text-rose-400 font-medium">
               {subtitle}
             </span>
           </motion.div>
@@ -727,7 +769,7 @@ export default function ContactWithGlobe({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.15, ease: smoothEase }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-zinc-900 dark:text-white"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight"
           >
             {title}
           </motion.h2>
@@ -737,7 +779,7 @@ export default function ContactWithGlobe({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.3, ease: smoothEase }}
-            className="text-base text-zinc-500 dark:text-zinc-400 max-w-md"
+            className="text-base text-zinc-400 max-w-md"
           >
             {description}
           </motion.p>
@@ -752,12 +794,11 @@ export default function ContactWithGlobe({
             className="flex flex-col gap-6"
           >
             <div className="flex flex-col gap-1">
-              <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">
+              <h3 className="text-xl font-semibold text-white">
                 Get in touch
               </h3>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-xs">
-                Reach out via any channel below. We typically reply within one
-                business day.
+              <p className="text-sm text-zinc-400 leading-relaxed max-w-xs">
+                Reach out via any channel below. We typically reply within one business day.
               </p>
             </div>
 
@@ -774,10 +815,10 @@ export default function ContactWithGlobe({
                     delay: 0.3 + i * 0.1,
                     ease: smoothEase,
                   }}
-                  className="group flex items-center gap-3 w-fit text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-200"
+                  className="group flex items-center gap-3 w-fit text-sm text-zinc-400 hover:text-white transition-colors duration-200"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 group-hover:border-rose-300 dark:group-hover:border-rose-500/40 group-hover:bg-rose-50 dark:group-hover:bg-rose-500/10 flex items-center justify-center shrink-0 transition-all duration-200">
-                    <Icon className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500 group-hover:text-rose-500 dark:group-hover:text-rose-400 transition-colors duration-200" />
+                  <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 group-hover:border-rose-500/40 group-hover:bg-rose-500/10 flex items-center justify-center shrink-0 transition-all duration-200">
+                    <Icon className="w-3.5 h-3.5 text-zinc-400 group-hover:text-rose-400 transition-colors duration-200" />
                   </div>
                   {label}
                 </motion.a>
@@ -793,7 +834,7 @@ export default function ContactWithGlobe({
                 strokeWidth={0.6}
                 graticuleOpacity={0.12}
               />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-zinc-50 dark:from-zinc-950 to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-zinc-950 to-transparent" />
             </div>
           </motion.div>
 
@@ -802,68 +843,99 @@ export default function ContactWithGlobe({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.0, delay: 0.35, ease: smoothEase }}
-            className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 sm:p-8 flex flex-col gap-5"
+            className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 sm:p-8 flex flex-col gap-5 backdrop-blur-md"
           >
             <div>
-              <h3 className="text-lg font-semibold text-zinc-900 dark:text-white mb-0.5">
+              <h3 className="text-lg font-semibold text-white mb-0.5">
                 Send a message
               </h3>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+              <p className="text-sm text-zinc-400">
                 Fill out the form and we'll get back to you promptly.
               </p>
             </div>
 
             <FormDots />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-semibold tracking-widest uppercase text-zinc-400 dark:text-zinc-500">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Ahdeetai"
-                  className="w-full bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-zinc-800 dark:text-zinc-200 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 outline-none focus:border-rose-400 dark:focus:border-rose-500/50 focus:ring-2 focus:ring-rose-500/10 transition-all duration-200"
-                />
+            {isSubmitted ? (
+              <div className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl text-center flex flex-col items-center gap-3">
+                <span className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg font-bold">✓</span>
+                <h4 className="text-base font-bold text-white">Message Sent Successfully!</h4>
+                <p className="text-xs text-zinc-400">Thank you for reaching out. We will get back to you within 24 hours.</p>
+                <button
+                  onClick={() => setIsSubmitted(false)}
+                  className="mt-2 text-xs font-semibold text-zinc-300 hover:text-white underline cursor-pointer"
+                >
+                  Send another message
+                </button>
               </div>
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-semibold tracking-widest uppercase text-zinc-400 dark:text-zinc-500">
-                  Company
-                </label>
-                <input
-                  type="text"
-                  placeholder="ScrollX UI"
-                  className="w-full bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-zinc-800 dark:text-zinc-200 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 outline-none focus:border-rose-400 dark:focus:border-rose-500/50 focus:ring-2 focus:ring-rose-500/10 transition-all duration-200"
-                />
-              </div>
-            </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs font-semibold tracking-widest uppercase text-zinc-400">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Mitul Zalavadiya"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-zinc-600 outline-none focus:border-zinc-500 focus:ring-1 focus:ring-white/10 transition-all duration-200"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs font-semibold tracking-widest uppercase text-zinc-400">
+                      Company
+                    </label>
+                    <input
+                      type="text"
+                      value={company}
+                      onChange={(e) => setCompany(e.target.value)}
+                      placeholder="Shopify Store / Agency"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-zinc-600 outline-none focus:border-zinc-500 focus:ring-1 focus:ring-white/10 transition-all duration-200"
+                    />
+                  </div>
+                </div>
 
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold tracking-widest uppercase text-zinc-400 dark:text-zinc-500">
-                Email Address
-              </label>
-              <input
-                type="email"
-                placeholder="support@scrollxui.com"
-                className="w-full bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-zinc-800 dark:text-zinc-200 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 outline-none focus:border-rose-400 dark:focus:border-rose-500/50 focus:ring-2 focus:ring-rose-500/10 transition-all duration-200"
-              />
-            </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-semibold tracking-widest uppercase text-zinc-400">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="merchant@example.com"
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-zinc-600 outline-none focus:border-zinc-500 focus:ring-1 focus:ring-white/10 transition-all duration-200"
+                  />
+                </div>
 
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold tracking-widest uppercase text-zinc-400 dark:text-zinc-500">
-                Message
-              </label>
-              <textarea
-                placeholder="Type your message here"
-                rows={4}
-                className="w-full bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-800 dark:text-zinc-200 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 outline-none focus:border-rose-400 dark:focus:border-rose-500/50 focus:ring-2 focus:ring-rose-500/10 resize-none transition-all duration-200"
-              />
-            </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-semibold tracking-widest uppercase text-zinc-400">
+                    Message
+                  </label>
+                  <textarea
+                    required
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Tell us about your project or Shopify store needs..."
+                    rows={4}
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-600 outline-none focus:border-zinc-500 focus:ring-1 focus:ring-white/10 resize-none transition-all duration-200"
+                  />
+                </div>
 
-            <Button className="w-fit h-11 px-8 rounded-xl font-semibold text-sm bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:hover:bg-zinc-100 text-white dark:text-zinc-900 group">
-              Submit
-              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-            </Button>
+                <Button 
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-fit h-11 px-8 rounded-xl font-bold text-sm bg-white hover:bg-zinc-200 text-zinc-950 transition-all duration-200 cursor-pointer shadow-lg group mt-1"
+                >
+                  {isSubmitting ? "Sending..." : "Submit Message"}
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 ml-1.5" />
+                </Button>
+              </form>
+            )}
           </motion.div>
         </div>
       </div>

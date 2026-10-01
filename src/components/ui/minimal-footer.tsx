@@ -235,7 +235,7 @@ export function MinimalFooter() {
 					{/* Logo + Description + Socials */}
 					<div className="flex flex-col gap-4 mb-8 md:mb-0 md:hidden">
 						<a href="#" className="w-max">
-							<img src={logo1} alt="Klenzo Logo" className="h-7 w-auto object-contain" style={{ filter: 'invert(1)' }} />
+							<img src={logo1} alt="Klenzo Logo" className="h-7 w-auto object-contain" style={{ filter: 'invert(0)' }} />
 						</a>
 						<p className="text-zinc-400 text-sm leading-relaxed max-w-xs">
 							Power your Shopify store with lightning-fast AI-powered theme sections and visual variant swatches. Built by Klenzo.
@@ -320,7 +320,7 @@ export function MinimalFooter() {
 					<div className="hidden md:grid grid-cols-12 gap-8">
 						<div className="col-span-5 flex flex-col gap-5">
 							<a href="#" className="w-max">
-								<img src={logo1} alt="Klenzo Logo" className="h-8 w-auto object-contain" style={{ filter: 'invert(1)' }} />
+								<img src={logo1} alt="Klenzo Logo" className="h-8 w-auto object-contain" style={{ filter: 'invert(0)' }} />
 							</a>
 							<p className="text-zinc-400 max-w-sm text-sm text-balance">
 								Power your Shopify store with lightning-fast AI-powered theme sections and visual variant swatches. Built by Klenzo.

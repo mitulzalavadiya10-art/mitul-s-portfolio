@@ -100,10 +100,10 @@ function HomePage() {
   ]
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground">
+    <div className="relative min-h-screen bg-black text-white">
       <CursorFollower />
       <Header1 />
-      <main className="pt-16 md:pt-20">
+      <main className="pt-0">
         <Hero
           eyebrow="Shopify & Frontend Developer • BCA (GLS University)"
           title="Building Advanced E-Commerce Experiences & Custom Shopify Apps"

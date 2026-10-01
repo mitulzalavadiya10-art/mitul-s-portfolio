@@ -93,21 +93,12 @@ function Header1() {
         document.addEventListener("mousedown", handleOutsideClick);
         return () => document.removeEventListener("mousedown", handleOutsideClick);
     }, []);
-    const isDarkPage = location.pathname === '/about' || 
-      location.pathname === '/connect' || 
-      location.pathname === '/contact' || 
-      location.pathname === '/privacy' || 
-      location.pathname === '/terms' || 
-      location.pathname.startsWith('/guide') || 
-      location.pathname === '/faq' || 
-      location.pathname === '/login' || 
-      location.pathname === '/dashboard' ||
-      location.pathname.startsWith('/shopify-website') ||
-      location.pathname.startsWith('/shopify-app');
+    const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
+            setScrolled(currentScrollY > 60);
             if (currentScrollY > lastScrollY && currentScrollY > 80 && !isOpen) {
                 // Scrolling down - hide header
                 setVisible(false);
@@ -122,11 +113,15 @@ function Header1() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [lastScrollY, isOpen]);
 
+    // On homepage, header is light only when at the very top over the white hero
+    // On all other pages or when scrolled, header is dark luxury
+    const isDarkHeader = location.pathname !== '/' || scrolled;
+
     return (
         <header className={`w-full z-40 fixed top-0 left-0 transition-all duration-300 ease-in-out ${
-            isDarkPage 
-              ? "bg-zinc-950/80 border-b border-zinc-850/80 text-white backdrop-blur-md" 
-              : "bg-background border-b border-border text-foreground"
+            isDarkHeader 
+              ? "bg-zinc-950/85 border-b border-zinc-800/80 text-white backdrop-blur-md" 
+              : "bg-white/85 border-b border-zinc-200/80 text-zinc-900 backdrop-blur-md"
         } ${
             visible ? "translate-y-0" : "-translate-y-full"
         }`}>
@@ -137,8 +132,8 @@ function Header1() {
                         <img 
                             src={logo1} 
                             alt="App Logo" 
-                            className="h-12 md:h-14 w-auto object-contain" 
-                            style={{ filter: isDarkPage ? 'invert(0)' : 'invert(1)' }} 
+                            className="h-12 md:h-14 w-auto object-contain transition-all duration-300" 
+                            style={{ filter: isDarkHeader ? 'invert(0)' : 'invert(1)' }} 
                         />
                     </Link>
                 </div>
@@ -155,7 +150,11 @@ function Header1() {
                                                 <Link to={item.href}>
                                                     <Button 
                                                         variant="ghost"
-                                                        className={`font-headings text-sm px-2.5 xl:px-3 ${isDarkPage ? "text-zinc-200 hover:text-white hover:bg-zinc-900" : ""}`}
+                                                        className={`font-headings text-sm px-2.5 xl:px-3 transition-colors ${
+                                                            isDarkHeader 
+                                                              ? "text-zinc-200 hover:text-white hover:bg-zinc-900" 
+                                                              : "text-zinc-800 hover:text-black hover:bg-zinc-100"
+                                                        }`}
                                                     >
                                                         {item.title}
                                                     </Button>
@@ -165,28 +164,24 @@ function Header1() {
                                     ) : (
                                         <>
                                             <NavigationMenuTrigger 
-                                                className={`font-headings font-medium text-sm px-2.5 xl:px-3 ${
-                                                    isDarkPage 
+                                                className={`font-headings font-medium text-sm px-2.5 xl:px-3 transition-colors ${
+                                                    isDarkHeader 
                                                       ? "text-zinc-200 hover:text-white hover:bg-zinc-900 bg-transparent focus:bg-transparent data-[state=open]:bg-zinc-900" 
-                                                      : ""
+                                                      : "text-zinc-800 hover:text-black hover:bg-zinc-100 bg-transparent focus:bg-transparent data-[state=open]:bg-zinc-100"
                                                 }`}
                                             >
                                                 {item.title}
                                             </NavigationMenuTrigger>
-                                            <NavigationMenuContent className={`!w-[450px] p-4 rounded-md border shadow-md ${
-                                                isDarkPage 
-                                                  ? "bg-zinc-950 border-zinc-800 text-zinc-100" 
-                                                  : "bg-popover text-popover-foreground border-border"
-                                            }`}>
+                                            <NavigationMenuContent className="!w-[450px] p-4 rounded-xl border shadow-2xl bg-zinc-950 border-zinc-800 text-zinc-100">
                                                 <div className="flex flex-col lg:grid grid-cols-2 gap-4">
                                                     <div className="flex flex-col h-full justify-between">
                                                         <div className="flex flex-col">
-                                                            <p className="text-base font-headings font-semibold">{item.title}</p>
-                                                            <p className={`text-sm ${isDarkPage ? "text-zinc-400" : "text-muted-foreground"}`}>
+                                                            <p className="text-base font-headings font-semibold text-white">{item.title}</p>
+                                                            <p className="text-sm text-zinc-400">
                                                                 {item.description}
                                                             </p>
                                                         </div>
-                                                        <Button size="sm" className="mt-10" asChild>
+                                                        <Button size="sm" className="mt-10 !bg-white !text-zinc-950 hover:!bg-zinc-200 font-semibold" asChild>
                                                             <a href="mailto:mitulzalavadiya10@gmail.com">
                                                                 Email us today
                                                             </a>
@@ -203,14 +198,10 @@ function Header1() {
                                                                         href={subItem.href}
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
-                                                                        className={`flex flex-row justify-between items-center py-2 px-4 rounded transition-colors ${
-                                                                            isDarkPage 
-                                                                              ? "hover:bg-zinc-800/60 text-zinc-300 hover:text-white" 
-                                                                              : "hover:bg-muted text-foreground"
-                                                                        }`}
+                                                                        className="flex flex-row justify-between items-center py-2 px-4 rounded-lg transition-colors hover:bg-zinc-850/80 text-zinc-300 hover:text-white"
                                                                     >
                                                                         <span>{subItem.title}</span>
-                                                                        <MoveRight className={`w-4 h-4 ${isDarkPage ? "text-zinc-500" : "text-muted-foreground"}`} />
+                                                                        <MoveRight className="w-4 h-4 text-zinc-500" />
                                                                     </a>
                                                                 </NavigationMenuLink>
                                                             ) : (
@@ -220,14 +211,10 @@ function Header1() {
                                                                 >
                                                                     <Link
                                                                         to={subItem.href}
-                                                                        className={`flex flex-row justify-between items-center py-2 px-4 rounded transition-colors ${
-                                                                            isDarkPage 
-                                                                              ? "hover:bg-zinc-800/60 text-zinc-300 hover:text-white" 
-                                                                              : "hover:bg-muted text-foreground"
-                                                                        }`}
+                                                                        className="flex flex-row justify-between items-center py-2 px-4 rounded-lg transition-colors hover:bg-zinc-850/80 text-zinc-300 hover:text-white"
                                                                     >
                                                                         <span>{subItem.title}</span>
-                                                                        <MoveRight className={`w-4 h-4 ${isDarkPage ? "text-zinc-500" : "text-muted-foreground"}`} />
+                                                                        <MoveRight className="w-4 h-4 text-zinc-500" />
                                                                     </Link>
                                                                 </NavigationMenuLink>
                                                             )
@@ -272,10 +259,10 @@ function Header1() {
                                     </div>
                                 )}
                                 {/* Name (hidden on small screens) */}
-                                <span className={`hidden md:block text-sm font-semibold max-w-[100px] truncate transition-colors duration-200 ${isDarkPage ? "text-zinc-200 group-hover:text-white" : "text-foreground group-hover:text-black"}`}>
+                                <span className={`hidden md:block text-sm font-semibold max-w-[100px] truncate transition-colors duration-200 ${isDarkHeader ? "text-zinc-200 group-hover:text-white" : "text-zinc-800 group-hover:text-black"}`}>
                                     {user.name?.split(" ")[0]}
                                 </span>
-                                <ChevronDown className={`w-3.5 h-3.5 hidden md:block transition-transform duration-200 ${profileDropdownOpen ? "rotate-180" : ""} ${isDarkPage ? "text-zinc-400" : "text-muted-foreground"}`} />
+                                <ChevronDown className={`w-3.5 h-3.5 hidden md:block transition-transform duration-200 ${profileDropdownOpen ? "rotate-180" : ""} ${isDarkHeader ? "text-zinc-400" : "text-zinc-600"}`} />
                             </button>
 
                             {/* Dropdown menu */}
@@ -325,7 +312,7 @@ function Header1() {
                             variant="ghost" 
                             onClick={() => setOpen(!isOpen)} 
                             size="icon"
-                            className={isDarkPage ? "text-white hover:bg-zinc-900" : ""}
+                            className={isDarkHeader ? "text-white hover:bg-zinc-900" : "text-zinc-900 hover:bg-zinc-100"}
                         >
                             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                         </Button>
@@ -333,11 +320,7 @@ function Header1() {
                 </div>
 
                 {isOpen && (
-                        <div className={`absolute top-20 border-t flex flex-col w-full right-0 shadow-2xl py-6 px-6 gap-6 z-50 transition-all ${
-                            isDarkPage 
-                              ? "bg-zinc-950 border-zinc-800 text-white" 
-                              : "bg-background border-border text-foreground"
-                        }`}>
+                        <div className="absolute top-20 border-t flex flex-col w-full right-0 shadow-2xl py-6 px-6 gap-6 z-50 transition-all bg-zinc-950 border-zinc-800 text-white">
                             {navigationItems.map((item) => (
                                 <div key={item.title}>
                                     <div className="flex flex-col gap-2">
@@ -348,27 +331,23 @@ function Header1() {
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     onClick={() => setOpen(false)}
-                                                    className={`flex justify-between items-center py-1 font-semibold ${
-                                                        isDarkPage ? "text-zinc-100 hover:text-white" : "text-foreground"
-                                                    }`}
+                                                    className="flex justify-between items-center py-1 font-semibold text-zinc-100 hover:text-white"
                                                 >
                                                     <span className="text-lg font-medium">{item.title}</span>
-                                                    <MoveRight className={`w-4 h-4 stroke-1 ${isDarkPage ? "text-zinc-500" : "text-muted-foreground"}`} />
+                                                    <MoveRight className="w-4 h-4 stroke-1 text-zinc-500" />
                                                 </a>
                                             ) : (
                                                 <Link
                                                     to={item.href}
                                                     onClick={() => setOpen(false)}
-                                                    className={`flex justify-between items-center py-1 font-semibold ${
-                                                        isDarkPage ? "text-zinc-100 hover:text-white" : "text-foreground"
-                                                    }`}
+                                                    className="flex justify-between items-center py-1 font-semibold text-zinc-100 hover:text-white"
                                                 >
                                                     <span className="text-lg font-medium">{item.title}</span>
-                                                    <MoveRight className={`w-4 h-4 stroke-1 ${isDarkPage ? "text-zinc-500" : "text-muted-foreground"}`} />
+                                                    <MoveRight className="w-4 h-4 stroke-1 text-zinc-500" />
                                                 </Link>
                                             )
                                         ) : (
-                                            <p className={`text-lg font-semibold ${isDarkPage ? "text-zinc-300" : "text-foreground"}`}>{item.title}</p>
+                                            <p className="text-lg font-semibold text-zinc-300">{item.title}</p>
                                         )}
                                         {item.items &&
                                             item.items.map((subItem) => (
@@ -379,11 +358,7 @@ function Header1() {
                                                         onClick={() => setOpen(false)}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className={`flex justify-between items-center pl-4 py-1.5 transition-colors ${
-                                                            isDarkPage 
-                                                              ? "text-zinc-400 hover:text-white" 
-                                                              : "text-muted-foreground hover:text-foreground"
-                                                        }`}
+                                                        className="flex justify-between items-center pl-4 py-1.5 transition-colors text-zinc-400 hover:text-white"
                                                     >
                                                         <span>
                                                             {subItem.title}
@@ -395,11 +370,7 @@ function Header1() {
                                                         key={subItem.title}
                                                         to={subItem.href}
                                                         onClick={() => setOpen(false)}
-                                                        className={`flex justify-between items-center pl-4 py-1.5 transition-colors ${
-                                                            isDarkPage 
-                                                              ? "text-zinc-400 hover:text-white" 
-                                                              : "text-muted-foreground hover:text-foreground"
-                                                        }`}
+                                                        className="flex justify-between items-center pl-4 py-1.5 transition-colors text-zinc-400 hover:text-white"
                                                     >
                                                         <span>
                                                             {subItem.title}

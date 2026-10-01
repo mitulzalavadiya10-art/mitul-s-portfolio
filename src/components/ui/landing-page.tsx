@@ -149,22 +149,22 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
     <div 
       ref={containerRef}
       className={cn(
-        "relative w-full max-w-screen overflow-x-hidden min-h-screen bg-background text-foreground",
+        "relative w-full max-w-screen overflow-x-hidden min-h-screen bg-black text-white",
         className
       )}
     >
       {/* Progress Bar */}
       <div className={cn(
-        "fixed top-0 left-0 w-full h-0.5 bg-gradient-to-r from-border/20 via-border/40 to-border/20 z-50 transition-opacity duration-300",
+        "fixed top-0 left-0 w-full h-0.5 bg-gradient-to-r from-zinc-800/40 via-zinc-700 to-zinc-800/40 z-50 transition-opacity duration-300",
         !isInside && "opacity-0 pointer-events-none"
       )}>
         <div 
-          className="h-full bg-gradient-to-r from-primary via-blue-600 to-blue-900 will-change-transform shadow-sm"
+          className="h-full bg-gradient-to-r from-white via-zinc-300 to-zinc-500 will-change-transform shadow-sm"
           style={{ 
             transform: `scaleX(${scrollProgress})`,
             transformOrigin: 'left center',
             transition: 'transform 0.15s ease-out',
-            filter: 'drop-shadow(0 0 2px rgba(59, 130, 246, 0.3))'
+            filter: 'drop-shadow(0 0 2px rgba(255, 255, 255, 0.4))'
           }}
         />
       </div>
@@ -182,7 +182,7 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
                 className={cn(
                   "nav-label absolute right-5 sm:right-6 lg:right-8 top-1/2 -translate-y-1/2",
                   "px-2 sm:px-3 lg:px-4 py-1 sm:py-1.5 lg:py-2 rounded-md sm:rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap",
-                  "bg-background/95 backdrop-blur-md border border-border/60 shadow-xl z-50",
+                  "bg-zinc-950/95 backdrop-blur-md border border-zinc-800 text-white shadow-xl z-50",
                   activeSection === index ? "animate-fadeOut" : "opacity-0"
                 )}
               >
@@ -335,14 +335,14 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
                       "group relative px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-medium transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] text-sm sm:text-base",
                       "hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/20 w-full sm:w-auto",
                       action.variant === 'primary' 
-                        ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-primary/30" 
-                        : "border-2 border-border/60 bg-background/50 backdrop-blur-sm hover:bg-accent/50 hover:border-primary/30 text-foreground"
+                        ? "!bg-white !text-zinc-950 hover:!bg-zinc-200 shadow-lg font-bold" 
+                        : "border-2 border-zinc-700 bg-zinc-900/60 backdrop-blur-sm hover:bg-zinc-800 text-white font-medium"
                     )}
                     style={{ animationDelay: `${actionIndex * 0.1 + 0.2}s` }}
                   >
                     <span className="relative z-10">{action.label}</span>
                     {action.variant === 'primary' && (
-                      <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-primary to-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-white to-zinc-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     )}
                   </button>
                 ))}
@@ -407,7 +407,7 @@ export default function GlobeScrollDemo() {
   return (
     <ScrollGlobe 
       sections={demoSections}
-      className="bg-gradient-to-br from-background via-muted/20 to-background"
+      className="bg-black text-white"
     />
   );
 }
