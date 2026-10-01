@@ -1,4 +1,6 @@
-import { Routes, Route } from 'react-router-dom'
+import { useState, useCallback } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { SiteLoader } from '@/components/ui/site-loader'
 import { Header1 } from "@/components/ui/header"
 import { Hero } from "@/components/ui/hero-1"
 import { CursorFollower } from "@/components/ui/cursor-follower"
@@ -140,6 +142,10 @@ function HomePage() {
 
 function App() {
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "mock-client-id"
+  const location = useLocation()
+  const [introDone, setIntroDone] = useState(false)
+  const handleIntroComplete = useCallback(() => setIntroDone(true), [])
+  const showIntro = location.pathname === '/' && !introDone
 
   return (
     <GoogleOAuthProvider clientId={googleClientId}>
@@ -170,6 +176,7 @@ function App() {
           {/* ── 404 ────────────────────────────────────── */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        {showIntro && <SiteLoader onComplete={handleIntroComplete} />}
       </AuthProvider>
     </GoogleOAuthProvider>
   )

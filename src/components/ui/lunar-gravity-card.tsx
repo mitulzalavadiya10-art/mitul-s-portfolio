@@ -1,12 +1,138 @@
 "use client";
 
-import React, { useRef, useMemo, Suspense, useState } from "react";
+import React, { useRef, useMemo, Suspense, useState, useCallback } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useTexture, Environment } from "@react-three/drei";
 import * as THREE from "three";
 import { ArrowUpRight, Sparkles, Mail } from "lucide-react";
-import { motion } from "motion/react";
+import {
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+  useSpring,
+  type Variants,
+} from "motion/react";
 import { cn } from "@/lib/utils";
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 28, filter: "blur(6px)" },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.75, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] },
+  }),
+};
+
+const revealContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.07, delayChildren: 0.05 },
+  },
+};
+
+const INFO_BLOCKS = [
+  {
+    label: "Currently Building",
+    title: "AI Section Hub",
+    detail: "Shopify App Ecosystem",
+  },
+  {
+    label: "Specialized In",
+    title: "Websites & Apps",
+    detail: "OS 2.0 · Liquid · React",
+  },
+  {
+    label: "Experience",
+    title: "1+ Yr Shopify",
+    detail: "Ex: Identiq Infotech",
+  },
+] as const;
+
+const STATS = [
+  { value: "30+", label: "Shopify Websites" },
+  { value: "2+", label: "Shopify Apps" },
+  { value: "200+", label: "Custom Sections" },
+] as const;
+
+function ParallaxOrbs({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
+      <motion.div
+        style={{ x: mouseX * 28, y: mouseY * 22 }}
+        className="absolute -top-[20%] left-[8%] w-[420px] h-[420px] rounded-full bg-white/[0.04] blur-[100px]"
+      />
+      <motion.div
+        style={{ x: mouseX * -18, y: mouseY * 14 }}
+        className="absolute bottom-[10%] right-[12%] w-[360px] h-[360px] rounded-full bg-zinc-500/[0.07] blur-[90px]"
+      />
+      <div
+        className="absolute inset-0 opacity-[0.35] [mask-image:radial-gradient(ellipse_70%_60%_at_30%_40%,#000_40%,transparent_85%)]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+          transform: `translate(${mouseX * 12}px, ${mouseY * 8}px)`,
+        }}
+      />
+    </div>
+  );
+}
+
+function HighlightCard({
+  label,
+  title,
+  detail,
+  index,
+}: {
+  label: string;
+  title: string;
+  detail: string;
+  index: number;
+}) {
+  return (
+    <motion.div
+      custom={index + 3}
+      variants={fadeUp}
+      whileHover={{ y: -5, scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 420, damping: 28 }}
+      className="group relative p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.1] backdrop-blur-md overflow-hidden"
+    >
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-white/[0.12] via-transparent to-transparent" />
+      <div className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-white/25 via-white/5 to-transparent [mask:linear-gradient(#000,#000)_content-box,linear-gradient(#000,#000)] [mask-composite:exclude] p-px pointer-events-none" />
+      <div className="relative">
+        <div className="text-[10px] uppercase font-mono tracking-[0.2em] text-zinc-500 font-semibold mb-1.5">
+          {label}
+        </div>
+        <div className="text-xs sm:text-sm font-bold text-white tracking-tight">{title}</div>
+        <div className="text-[10px] text-zinc-500 mt-1">{detail}</div>
+      </div>
+    </motion.div>
+  );
+}
+
+function StatCard({ value, label, index }: { value: string; label: string; index: number }) {
+  return (
+    <motion.div
+      custom={index + 6}
+      variants={fadeUp}
+      whileHover={{ y: -6, scale: 1.03 }}
+      transition={{ type: "spring", stiffness: 400, damping: 24 }}
+      className="group relative p-3 rounded-2xl bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/[0.1] text-center overflow-hidden"
+    >
+      <motion.div
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-center"
+      />
+      <div className="text-xl sm:text-2xl font-black text-white tracking-tight group-hover:text-zinc-100 transition-colors">
+        {value}
+      </div>
+      <div className="text-[10px] sm:text-xs text-zinc-500 font-medium mt-1 group-hover:text-zinc-400 transition-colors">
+        {label}
+      </div>
+    </motion.div>
+  );
+}
 
 const RADIUS = 2.0;
 
@@ -67,12 +193,12 @@ const [ringPositions, ringColors, ringRandoms] = (() => {
     const paletteType = Math.random();
     let baseR, baseG, baseB;
 
-    if (paletteType < 0.80) {
-      baseR = 0.25; baseG = 0.30; baseB = 0.35;
-    } else if (paletteType < 0.92) {
-      baseR = 0.0; baseG = 0.6; baseB = 0.8;
+    if (paletteType < 0.85) {
+      baseR = 0.72; baseG = 0.72; baseB = 0.74;
+    } else if (paletteType < 0.95) {
+      baseR = 0.55; baseG = 0.58; baseB = 0.62;
     } else {
-      baseR = 0.6; baseG = 0.2; baseB = 0.8;
+      baseR = 0.92; baseG = 0.92; baseB = 0.95;
     }
 
     baseR = Math.min(1.0, Math.max(0.0, baseR + (Math.random() - 0.5) * 0.1));
@@ -385,171 +511,157 @@ export default function LunarGravityCard({
 }: LunarGravityCardProps) {
   const [ringState, setRingState] = useState<'hidden' | 'animating' | 'visible'>('hidden');
   const massiveAsteroidsRef = useRef<Float32Array>(new Float32Array(75 * 4));
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentInView = useInView(sectionRef, { once: true, margin: "-8% 0px -8% 0px" });
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const moonParallax = useTransform(scrollYProgress, [0, 1], [48, -48]);
+  const copyParallax = useTransform(scrollYProgress, [0, 1], [24, -24]);
+  const moonParallaxSmooth = useSpring(moonParallax, { stiffness: 90, damping: 22 });
+  const copyParallaxSmooth = useSpring(copyParallax, { stiffness: 90, damping: 22 });
+
+  const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const onPointerMove = useCallback((e: React.PointerEvent<HTMLElement>) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setPointer({
+      x: (e.clientX - rect.left) / rect.width - 0.5,
+      y: (e.clientY - rect.top) / rect.height - 0.5,
+    });
+  }, []);
 
   return (
-    <div className={cn("w-full min-h-[740px] lg:min-h-[700px] bg-black flex flex-col md:flex-row relative overflow-hidden border-none shadow-none py-6 md:py-10", className)}>
-      
-      <div className="absolute top-0 left-0 md:inset-y-0 md:left-0 w-full h-[60%] md:h-full md:w-[55%] bg-gradient-to-b md:bg-gradient-to-r from-black via-black/85 to-transparent z-10 pointer-events-none"></div>
+    <section
+      ref={sectionRef}
+      id="about-mitul"
+      onPointerMove={onPointerMove}
+      className={cn(
+        "relative w-full min-h-[780px] lg:min-h-[720px] bg-black flex flex-col md:flex-row overflow-hidden border-y border-white/[0.06]",
+        className
+      )}
+    >
+      <ParallaxOrbs mouseX={pointer.x} mouseY={pointer.y} />
 
-      <div className="w-full md:w-[54%] lg:w-[50%] flex flex-col justify-center px-4 sm:px-8 md:px-0 md:pl-10 lg:pl-16 xl:pl-20 py-8 md:py-0 relative z-20">
-        
-        {/* Name & Title */}
+      <div className="absolute top-0 left-0 md:inset-y-0 md:left-0 w-full h-[62%] md:h-full md:w-[58%] bg-gradient-to-b md:bg-gradient-to-r from-black via-black/90 to-transparent z-10 pointer-events-none" />
+
+      <motion.div
+        style={{ y: copyParallaxSmooth }}
+        className="w-full md:w-[54%] lg:w-[50%] flex flex-col justify-center px-4 sm:px-8 md:px-0 md:pl-10 lg:pl-16 xl:pl-20 py-10 md:py-14 relative z-20"
+      >
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-3"
+          variants={revealContainer}
+          initial="hidden"
+          animate={contentInView ? "visible" : "hidden"}
         >
-          <div className="text-[11px] font-mono uppercase tracking-widest text-zinc-400 mb-2 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            <span>About Me</span>
-          </div>
+          <motion.div custom={0} variants={fadeUp} className="mb-3">
+            <div className="text-[11px] font-mono uppercase tracking-[0.28em] text-zinc-500 mb-2 flex items-center gap-2.5">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/40 opacity-60" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
+              </span>
+              <span>About Me</span>
+            </div>
 
-          <h2 className="text-[2.75rem] sm:text-[3.75rem] lg:text-[4.5rem] xl:text-[5rem] font-black tracking-tighter leading-[0.92] mb-2">
-            <span className="text-white drop-shadow-[0_2px_24px_rgba(255,255,255,0.18)]">Mitul</span>{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-zinc-300 to-zinc-600">
-              Zalavadiya.
-            </span>
-          </h2>
+            <h2 className="text-[2.75rem] sm:text-[3.75rem] lg:text-[4.5rem] xl:text-[5rem] font-black tracking-tighter leading-[0.92] mb-3">
+              <span className="text-white drop-shadow-[0_2px_32px_rgba(255,255,255,0.12)]">Mitul</span>{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-zinc-300 to-zinc-600">
+                Zalavadiya.
+              </span>
+            </h2>
+            <motion.div
+              custom={1}
+              variants={fadeUp}
+              className="h-px w-24 bg-gradient-to-r from-white/80 via-white/30 to-transparent mb-3"
+            />
+            <motion.p custom={2} variants={fadeUp} className="text-sm sm:text-base text-zinc-300 font-medium">
+              Shopify Developer <span className="text-zinc-600">•</span> Building Modern, High-Converting E-Commerce
+            </motion.p>
+          </motion.div>
 
-          <p className="text-sm sm:text-base text-zinc-200 font-medium">
-            Shopify Developer <span className="text-zinc-500">•</span> Building Modern, High-Converting E-Commerce
-          </p>
-        </motion.div>
-
-        {/* Short Bio Paragraph */}
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-xs sm:text-sm text-zinc-400 font-normal leading-relaxed max-w-[520px] mb-4"
-        >
-          I specialize in Shopify website development, custom themes, Liquid, Online Store 2.0, reusable sections, and Shopify app development. I also leverage React, JavaScript, HTML, and CSS to create responsive, scalable storefront experiences.
-        </motion.p>
-
-        {/* 3 Value Blocks: Currently Building · Specialized In · Experience */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 max-w-[540px] mb-4"
-        >
-          <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-md">
-            <div className="text-[10px] uppercase font-mono tracking-wider text-zinc-400 font-semibold mb-1">Currently Building</div>
-            <div className="text-xs sm:text-sm font-bold text-white tracking-tight">AI Section Hub</div>
-            <div className="text-[10px] text-zinc-400 mt-0.5">Shopify App Ecosystem</div>
-          </div>
-
-          <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-md">
-            <div className="text-[10px] uppercase font-mono tracking-wider text-zinc-400 font-semibold mb-1">Specialized In</div>
-            <div className="text-xs sm:text-sm font-bold text-white tracking-tight">Websites &amp; Apps</div>
-            <div className="text-[10px] text-zinc-400 mt-0.5">OS 2.0 · Liquid · React</div>
-          </div>
-
-          <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-md">
-            <div className="text-[10px] uppercase font-mono tracking-wider text-zinc-400 font-semibold mb-1">Experience</div>
-            <div className="text-xs sm:text-sm font-bold text-white tracking-tight">1+ Yr Shopify</div>
-            <div className="text-[10px] text-zinc-400 mt-0.5">Ex: Identiq Infotech</div>
-          </div>
-        </motion.div>
-
-        {/* Stats Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-3 gap-2.5 max-w-[480px] mb-5"
-        >
-          <motion.div
-            whileHover={{ y: -2 }}
-            className="p-2.5 rounded-xl bg-gradient-to-b from-white/[0.05] to-white/[0.02] border border-white/[0.08] text-center"
+          <motion.p
+            custom={3}
+            variants={fadeUp}
+            className="text-xs sm:text-sm text-zinc-500 font-normal leading-relaxed max-w-[520px] mb-5"
           >
-            <div className="text-xl sm:text-2xl font-black text-white tracking-tight">30+</div>
-            <div className="text-[10px] sm:text-xs text-zinc-400 font-medium mt-0.5">Shopify Websites</div>
+            I specialize in Shopify website development, custom themes, Liquid, Online Store 2.0, reusable sections, and Shopify app development. I also leverage React, JavaScript, HTML, and CSS to create responsive, scalable storefront experiences.
+          </motion.p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-[540px] mb-4">
+            {INFO_BLOCKS.map((block, i) => (
+              <HighlightCard key={block.label} {...block} index={i} />
+            ))}
+          </div>
+
+          <div className="grid grid-cols-3 gap-3 max-w-[480px] mb-6">
+            {STATS.map((stat, i) => (
+              <StatCard key={stat.label} {...stat} index={i} />
+            ))}
+          </div>
+
+          <motion.div custom={9} variants={fadeUp} className="mb-5">
+            <p className="text-xs text-zinc-400 font-medium mb-3 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+              <span>Have a Shopify project? Let&apos;s build it.</span>
+            </p>
+
+            <div className="flex flex-wrap items-center gap-2.5">
+              <motion.a
+                href="/shopify-website"
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-5 py-2.5 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-zinc-100 transition-colors shadow-[0_0_28px_rgba(255,255,255,0.18)] inline-flex items-center gap-1.5 group cursor-pointer"
+              >
+                <span>Explore Shopify Stores</span>
+                <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </motion.a>
+
+              <motion.a
+                href="/contact"
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-4 py-2.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.14] text-white font-medium text-xs sm:text-sm backdrop-blur-xl transition-all inline-flex items-center gap-1.5 cursor-pointer"
+              >
+                <span>Let&apos;s Build It</span>
+                <Mail className="w-3.5 h-3.5 text-zinc-400" />
+              </motion.a>
+
+              <motion.a
+                href="https://www.linkedin.com/in/mitul-zalavadiya-784873369"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-4 py-2.5 rounded-full bg-transparent hover:bg-white/[0.06] border border-white/[0.12] hover:border-white/30 text-zinc-400 hover:text-white font-medium text-xs sm:text-sm transition-all cursor-pointer"
+              >
+                LinkedIn
+              </motion.a>
+            </div>
           </motion.div>
 
           <motion.div
-            whileHover={{ y: -2 }}
-            className="p-2.5 rounded-xl bg-gradient-to-b from-white/[0.05] to-white/[0.02] border border-white/[0.08] text-center"
+            custom={10}
+            variants={fadeUp}
+            className="flex items-center gap-2 text-[11px] sm:text-xs text-zinc-500 font-mono"
           >
-            <div className="text-xl sm:text-2xl font-black text-white tracking-tight">2+</div>
-            <div className="text-[10px] sm:text-xs text-zinc-400 font-medium mt-0.5">Shopify Apps</div>
-          </motion.div>
-
-          <motion.div
-            whileHover={{ y: -2 }}
-            className="p-2.5 rounded-xl bg-gradient-to-b from-white/[0.05] to-white/[0.02] border border-white/[0.08] text-center"
-          >
-            <div className="text-xl sm:text-2xl font-black text-white tracking-tight">200+</div>
-            <div className="text-[10px] sm:text-xs text-zinc-400 font-medium mt-0.5">Custom Sections</div>
+            <Sparkles className="w-3.5 h-3.5 text-zinc-400" />
+            <span>Click or drag the 3D Moon to trigger gravitational flux</span>
           </motion.div>
         </motion.div>
+      </motion.div>
 
-        {/* Action Buttons & CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-4"
-        >
-          <p className="text-xs text-zinc-300 font-medium mb-3 flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Have a Shopify project? Let’s build it.</span>
-          </p>
-
-          <div className="flex flex-wrap items-center gap-2.5">
-            <motion.a
-              href="/shopify-website"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="px-5 py-2.5 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-zinc-100 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] inline-flex items-center gap-1.5 group cursor-pointer"
-            >
-              <span>Explore Shopify Stores</span>
-              <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </motion.a>
-
-            <motion.a
-              href="/contact"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="px-4 py-2.5 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.12] hover:border-white/25 text-white font-medium text-xs sm:text-sm backdrop-blur-xl transition-all inline-flex items-center gap-1.5 cursor-pointer"
-            >
-              <span>Let’s Build It</span>
-              <Mail className="w-3.5 h-3.5 text-zinc-300" />
-            </motion.a>
-
-            <motion.a
-              href="https://www.linkedin.com/in/mitul-zalavadiya-784873369"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="px-4 py-2.5 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.12] hover:border-white/25 text-zinc-300 hover:text-white font-medium text-xs sm:text-sm backdrop-blur-xl transition-all cursor-pointer"
-            >
-              LinkedIn
-            </motion.a>
-          </div>
-        </motion.div>
-
-        {/* Interactive 3D Orbit Callout */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="flex items-center gap-2 text-xs text-zinc-400 font-mono"
-        >
-          <Sparkles className="w-3 h-3 text-zinc-300 animate-pulse" />
-          <span>Click or drag the 3D Moon to trigger gravitational flux</span>
-        </motion.div>
-      </div>
-     
-      <div className="relative md:absolute md:right-0 md:top-0 w-full h-[450px] md:h-full md:w-[55%] lg:w-[58%] pointer-events-auto z-0 flex items-center justify-center">
-        <div className="absolute inset-0 w-full h-full">
+      <motion.div
+        style={{ y: moonParallaxSmooth }}
+        className="relative md:absolute md:right-0 md:top-0 w-full h-[460px] md:h-full md:w-[55%] lg:w-[58%] pointer-events-auto z-[5] flex items-center justify-center"
+      >
+        <div className="absolute inset-0 w-full h-full md:translate-x-[4%]">
           <CanvasErrorBoundary>
             <Canvas shadows camera={{ position: [0, 4, 10], fov: 45 }} dpr={[1, 2]}>
-              <ambientLight intensity={0.02} />
-              <directionalLight position={[8, 5, 5]} intensity={1.5} color="#ffffff" castShadow shadow-mapSize={[2048, 2048]} />
-              <directionalLight position={[-5, -3, -5]} intensity={0.15} color="#4a90e2" />
+              <ambientLight intensity={0.03} />
+              <directionalLight position={[8, 5, 5]} intensity={1.55} color="#ffffff" castShadow shadow-mapSize={[2048, 2048]} />
+              <directionalLight position={[-5, -3, -5]} intensity={0.12} color="#a3a3a3" />
 
               <OrbitControls enableZoom={false} enablePan={false} autoRotate={false} />
 
@@ -564,9 +676,8 @@ export default function LunarGravityCard({
             </Canvas>
           </CanvasErrorBoundary>
         </div>
-      </div>
-
-    </div>
+      </motion.div>
+    </section>
   );
 }
 
