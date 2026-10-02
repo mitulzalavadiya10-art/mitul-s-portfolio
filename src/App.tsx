@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { SiteLoader } from '@/components/ui/site-loader'
 import { Header1 } from "@/components/ui/header"
 import { Hero } from "@/components/ui/hero-1"
+import { OsmoParallax } from "@/components/ui/osmo-parallax"
 import { CursorFollower } from "@/components/ui/cursor-follower"
 import { AppShowcase } from "@/components/ui/app-showcase"
 // import { CoverflowShowcase } from "@/components/ui/coverflow-showcase"
@@ -100,19 +101,12 @@ function HomePage() {
   ]
 
   return (
-    <div className="relative min-h-screen bg-black text-white">
+    <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
       <CursorFollower />
       <Header1 />
       <main className="pt-0">
-        <Hero
-          eyebrow="Shopify & Frontend Developer • BCA (GLS University)"
-          title="Building Advanced E-Commerce Experiences & Custom Shopify Apps"
-          subtitle="Hi, I'm Mitul Zalavadiya. I build bespoke Online Store 2.0 storefronts, pixel-perfect Liquid sections, and custom Shopify apps by fusing mobile app architecture with advanced frontend web technologies."
-          ctaLabel="Explore Shopify Websites"
-          ctaHref="/shopify-website"
-          secondaryCtaLabel="Install Free Apps"
-          secondaryCtaHref="https://apps.shopify.com/partners/solvify-tech2"
-        />
+        <Hero />
+        <OsmoParallax />
         <Demo />
         <SectionlyShowcase />
         {/* <CoverflowShowcase /> */}

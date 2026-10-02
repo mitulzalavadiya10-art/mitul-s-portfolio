@@ -1,119 +1,133 @@
-import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-interface HeroProps {
-  eyebrow?: string
-  title: string
-  subtitle: string
-  ctaLabel?: string
-  ctaHref?: string
-  secondaryCtaLabel?: string
-  secondaryCtaHref?: string
-}
+gsap.registerPlugin(ScrollTrigger);
 
-export function Hero({
-  eyebrow = "Innovate Without Limits",
-  title,
-  subtitle,
-  ctaLabel = "Explore Now",
-  ctaHref = "#",
-  secondaryCtaLabel,
-  secondaryCtaHref,
-}: HeroProps) {
+export function Hero() {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const heroSectionRef = useRef<HTMLElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    // Ensure GSAP context scopes all selectors and handles clean teardown
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapperRef.current,
+          start: "top top",
+          end: "+=140%",
+          pin: true,
+          scrub: 1, // Smooth buttery inertia
+          anticipatePin: 1,
+          markers: false,
+        },
+      });
+
+      tl.to(imageRef.current, {
+        scale: 2.2,
+        z: 380,
+        transformOrigin: "center center",
+        ease: "power2.inOut",
+      }).to(
+        heroSectionRef.current,
+        {
+          scale: 1.15,
+          transformOrigin: "center center",
+          ease: "power2.inOut",
+        },
+        "<"
+      );
+    }, wrapperRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section
-      id="hero"
-      className="relative mx-auto w-full min-h-[100dvh] flex flex-col justify-center items-center pt-24 md:pt-28 pb-20 px-6 text-center md:px-8 
-      overflow-hidden 
-      bg-[linear-gradient(to_bottom,#ffffff,#ffffff_60%,#f4f4f6_85%,#000000_100%)]"
-    >
-      {/* Grid BG */}
-      <div
-        className="absolute -z-10 inset-0 opacity-80 h-full w-full 
-        bg-[linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)] 
-        bg-[size:6rem_5rem] 
-        [mask-image:radial-gradient(ellipse_80%_60%_at_50%_45%,#000_70%,transparent_110%)]"
-      />
+    <>
+      <style>{`
+        .hero-zoom-wrapper {
+          position: relative;
+          width: 100%;
+          max-width: 100%;
+          overflow: hidden;
+          z-index: 1;
+        }
 
-      <div className="max-w-5xl mx-auto flex flex-col items-center justify-center my-auto">
-        {/* Eyebrow */}
-        {eyebrow && (
-          <div className="mb-4">
-            <span className="text-xs md:text-sm font-headings font-bold uppercase tracking-widest text-zinc-500">
-              {eyebrow}
-            </span>
-          </div>
-        )}
+        .hero-zoom-content {
+          position: relative;
+          width: 100%;
+          max-width: 100%;
+          overflow: hidden;
+          z-index: 1;
+        }
 
-        {/* Title */}
-        <h1
-          className="animate-fade-in -translate-y-4 text-balance 
-          bg-gradient-to-br from-black from-30% to-zinc-700 
-          bg-clip-text py-4 md:py-6 text-5xl font-headings font-black leading-[1.05] tracking-tighter 
-          text-transparent opacity-0 sm:text-6xl md:text-7xl lg:text-8xl"
-        >
-          {title}
-        </h1>
+        .hero-zoom-content .section {
+          width: 100%;
+          height: 100vh;
+        }
 
-        {/* Subtitle */}
-        <p
-          className="animate-fade-in mb-10 md:mb-12 -translate-y-4 text-balance 
-          text-lg tracking-tight text-zinc-600 
-          opacity-0 md:text-xl max-w-3xl mx-auto"
-        >
-          {subtitle}
-        </p>
+        .hero-zoom-content .section.hero {
+          background-image: url(https://images.unsplash.com/photo-1589848315097-ba7b903cc1cc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
 
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap justify-center items-center gap-4 z-20 relative">
-          {ctaLabel && (
-            ctaHref.startsWith("http") ? (
-              <Button
-                asChild
-                className="w-fit md:w-56 tracking-tight text-center text-base !bg-black !text-white hover:!bg-zinc-800 shadow-lg cursor-pointer rounded-xl h-12 px-6 font-semibold transition-all duration-200"
-              >
-                <a href={ctaHref} target="_blank" rel="noopener noreferrer">{ctaLabel}</a>
-              </Button>
-            ) : (
-              <Button
-                asChild
-                className="w-fit md:w-56 tracking-tight text-center text-base !bg-black !text-white hover:!bg-zinc-800 shadow-lg cursor-pointer rounded-xl h-12 px-6 font-semibold transition-all duration-200"
-              >
-                <Link to={ctaHref}>{ctaLabel}</Link>
-              </Button>
-            )
-          )}
+        .hero-image-container {
+          width: 100%;
+          height: 100vh;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 2;
+          perspective: 500px;
+          overflow: hidden;
+          pointer-events: none;
+        }
 
-          {secondaryCtaLabel && (
-            secondaryCtaHref && secondaryCtaHref.startsWith("http") ? (
-              <Button
-                asChild
-                className="w-fit md:w-52 tracking-tight text-center text-base !bg-white !text-zinc-900 border-2 border-zinc-300 hover:!bg-zinc-100 hover:border-zinc-400 shadow-md cursor-pointer rounded-xl h-12 px-6 font-semibold transition-all duration-200"
-              >
-                <a href={secondaryCtaHref} target="_blank" rel="noopener noreferrer">{secondaryCtaLabel}</a>
-              </Button>
-            ) : (
-              <Button
-                asChild
-                className="w-fit md:w-52 tracking-tight text-center text-base !bg-white !text-zinc-900 border-2 border-zinc-300 hover:!bg-zinc-100 hover:border-zinc-400 shadow-md cursor-pointer rounded-xl h-12 px-6 font-semibold transition-all duration-200"
-              >
-                <Link to={secondaryCtaHref || "/shopify-website"}>{secondaryCtaLabel}</Link>
-              </Button>
-            )
-          )}
+        .hero-image-container img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center center;
+        }
+
+        .hero-bottom-blend {
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          right: 0;
+          height: 240px;
+          z-index: 5;
+          pointer-events: none;
+          background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(14, 18, 26, 0.25) 35%,
+            rgba(14, 18, 26, 0.7) 70%,
+            rgba(14, 18, 26, 0.98) 100%
+          );
+        }
+      `}</style>
+
+      <div ref={wrapperRef} className="wrapper hero-zoom-wrapper">
+        <div className="content hero-zoom-content">
+          <section ref={heroSectionRef} className="section hero" />
         </div>
-      </div>
-
-      {/* Scroll Down Indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity pointer-events-none">
-        <span className="text-[10px] font-headings font-bold uppercase tracking-widest text-zinc-400">Scroll</span>
-        <div className="w-5 h-8 rounded-full border border-zinc-400/80 flex items-start justify-center p-1">
-          <div className="w-1 h-2 rounded-full bg-zinc-400 animate-bounce" />
+        <div className="image-container hero-image-container">
+          <img
+            ref={imageRef}
+            src="https://assets-global.website-files.com/63ec206c5542613e2e5aa784/643312a6bc4ac122fc4e3afa_main%20home.webp"
+            alt="image"
+            onLoad={() => ScrollTrigger.refresh()}
+          />
         </div>
+        <div className="hero-bottom-blend" />
       </div>
-
-      {/* Bottom Seamless Fade into Dark Section Below */}
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent via-zinc-900/40 to-black pointer-events-none z-10" />
-    </section>
-  )
+    </>
+  );
 }
+
+export default Hero;

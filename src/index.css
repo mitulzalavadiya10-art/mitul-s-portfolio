@@ -97,6 +97,8 @@ html, body {
   background-color: #000000 !important;
   color: #ffffff !important;
   color-scheme: dark !important;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 @layer base {

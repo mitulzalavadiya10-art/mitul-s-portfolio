@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Menu, MoveRight, X, LayoutDashboard, LogOut, ChevronDown } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import logo1 from "@/app logo/logo1.png"
 import shopifyBadge from "@/images/shopify badge.png"
@@ -80,7 +80,6 @@ function Header1() {
     const [lastScrollY, setLastScrollY] = useState(0);
     const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
     const profileDropdownRef = useRef<HTMLDivElement>(null);
-    const location = useLocation();
     const { token, user, logout } = useAuth();
 
     // Close profile dropdown on outside click
@@ -113,16 +112,13 @@ function Header1() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [lastScrollY, isOpen]);
 
-    // On homepage, header is light only when at the very top over the white hero
-    // On all other pages or when scrolled, header is dark luxury
-    const isDarkHeader = location.pathname !== '/' || scrolled;
+    // Dark luxury theme across all pages & new dark hero
+    const isDarkHeader = true;
 
     return (
         <header className={`w-full z-40 fixed top-0 left-0 transition-all duration-300 ease-in-out ${
-            isDarkHeader 
-              ? "bg-zinc-950/85 border-b border-zinc-800/80 text-white backdrop-blur-md" 
-              : "bg-white/85 border-b border-zinc-200/80 text-zinc-900 backdrop-blur-md"
-        } ${
+            scrolled ? "bg-zinc-950/90 border-b border-zinc-800/80 shadow-lg" : "bg-zinc-950/60 border-b border-zinc-800/30"
+        } text-white backdrop-blur-md ${
             visible ? "translate-y-0" : "-translate-y-full"
         }`}>
             <div className="container relative mx-auto min-h-20 flex justify-between items-center px-4 lg:px-6">
