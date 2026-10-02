@@ -25,7 +25,7 @@ export function AppShowcase() {
             App Feature
           </span>
           <h2 className="text-4xl md:text-5xl font-headings font-extrabold tracking-tight text-white max-w-2xl leading-tight">
-            Meet <span className="text-zinc-400">Klenzo: Variant Swatch</span>
+            Meet <span className="text-zinc-400">Variant Swatch</span>
           </h2>
           <p className="text-zinc-400 max-w-xl text-base md:text-lg leading-relaxed">
             Replace boring Shopify dropdowns with AI-powered color & image swatches.
@@ -73,13 +73,13 @@ export function AppShowcase() {
                 <h3 className="text-2xl md:text-3xl font-headings font-extrabold text-white leading-tight flex items-center gap-3">
                   <img
                     src={klenzoLogo}
-                    alt="Klenzo: Variant Swatch — AI-Powered Shopify Swatch App"
+                    alt="Variant Swatch — AI-Powered Shopify Swatch App"
                     width={40}
                     height={40}
                     loading="eager"
                     className="w-8 h-8 md:w-10 md:h-10 rounded-lg object-contain"
                   />
-                  <span>Klenzo: Variant Swatch</span>
+                  <span>Variant Swatch</span>
                   <ArrowUpRight className="w-5 h-5 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
                 </h3>
               </a>

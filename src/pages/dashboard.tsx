@@ -17,8 +17,8 @@ export function DashboardPage() {
 
   // ✅ SEO: noindex — protected app page, no crawl value
   useSEO({
-    title: "Merchant Console — Klenzo Dashboard",
-    description: "Manage your Klenzo Shopify apps, API credentials, and store connections from the Klenzo Merchant Console.",
+    title: "Merchant Console — Mitul Dashboard",
+    description: "Manage your Shopify apps, API credentials, and store connections from the Merchant Console.",
     canonical: "https://klenzo.app/dashboard",
     noIndex: true,
   });
@@ -102,7 +102,7 @@ export function DashboardPage() {
               </div>
               <div>
                 <h1 className="text-xl md:text-3xl font-extrabold font-headings tracking-tight text-white leading-tight">Merchant Console</h1>
-                <p className="text-zinc-500 text-xs md:text-sm mt-0.5 hidden sm:block">Manage and sync Klenzo applications for your store</p>
+                <p className="text-zinc-500 text-xs md:text-sm mt-0.5 hidden sm:block">Manage and sync your Shopify applications for your store</p>
               </div>
             </div>
             <button
@@ -400,7 +400,7 @@ export function DashboardPage() {
                             {isConnected ? "Connected" : "Not Connected"}
                           </span>
                         </div>
-                        <h4 className="text-lg font-extrabold text-white mt-4">Klenzo: Variant Swatch</h4>
+                        <h4 className="text-lg font-extrabold text-white mt-4">Variant Swatch</h4>
                         <p className="text-zinc-400 text-xs mt-2 leading-relaxed">
                           Replaces standard selector selectors on product detail screens with visual color grids and image swatches using AI mapping auto-detectors.
                         </p>
@@ -439,7 +439,7 @@ export function DashboardPage() {
                   {isConnected ? (
                     <div className="flex flex-col gap-6">
                       {[
-                        { label: "Public Publishable Token", val: `pk_live_klenzo_${connectedStoreName.toLowerCase().replace(/[^a-z0-9]/g, "") || "store"}_51782390aefd9021e1` },
+                        { label: "Public Publishable Token", val: `pk_live_mitul_${connectedStoreName.toLowerCase().replace(/[^a-z0-9]/g, "") || "store"}_51782390aefd9021e1` },
                         { label: "Webhook Integration Secret", val: "whsec_908facc12019abddcc2a" }
                       ].map((key, idx) => (
                         <div key={idx} className="flex flex-col gap-2">

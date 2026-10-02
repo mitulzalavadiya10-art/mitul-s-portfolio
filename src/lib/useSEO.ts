@@ -11,9 +11,9 @@ export interface SEOProps {
   schema?: object | object[];
 }
 
-const SITE_NAME = "Klenzo";
+const SITE_NAME = "Mitul Zalavadiya";
 const DEFAULT_OG_IMAGE = "https://klenzo.app/og-image.png";
-const TWITTER_HANDLE = "@klenzo_";
+const TWITTER_HANDLE = "@mitul1125";
 
 function setMeta(name: string, content: string, isProperty = false) {
   const attr = isProperty ? "property" : "name";

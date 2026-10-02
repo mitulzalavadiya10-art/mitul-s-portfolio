@@ -413,7 +413,7 @@ export function BlogPostPage() {
                         <div className="flex items-center gap-2">
                           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                           <p className="text-emerald-400 text-xs font-black tracking-tight flex items-center gap-1.5">
-                            ⚡ Official Klenzo Support Team Reply
+                            ⚡ Official Reply by Mitul Zalavadiya
                           </p>
                         </div>
                         <p className="text-zinc-200 text-xs leading-relaxed pl-3.5 border-l-2 border-emerald-500/50">{c.adminReply}</p>

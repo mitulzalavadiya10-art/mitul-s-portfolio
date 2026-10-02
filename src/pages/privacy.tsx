@@ -37,17 +37,17 @@ export function PrivacyPage() {
   const [activeSection, setActiveSection] = useState("intro")
 
   useSEO({
-    title: "Privacy Policy — Klenzo Shopify Apps | Data Protection",
-    description: "Klenzo's privacy policy explains what data our Shopify apps collect, how it's stored securely, and your full rights as a merchant. Last updated July 2026.",
+    title: "Privacy Policy — Mitul Zalavadiya Shopify Apps | Data Protection",
+    description: "Privacy policy explains what data our Shopify apps collect, how it's stored securely, and your full rights as a merchant. Last updated July 2026.",
     canonical: "https://klenzo.app/privacy",
-    keywords: "Klenzo privacy policy, Shopify app data protection, GDPR Shopify app, Klenzo data collection",
+    keywords: "Mitul Zalavadiya privacy policy, Shopify app data protection, GDPR Shopify app",
     schema: {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "@id": "https://klenzo.app/privacy#webpage",
       "url": "https://klenzo.app/privacy",
-      "name": "Klenzo Privacy Policy",
-      "description": "Klenzo's privacy policy for AI Section Hub and Klenzo: Variant Swatch Shopify apps.",
+      "name": "Mitul Zalavadiya Privacy Policy",
+      "description": "Privacy policy for AI Section Hub and Variant Swatch Shopify apps by Mitul Zalavadiya.",
       "isPartOf": { "@id": "https://klenzo.app/#website" },
       "breadcrumb": {
         "@type": "BreadcrumbList",
@@ -139,7 +139,7 @@ export function PrivacyPage() {
 
           <FadeUp delay={0.2}>
             <p className="text-zinc-400 text-base md:text-lg leading-relaxed max-w-xl font-medium">
-              Last updated: July 2026. This policy outlines how Klenzo applications collect, protect, and use shop information to deliver lightning-fast store customization sections.
+              Last updated: July 2026. This policy outlines how our applications collect, protect, and use shop information to deliver lightning-fast store customization sections.
             </p>
           </FadeUp>
         </div>
@@ -188,13 +188,13 @@ export function PrivacyPage() {
                 </h2>
                 <div className="text-zinc-400 text-sm leading-relaxed flex flex-col gap-4">
                   <p>
-                    Welcome to Klenzo. We design high-performance, intelligent applications for Shopify stores. We understand how crucial data privacy is to our merchants and their buyers.
+                    Welcome. We design high-performance, intelligent applications for Shopify stores. We understand how crucial data privacy is to our merchants and their buyers.
                   </p>
                   <p>
-                    This Privacy Policy covers the operations of our flagship app <strong>AI Section Hub</strong> and <strong>Klenzo: Variant Swatch</strong>. It explains what data we capture when you install our apps, how that data is stored, and the strict guidelines we follow to ensure complete protection.
+                    This Privacy Policy covers the operations of our apps <strong>AI Section Hub</strong> and <strong>Variant Swatch</strong>. It explains what data we capture when you install our apps, how that data is stored, and the strict guidelines we follow to ensure complete protection.
                   </p>
                   <p>
-                    By installing and using Klenzo apps, you agree to the collection and use of information in accordance with this policy. If you have any concerns, you can contact our core engineering team directly.
+                    By installing and using our apps, you agree to the collection and use of information in accordance with this policy. If you have any concerns, you can contact our core engineering team directly.
                   </p>
                 </div>
               </div>
@@ -346,7 +346,7 @@ export function PrivacyPage() {
                   <div className="bg-zinc-950/60 border border-zinc-800/80 rounded-2xl p-5 flex flex-col gap-3">
                     <span className="text-xs uppercase font-bold tracking-wider text-zinc-300">Data Deletion on Uninstall:</span>
                     <p className="text-xs text-zinc-500 leading-relaxed">
-                      When you uninstall AI Section Hub or Klenzo variants from your Shopify dashboard, our system triggers an automated webhook. All cached settings are scheduled for absolute data deletion within 48 hours.
+                      When you uninstall AI Section Hub or Variant Swatch from your Shopify dashboard, our system triggers an automated webhook. All cached settings are scheduled for absolute data deletion within 48 hours.
                     </p>
                   </div>
 

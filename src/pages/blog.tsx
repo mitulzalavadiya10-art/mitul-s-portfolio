@@ -61,18 +61,18 @@ export function BlogPage() {
   )
 
   useSEO({
-    title: "Klenzo Blog — Shopify Tips, App Updates & Design Guides",
-    description: "Shopify tips, app update announcements, and design guides from the Klenzo team. Learn how to boost store speed, UX, and conversions.",
+    title: "Articles & Guides — Shopify Engineering by Mitul Zalavadiya",
+    description: "Shopify tips, app updates, and e-commerce design guides by Mitul Zalavadiya. Learn how to boost store speed, UX, and conversions.",
     canonical: "https://klenzo.app/blog",
-    keywords: "Shopify tips, Shopify speed optimization, AI Section Hub updates, Klenzo blog, Shopify sections guide",
+    keywords: "Shopify tips, Shopify speed optimization, AI Section Hub updates, Mitul Zalavadiya blog, Shopify sections guide",
     schema: [
       {
         "@context": "https://schema.org",
         "@type": "Blog",
         "@id": "https://klenzo.app/blog#webpage",
         "url": "https://klenzo.app/blog",
-        "name": "Klenzo Blog — Shopify Tips & App Updates",
-        "description": "Shopify tips, app update announcements, and design guides from the Klenzo team.",
+        "name": "Mitul Zalavadiya Articles & Guides",
+        "description": "Shopify tips, app update announcements, and design guides by Mitul Zalavadiya.",
         "publisher": { "@id": "https://klenzo.app/#organization" },
         "isPartOf": { "@id": "https://klenzo.app/#website" },
         "breadcrumb": {
@@ -86,7 +86,7 @@ export function BlogPage() {
       {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        "name": "Klenzo Blog Articles",
+        "name": "Articles by Mitul Zalavadiya",
         "itemListElement": blogPosts.map((post: BlogPost, i: number) => ({
           "@type": "ListItem",
           "position": i + 1,
@@ -187,7 +187,7 @@ export function BlogPage() {
             Resource Center
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-none mb-5">
-            Klenzo{" "}
+            Mitul's{" "}
             <span className="text-zinc-400">Blog</span>
           </h1>
           <p className="text-zinc-500 text-base md:text-lg max-w-xl mx-auto leading-relaxed">

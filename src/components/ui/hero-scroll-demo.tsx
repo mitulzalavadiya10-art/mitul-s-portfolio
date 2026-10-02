@@ -23,7 +23,7 @@ export function HeroScrollDemo() {
         {/* ✅ SEO fix: corrected alt text from "Bundlify App Merchant Dashboard" */}
         <img
           src={scrollImg}
-          alt="Klenzo Merchant Console — Store Revenue Analytics Dashboard"
+          alt="Mitul Zalavadiya Merchant Console — Store Revenue Analytics Dashboard"
           width={1200}
           height={675}
           loading="lazy"

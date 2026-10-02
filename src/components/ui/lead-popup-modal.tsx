@@ -98,7 +98,7 @@ export function LeadPopupModal() {
           access_key: apiKey,
           email: email,
           message: `New Newsletter / Popup Lead: ${email} | Selected Goals: ${goalsStr}`,
-          from_name: "Klenzo Lead Popup Modal",
+          from_name: "Mitul Zalavadiya Portfolio",
           subject: `New Lead Captured: ${email}`,
         }),
       }).catch(err => console.warn("Web3Forms lead email warning:", err))
@@ -193,7 +193,7 @@ export function LeadPopupModal() {
                   Supercharge Your Shopify Store
                 </h3>
                 <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed">
-                  Join 2,300+ merchants using Klenzo AI Section Hub &amp; Smart Swatches.
+                  Join 2,300+ merchants using AI Section Hub &amp; Smart Swatches.
                 </p>
               </div>
 
@@ -424,10 +424,10 @@ export function LeadPopupModal() {
                       🎉 Offer Successfully Unlocked!
                     </span>
                     <h3 className="text-2xl font-black text-white tracking-tight pt-2">
-                      Welcome to Klenzo for Shopify
+                      Welcome to Mitul's Shopify Apps
                     </h3>
                     <p className="text-zinc-400 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
-                      We've reserved your <strong className="text-white">30-Day Extended Access</strong> for <span className="text-white font-semibold underline">{email}</span>. Click below to install Klenzo apps on your store now.
+                      We've reserved your <strong className="text-white">30-Day Extended Access</strong> for <span className="text-white font-semibold underline">{email}</span>. Click below to install our apps on your store now.
                     </p>
                   </div>
 
@@ -440,7 +440,7 @@ export function LeadPopupModal() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center gap-2 w-full py-3.5 px-6 rounded-xl bg-white hover:bg-zinc-200 text-black text-sm font-black transition-all shadow-xl cursor-pointer"
                     >
-                      <span>Install Klenzo on Shopify Now</span>
+                      <span>Install on Shopify Now</span>
                       <ArrowRight className="w-4 h-4" />
                     </motion.a>
 

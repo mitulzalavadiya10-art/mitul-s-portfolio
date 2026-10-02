@@ -36,7 +36,7 @@ export function TechStackSection() {
           </h2>
 
           <p className="text-zinc-400 max-w-2xl mx-auto text-base md:text-lg leading-relaxed mb-10">
-            Klenzo apps are powered by a modern AI-first stack — from Shopify&apos;s native Liquid engine
+            Our Shopify apps are powered by a modern AI-first stack — from Shopify&apos;s native Liquid engine
             to cutting-edge cloud AI models — delivering the fastest, smartest experience for your store.
           </p>
         </motion.div>

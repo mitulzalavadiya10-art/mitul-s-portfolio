@@ -545,7 +545,7 @@ export function BlogEditor() {
                     className="w-full bg-transparent text-2xl md:text-3xl font-black text-white placeholder-zinc-700 outline-none border-b border-zinc-800 focus:border-white transition-colors pb-3"
                   />
                   <p className="text-zinc-500 text-xs font-mono mt-2">
-                    Slug: <span className="text-zinc-400">klenzo.app/blog/{post.slug || post.id || "your-title"}</span>
+                    Slug: <span className="text-zinc-400">mitulzalavadiya.com/blog/{post.slug || post.id || "your-title"}</span>
                   </p>
                 </div>
 
@@ -635,7 +635,7 @@ export function BlogEditor() {
                     <Globe className="w-3 h-3 text-blue-400" /> Google Search Live Result
                   </p>
                   <p className="text-blue-400 text-base font-bold leading-snug line-clamp-1 hover:underline cursor-pointer">
-                    {post.seoTitle || post.title || "Article Title Preview — Klenzo"}
+                    {post.seoTitle || post.title || "Article Title Preview — Mitul Zalavadiya"}
                   </p>
                   <p className="text-zinc-500 text-xs mt-1 font-mono">https://klenzo.app › blog › {post.id || "article-slug"}</p>
                   <p className="text-zinc-300 text-xs mt-2 leading-relaxed line-clamp-2">
@@ -965,7 +965,7 @@ export function BlogEditor() {
                     <div className="w-full h-full flex items-center justify-center text-zinc-600 text-xs">No Cover Image</div>
                   )}
                   <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md text-[9px] font-black text-white uppercase tracking-wider border border-white/10">
-                    klenzo.app
+                    mitul.dev
                   </span>
                 </div>
                 <div className="p-3.5 flex flex-col gap-1">

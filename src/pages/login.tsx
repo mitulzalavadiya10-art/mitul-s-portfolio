@@ -21,8 +21,8 @@ export function LoginPage() {
 
   // ✅ SEO: noindex — auth page has no crawl value
   useSEO({
-    title: "Login — Klenzo Merchant Console",
-    description: "Sign in to your Klenzo Merchant Console to manage AI Section Hub and Klenzo: Variant Swatch for your Shopify store.",
+    title: "Login — Merchant Console | Mitul Zalavadiya",
+    description: "Sign in to manage AI Section Hub and Variant Swatch for your Shopify store.",
     canonical: "https://klenzo.app/login",
     noIndex: true,
   });
@@ -101,7 +101,7 @@ export function LoginPage() {
             </div>
             
             <h1 className="text-4xl md:text-5xl font-extrabold font-headings text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-500 tracking-tight leading-tight">
-              Control Klenzo apps <br/>
+              Control your apps <br/>
               from a single dashboard
             </h1>
             
@@ -150,7 +150,7 @@ export function LoginPage() {
             >
               <div className="text-center mb-8">
                 <span className="inline-flex px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 text-zinc-400 text-[10px] uppercase tracking-wider font-headings font-bold mb-3">
-                  Klenzo Account
+                  Merchant Account
                 </span>
                 <h2 className="text-2xl font-bold font-headings text-white tracking-tight">
                   {isSignUp ? "Create your account" : "Welcome back"}

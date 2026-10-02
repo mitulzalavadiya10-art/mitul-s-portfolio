@@ -6,7 +6,7 @@ import {
   Menu, ExternalLink, ChevronRight, Sparkles, X, UserCheck, MessageSquare, Mail
 } from "lucide-react"
 import { adminLogout, getAdminSession, getAllPosts, getPendingCommentsCount } from "@/lib/blogStore"
-import logo1 from "@/app logo/logo1.png"
+import { BrandLogo } from "@/components/ui/brand-logo"
 
 const NAV = [
   { label: "Dashboard",  href: "/admin",          icon: LayoutDashboard, badge: null },
@@ -63,13 +63,10 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
       {/* Brand Header */}
       <div className="flex items-center justify-between px-5 py-5 border-b border-zinc-800/60">
         <Link to="/admin" className="flex items-center gap-3 group">
-          <div className="relative w-9 h-9 rounded-xl bg-black border border-zinc-800 flex items-center justify-center shrink-0 shadow-lg group-hover:border-zinc-700 transition-all duration-300">
-            <div className="absolute inset-0 rounded-xl bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-            <img src={logo1} alt="Klenzo" className="h-5 w-auto object-contain transition-transform duration-300 group-hover:scale-105" style={{ filter: "invert(1)" }} />
-          </div>
+          <BrandLogo size="sm" showWordmark={false} />
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="text-white text-sm font-black tracking-tight leading-none">Klenzo</span>
+              <span className="text-white text-sm font-black tracking-tight leading-none">Mitul</span>
               <span className="px-1.5 py-0.2 rounded-md bg-white/10 text-[9px] font-extrabold text-zinc-300 uppercase tracking-widest border border-white/10">v2.0</span>
             </div>
             <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest mt-1">Admin Studio</p>
@@ -143,7 +140,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
               <ExternalLink className="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" />
               <span>View Storefront</span>
             </div>
-            <span className="text-[10px] text-zinc-600 font-mono">klenzo.app</span>
+            <span className="text-[10px] text-zinc-600 font-mono">portfolio</span>
           </a>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Send, CheckCircle2 } from "lucide-react";
-import logo1 from "@/app logo/logo1.png";
+import { BrandLogo } from "@/components/ui/brand-logo";
 import { addLead } from "@/lib/blogStore";
 
 export function MinimalFooter() {
@@ -97,7 +97,7 @@ export function MinimalFooter() {
 			href: 'https://apps.shopify.com/ai-section-hub',
 		},
 		{
-			title: 'Klenzo: Variant Swatch',
+			title: 'Variant Swatch',
 			href: 'https://apps.shopify.com/klenzo-product-variant-swatch',
 		},
 		{
@@ -234,11 +234,11 @@ export function MinimalFooter() {
 				<div className="pt-10 pb-8 md:pt-12">
 					{/* Logo + Description + Socials */}
 					<div className="flex flex-col gap-4 mb-8 md:mb-0 md:hidden">
-						<a href="#" className="w-max">
-							<img src={logo1} alt="Klenzo Logo" className="h-7 w-auto object-contain" style={{ filter: 'invert(0)' }} />
-						</a>
+						<Link to="/" className="w-max">
+							<BrandLogo size="sm" />
+						</Link>
 						<p className="text-zinc-400 text-sm leading-relaxed max-w-xs">
-							Power your Shopify store with lightning-fast AI-powered theme sections and visual variant swatches. Built by Klenzo.
+							Power your Shopify store with lightning-fast AI-powered theme sections and visual variant swatches. Built by Mitul Zalavadiya.
 						</p>
 						<div className="flex gap-2 flex-wrap">
 							{socialLinks.map((item, i) => (
@@ -319,11 +319,11 @@ export function MinimalFooter() {
 					{/* Desktop: original 12-col grid */}
 					<div className="hidden md:grid grid-cols-12 gap-8">
 						<div className="col-span-5 flex flex-col gap-5">
-							<a href="#" className="w-max">
-								<img src={logo1} alt="Klenzo Logo" className="h-8 w-auto object-contain" style={{ filter: 'invert(0)' }} />
-							</a>
+							<Link to="/" className="w-max">
+								<BrandLogo size="md" />
+							</Link>
 							<p className="text-zinc-400 max-w-sm text-sm text-balance">
-								Power your Shopify store with lightning-fast AI-powered theme sections and visual variant swatches. Built by Klenzo.
+								Power your Shopify store with lightning-fast AI-powered theme sections and visual variant swatches. Built by Mitul Zalavadiya.
 							</p>
 							<div className="flex gap-2">
 								{socialLinks.map((item, i) => (

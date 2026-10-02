@@ -40,20 +40,20 @@ import { TechStackSection } from "@/components/ui/tech-stack-section"
 
 function HomePage() {
   useSEO({
-    title: "Klenzo: AI Shopify Apps — Theme Sections & Variant Swatches",
-    description: "Klenzo builds AI-powered Shopify apps trusted by 2,300+ merchants. Install AI Section Hub (700+ sections) and Klenzo: Variant Swatch (smart swatches) — free trial, no code.",
+    title: "Mitul Zalavadiya — Shopify Apps & High-Converting Storefronts",
+    description: "Explore Shopify apps and custom engineering by Mitul Zalavadiya. AI Section Hub (700+ sections) and Variant Swatch (smart swatches) trusted by 2,300+ merchants.",
     canonical: "https://klenzo.app/",
-    keywords: "Shopify apps, AI Section Hub, Klenzo Variant Swatch, Shopify sections, color swatches, product variants, conversion booster",
+    keywords: "Mitul Zalavadiya, Shopify apps, AI Section Hub, Variant Swatch, Shopify sections, color swatches, product variants, conversion booster",
     schema: [
       {
         "@context": "https://schema.org",
         "@type": "WebPage",
         "@id": "https://klenzo.app/#webpage",
         "url": "https://klenzo.app/",
-        "name": "Klenzo — AI-Powered Shopify Apps",
+        "name": "Mitul Zalavadiya — Shopify Apps & Engineering",
         "isPartOf": { "@id": "https://klenzo.app/#website" },
         "about": { "@id": "https://klenzo.app/#organization" },
-        "description": "Klenzo builds AI-powered Shopify apps that boost store design and conversions for merchants worldwide.",
+        "description": "Mitul Zalavadiya builds AI-powered Shopify apps and custom storefronts that elevate store design and conversions for merchants worldwide.",
         "breadcrumb": {
           "@type": "BreadcrumbList",
           "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://klenzo.app/" }]
@@ -74,7 +74,7 @@ function HomePage() {
       {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "Klenzo: Variant Swatch",
+        "name": "Variant Swatch",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Shopify",
         "url": "https://apps.shopify.com/klenzo-product-variant-swatch",

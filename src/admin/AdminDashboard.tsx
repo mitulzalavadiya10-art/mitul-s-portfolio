@@ -138,7 +138,7 @@ export function AdminDashboard() {
                 Welcome, <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">{session?.email?.split("@")[0] || "Admin"}</span>
               </h1>
               <p className="text-zinc-400 text-xs md:text-sm max-w-xl leading-relaxed">
-                Manage Klenzo blog articles, track reader engagements, and launch new Shopify growth guides.
+                Manage your blog articles, track reader engagements, and launch new Shopify growth guides.
               </p>
             </div>
 

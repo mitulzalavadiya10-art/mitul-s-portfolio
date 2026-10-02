@@ -44,7 +44,7 @@ export function FeedbackSection() {
     }
 
     // Format fields for cleaner email visualization
-    let subjectLine = "New Feedback Submission (Klenzo)";
+    let subjectLine = "New Feedback Submission (Mitul Portfolio)";
     let typeLabel = "General Suggestion";
     let detailsText = "";
 
@@ -72,7 +72,7 @@ export function FeedbackSection() {
         body: JSON.stringify({
           access_key: accessKey,
           subject: subjectLine,
-          from_name: "Klenzo Merchant Support Hub",
+          from_name: "Mitul Zalavadiya Support",
           name: name,
           email: email,
           store: storeUrl || "Not Provided",
@@ -195,7 +195,7 @@ export function FeedbackSection() {
                     {/* Star Rating Selector (Only visible for Review) */}
                     {type === "review" && (
                       <div className="flex flex-col gap-2 bg-zinc-900/10 border border-zinc-900 rounded-2xl p-4 items-center">
-                        <span className="text-xs font-bold text-zinc-400">Rate your experience with Klenzo Apps</span>
+                        <span className="text-xs font-bold text-zinc-400">Rate your experience with our apps</span>
                         <div className="flex gap-2.5 mt-2">
                           {[1, 2, 3, 4, 5].map((star) => {
                             const isFilled = hoverRating !== null ? star <= hoverRating : star <= rating;
@@ -240,7 +240,7 @@ export function FeedbackSection() {
                             className="bg-zinc-950 border border-zinc-900 focus:border-white rounded-2xl py-3 px-4 text-xs text-zinc-300 outline-none transition-colors"
                           >
                             <option value="section_hub">AI Section Hub</option>
-                            <option value="variants">Klenzo: Variant Swatch</option>
+                            <option value="variants">Variant Swatch</option>
                             <option value="general">General / Website Bug</option>
                           </select>
                         </div>
@@ -310,7 +310,7 @@ export function FeedbackSection() {
                         rows={4}
                         placeholder={
                           type === "review" 
-                            ? "Share what you like about Klenzo apps, or how they helped your conversions..." 
+                            ? "Share what you like about our apps, or how they helped your conversions..." 
                             : type === "bug" 
                             ? "Please share steps to reproduce the bug or screenshots details..." 
                             : "Describe your feature idea or template suggestion..."
@@ -351,7 +351,7 @@ export function FeedbackSection() {
                   </div>
                   <h3 className="text-2xl font-extrabold text-white tracking-tight">Feedback Received!</h3>
                   <p className="text-zinc-400 text-sm mt-3 max-w-sm leading-relaxed">
-                    {type === "review" && "Thank you for the review! Your thoughts help us shape Klenzo apps to serve merchants better."}
+                    {type === "review" && "Thank you for the review! Your thoughts help us shape our apps to serve merchants better."}
                     {type === "bug" && "Bug report logged successfully. Our core development team will review it and coordinate back with you."}
                     {type === "suggestion" && "Thank you for the feature suggestion! We catalog all suggestions for our next app updates release."}
                   </p>

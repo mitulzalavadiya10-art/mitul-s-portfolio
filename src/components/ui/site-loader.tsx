@@ -8,7 +8,7 @@ export interface SiteLoaderProps {
   onComplete: () => void;
 }
 
-const BRAND = "KLENZO";
+const BRAND = "MITUL";
 
 /**
  * 3D Celestial Lunar Particle Sphere

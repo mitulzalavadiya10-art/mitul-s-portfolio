@@ -293,7 +293,7 @@ export const DEFAULT_POSTS: BlogPost[] = [
       "Product Page UX",
       "Shopify Conversion Optimization",
       "Shopify Apps",
-      "Klenzo"
+      "Mitul Zalavadiya"
     ],
     "seoTitle": "How to Display Sold-Out Shopify Variants Clearly",
     "seoDescription": "Display sold-out Shopify variants clearly with visual swatches. Reduce shopper confusion, improve product page UX, and protect more potential sales.",
@@ -333,10 +333,10 @@ export const DEFAULT_POSTS: BlogPost[] = [
       "Shopify Conversion Optimization",
       "Product Page UX",
       "Shopify Apps",
-      "Klenzo"
+      "Mitul Zalavadiya"
     ],
     "seoTitle": "Shopify Variant Swatches to Improve Conversions",
-    "seoDescription": "Replace Shopify dropdowns with Klenzo variant swatches. Display colors and images, improve product page UX, and simplify product selection without code.",
+    "seoDescription": "Replace Shopify dropdowns with variant swatches. Display colors and images, improve product page UX, and simplify product selection without code.",
     "readTime": "7 min read",
     "publishedAt": "2026-08-06T11:44:27.841Z",
     "scheduledAt": "",
@@ -375,7 +375,7 @@ export const DEFAULT_POSTS: BlogPost[] = [
       "No-Code Shopify",
       "Shopify Design"
     ],
-    "seoTitle": "Coming Soon: Shopify AI Section Generator | Klenzo",
+    "seoTitle": "Coming Soon: Shopify AI Section Generator | Mitul Zalavadiya",
     "seoDescription": "Preview AI Section Hub’s upcoming Text-to-Liquid and Screenshot-to-Liquid tools for creating editable custom Shopify section drafts with AI.",
     "readTime": "5 min read",
     "publishedAt": "2026-08-05T11:24:02.865Z",

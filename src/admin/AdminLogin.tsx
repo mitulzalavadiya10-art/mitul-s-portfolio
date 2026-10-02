@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { motion } from "motion/react"
 import { Mail, Lock, Eye, EyeOff, ShieldCheck, AlertCircle, ArrowLeft, KeyRound } from "lucide-react"
 import { adminLogin, isAdminLoggedIn } from "@/lib/blogStore"
-import logo1 from "@/app logo/logo1.png"
+import { BrandLogo } from "@/components/ui/brand-logo"
 
 export function AdminLogin() {
   const navigate = useNavigate()
@@ -64,21 +64,13 @@ export function AdminLogin() {
             {/* Brand Logo & Title */}
             <div className="flex flex-col items-center text-center gap-4">
               <div className="relative group">
-                <div className="absolute -inset-1 rounded-2xl bg-white/20 blur-md opacity-50 group-hover:opacity-100 transition duration-500" />
-                <div className="relative w-16 h-16 rounded-2xl bg-black border border-zinc-700/80 flex items-center justify-center shadow-2xl">
-                  <img
-                    src={logo1}
-                    alt="Klenzo"
-                    className="h-9 w-auto object-contain"
-                    style={{ filter: "invert(1)" }}
-                  />
-                </div>
+                <BrandLogo size="lg" showWordmark={false} />
               </div>
 
               <div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/90 border border-zinc-800 text-zinc-300 text-[10px] uppercase tracking-widest font-black mb-2 shadow-inner">
                   <ShieldCheck className="w-3 h-3 text-emerald-400" />
-                  Klenzo Admin Studio
+                  Mitul Admin Studio
                 </div>
                 <h1 className="text-2xl md:text-3xl font-black tracking-tight text-white">Welcome Back</h1>
                 <p className="text-zinc-400 text-xs mt-1">Enter your admin credentials to access the studio</p>
@@ -159,7 +151,7 @@ export function AdminLogin() {
 
             <div className="pt-4 border-t border-zinc-800/60 text-center">
               <p className="text-zinc-500 text-xs font-semibold">
-                Protected Studio Environment · Klenzo Apps
+                Protected Studio Environment · Mitul Portfolio
               </p>
             </div>
           </div>

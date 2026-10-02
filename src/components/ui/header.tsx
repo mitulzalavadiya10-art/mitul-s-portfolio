@@ -11,7 +11,7 @@ import { Menu, MoveRight, X, LayoutDashboard, LogOut, ChevronDown } from "lucide
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
-import logo1 from "@/app logo/logo1.png"
+import { BrandLogo } from "@/components/ui/brand-logo";
 import shopifyBadge from "@/images/shopify badge.png"
 import { useAuth } from "@/context/AuthContext";
 import { clearAnalyticsUserContext } from "@/components/ui/AnalyticsTracker";
@@ -25,7 +25,7 @@ function Header1() {
         },
         {
             title: "Company",
-            description: "Learn more about Klenzo, tutorials, community and merchant resources.",
+            description: "Learn more about Mitul Zalavadiya, tutorials, apps, and merchant resources.",
             items: [
                 {
                     title: "About us",
@@ -124,13 +124,8 @@ function Header1() {
             <div className="container relative mx-auto min-h-20 flex justify-between items-center px-4 lg:px-6">
                 {/* Logo on Left */}
                 <div className="flex items-center shrink-0">
-                    <Link to="/" className="cursor-pointer flex items-center">
-                        <img 
-                            src={logo1} 
-                            alt="App Logo" 
-                            className="h-12 md:h-14 w-auto object-contain transition-all duration-300" 
-                            style={{ filter: isDarkHeader ? 'invert(0)' : 'invert(1)' }} 
-                        />
+                    <Link to="/" className="cursor-pointer flex items-center" aria-label="Mitul Zalavadiya Home">
+                        <BrandLogo size="md" />
                     </Link>
                 </div>
 

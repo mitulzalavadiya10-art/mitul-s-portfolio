@@ -52,7 +52,7 @@ export default function ReelFlux() {
             <div className={styles.overlay}>
                 <header className={styles.header}>
                     <div className={styles.brandGroup}>
-                        <div className={styles.brand}>KLENZO</div>
+                        <div className={styles.brand}>MITUL</div>
                         <span className={styles.badge}>Shopify Showcase</span>
                     </div>
 

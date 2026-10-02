@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" fill="none">
+  <!-- Monogram Box -->
+  <rect x="2" y="6" width="52" height="52" rx="14" fill="#FFFFFF"/>
+  <path d="M16 42V18H21.5L28 29.5L34.5 18H40V42H35V25.5L29 34.5H27L21 25.5V42H16Z" fill="#000000"/>
+  <!-- Wordmark -->
+  <text x="68" y="36" fill="#FFFFFF" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="22" font-weight="900" letter-spacing="0.08em">MITUL</text>
+  <text x="69" y="50" fill="#A1A1AA" font-family="'Inter', -apple-system, sans-serif" font-size="9" font-weight="700" letter-spacing="0.28em">ZALAVADIYA</text>
+</svg>

@@ -7,8 +7,8 @@ import { useSEO } from "@/lib/useSEO"
 
 export function NotFoundPage() {
   useSEO({
-    title: "404 — Page Not Found | Klenzo",
-    description: "This page doesn't exist. Go back to the Klenzo homepage to explore our AI-powered Shopify apps.",
+    title: "404 — Page Not Found | Mitul Zalavadiya",
+    description: "This page doesn't exist. Go back to the homepage to explore Shopify apps and portfolio.",
     canonical: "https://klenzo.app/404",
     noIndex: true,
   })
@@ -65,7 +65,7 @@ export function NotFoundPage() {
             <div className="flex flex-wrap justify-center gap-3">
               {[
                 { label: "AI Section Hub", href: "https://apps.shopify.com/ai-section-hub", external: true },
-                { label: "Klenzo: Variant Swatch", href: "https://apps.shopify.com/klenzo-product-variant-swatch", external: true },
+                { label: "Variant Swatch", href: "https://apps.shopify.com/klenzo-product-variant-swatch", external: true },
                 { label: "User Guide", href: "/guide" },
                 { label: "Contact", href: "/contact" },
               ].map((link) => 

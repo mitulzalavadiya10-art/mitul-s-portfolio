@@ -6,8 +6,8 @@ import { useSEO } from "@/lib/useSEO"
 
 export function ContactPage() {
   useSEO({
-    title: "Contact Klenzo — Get in Touch with Our Team",
-    description: "Contact the Klenzo engineering team. Have questions about AI Section Hub or Klenzo: Variant Swatch? Reach out today.",
+    title: "Contact Mitul Zalavadiya — Get in Touch",
+    description: "Contact Mitul Zalavadiya. Have questions about AI Section Hub or Variant Swatch? Reach out today.",
     canonical: "https://klenzo.app/contact",
   })
 

@@ -39,17 +39,17 @@ export function TermsPage() {
   const [activeSection, setActiveSection] = useState("agreement")
 
   useSEO({
-    title: "Terms of Service — Klenzo Shopify App Licensing & Use",
-    description: "Klenzo's terms of service cover app licensing, billing, merchant responsibilities, and intellectual property. Read before installing our Shopify apps.",
+    title: "Terms of Service — Mitul Zalavadiya Shopify App Licensing & Use",
+    description: "Terms of service cover app licensing, billing, merchant responsibilities, and intellectual property for Shopify apps created by Mitul Zalavadiya.",
     canonical: "https://klenzo.app/terms",
-    keywords: "Klenzo terms of service, Shopify app terms, Klenzo licensing, Klenzo billing terms",
+    keywords: "Mitul Zalavadiya terms of service, Shopify app terms, app licensing, billing terms",
     schema: {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "@id": "https://klenzo.app/terms#webpage",
       "url": "https://klenzo.app/terms",
-      "name": "Klenzo Terms of Service",
-      "description": "Terms of service for Klenzo's AI Section Hub and Klenzo: Variant Swatch Shopify apps.",
+      "name": "Mitul Zalavadiya Terms of Service",
+      "description": "Terms of service for AI Section Hub and Variant Swatch Shopify apps by Mitul Zalavadiya.",
       "isPartOf": { "@id": "https://klenzo.app/#website" },
       "breadcrumb": {
         "@type": "BreadcrumbList",
@@ -118,7 +118,7 @@ export function TermsPage() {
     {
       name: "Will Smith",
       title: "Harper Education",
-      quote: "Collaborating with Klenzo was seamless. The vision was clearly understood, and the designs genuinely reflect my brand identity.",
+      quote: "Collaborating with Mitul was seamless. The vision was clearly understood, and the designs genuinely reflect my brand identity.",
       avatarSrc: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=900&auto=format&fit=crop&q=60",
       rating: 5.0,
     },
@@ -154,7 +154,7 @@ export function TermsPage() {
         {/* Clients Testimonials Section */}
         <ClientsSection
           tagLabel="Happy Clients"
-          title="Merchants Love Klenzo"
+          title="Merchants Love Our Apps"
           description="Trusted by 100+ happy clients, adding $250M+ in revenue across the Shopify ecosystem."
           stats={statsData}
           testimonials={testimonialsData}
@@ -183,7 +183,7 @@ export function TermsPage() {
 
           <FadeUp delay={0.2}>
             <p className="text-zinc-400 text-base md:text-lg leading-relaxed max-w-xl font-medium">
-              Last updated: July 2026. Please read these terms carefully before installing Klenzo applications or integrating templates into your Shopify store.
+              Last updated: July 2026. Please read these terms carefully before installing our applications or integrating templates into your Shopify store.
             </p>
           </FadeUp>
         </div>
@@ -232,10 +232,10 @@ export function TermsPage() {
                 </h2>
                 <div className="text-zinc-400 text-sm leading-relaxed flex flex-col gap-4">
                   <p>
-                    By installing, configuring, or using Klenzo's applications (including <strong>AI Section Hub</strong> and <strong>Klenzo: AI Variants</strong>) from the Shopify App Store, you agree to comply with and be bound by these Terms of Service.
+                    By installing, configuring, or using our applications (including <strong>AI Section Hub</strong> and <strong>Variant Swatch</strong>) from the Shopify App Store, you agree to comply with and be bound by these Terms of Service.
                   </p>
                   <p>
-                    These terms constitute a legally binding agreement between Klenzo ("we", "our", "us") and the merchant ("you", "your", "store owner") operating the Shopify store. If you do not agree to these terms, you must uninstall our applications immediately.
+                    These terms constitute a legally binding agreement between Mitul Zalavadiya ("we", "our", "us") and the merchant ("you", "your", "store owner") operating the Shopify store. If you do not agree to these terms, you must uninstall our applications immediately.
                   </p>
                 </div>
               </div>
@@ -250,7 +250,7 @@ export function TermsPage() {
                 </h2>
                 <div className="text-zinc-400 text-sm leading-relaxed flex flex-col gap-4">
                   <p>
-                    Klenzo grants you a non-exclusive, non-transferable, revocable license to install and use our custom Liquid sections on your specific registered Shopify store.
+                    Mitul Zalavadiya grants you a non-exclusive, non-transferable, revocable license to install and use our custom Liquid sections on your specific registered Shopify store.
                   </p>
                   <div className="bg-zinc-950/60 border border-zinc-800/80 rounded-2xl p-5 flex flex-col gap-3">
                     <span className="text-xs uppercase font-bold tracking-wider text-zinc-300">Licensing Guidelines:</span>
@@ -258,7 +258,7 @@ export function TermsPage() {
                       <li>One subscription license is strictly restricted to one single active Shopify store.</li>
                       <li>You may modify the generated Liquid/CSS template code for your own design customization purposes.</li>
                       <li>You are strictly prohibited from redistributing, selling, or repackaging our template codes.</li>
-                      <li>You may not use Klenzo section assets on third-party, non-Shopify e-commerce platforms.</li>
+                      <li>You may not use our section assets on third-party, non-Shopify e-commerce platforms.</li>
                     </ul>
                   </div>
                 </div>
@@ -280,7 +280,7 @@ export function TermsPage() {
                     <strong>Trial Periods:</strong> Some subscription packages include a free trial period. You will be automatically charged standard monthly rates upon trial expiration unless you uninstall the application before the trial ends.
                   </p>
                   <p>
-                    <strong>Refunds:</strong> Since operations are handled by the Shopify billing engine, refund requests must be requested through Shopify dashboard policies. Klenzo does not process manual payment transfers or store direct merchant credit card profiles.
+                    <strong>Refunds:</strong> Since operations are handled by the Shopify billing engine, refund requests must be requested through Shopify dashboard policies. We do not process manual payment transfers or store direct merchant credit card profiles.
                   </p>
                 </div>
               </div>
@@ -295,7 +295,7 @@ export function TermsPage() {
                 </h2>
                 <div className="text-zinc-400 text-sm leading-relaxed flex flex-col gap-4">
                   <p>
-                    As a merchant using Klenzo widgets, you carry the responsibility of maintaining your store theme integrity. You agree that:
+                    As a merchant using our widgets, you carry the responsibility of maintaining your store theme integrity. You agree that:
                   </p>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
                     <li className="bg-zinc-950/60 border border-zinc-800/60 p-4 rounded-xl flex gap-2.5 text-xs font-semibold text-zinc-300">
@@ -328,7 +328,7 @@ export function TermsPage() {
                 </h2>
                 <div className="text-zinc-400 text-sm leading-relaxed flex flex-col gap-4">
                   <p>
-                    All app design, layout custom scripts, interactive WebGL components, swatches templates catalog, branding elements, and intellectual property remain the exclusive property of Klenzo.
+                    All app design, layout custom scripts, interactive WebGL components, swatches templates catalog, branding elements, and intellectual property remain the exclusive property of Mitul Zalavadiya.
                   </p>
                   <p>
                     Your license grants you access to use these components, but does not transfer any trademark, patents, copyright, or core intellectual ownership to you or your Shopify store entity.
@@ -346,7 +346,7 @@ export function TermsPage() {
                 </h2>
                 <div className="text-zinc-400 text-sm leading-relaxed flex flex-col gap-4">
                   <p>
-                    Klenzo apps are provided on an "AS IS" and "AS AVAILABLE" basis. While we strive for maximum compatibility, we are not liable for any revenue losses, layout shifts, or site downtime caused by template integrations.
+                    Our apps are provided on an "AS IS" and "AS AVAILABLE" basis. While we strive for maximum compatibility, we are not liable for any revenue losses, layout shifts, or site downtime caused by template integrations.
                   </p>
                   
                   <div className="border border-zinc-800 bg-zinc-900/60 rounded-2xl p-5 flex items-start gap-3 mt-2">

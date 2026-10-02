@@ -109,7 +109,7 @@ export function BlogList() {
                 {loading ? "Loading..." : `${posts.length} ${posts.length === 1 ? "article" : "articles"}`}
               </span>
             </div>
-            <p className="text-zinc-400 text-xs mt-1 font-semibold">Manage, edit, schedule, and publish Klenzo articles</p>
+            <p className="text-zinc-400 text-xs mt-1 font-semibold">Manage, edit, schedule, and publish articles</p>
           </div>
 
           <div className="flex items-center gap-3">

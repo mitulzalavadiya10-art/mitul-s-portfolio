@@ -66,18 +66,18 @@ const stats = [
 export function AboutPage() {
 
   useSEO({
-    title: "About Klenzo — AI Shopify App Studio | Our Story & Mission",
-    description: "Klenzo is a Shopify app studio built by a team of engineers. We build AI-powered apps — AI Section Hub and Klenzo: Variant Swatch — to help 2,300+ merchants boost conversions without code.",
+    title: "About Mitul Zalavadiya — Shopify Apps Engineer & Creator",
+    description: "Mitul Zalavadiya is a Shopify app engineer and creator. Building production-grade apps — AI Section Hub and Variant Swatch — to help 2,300+ merchants boost conversions without code.",
     canonical: "https://klenzo.app/about",
-    keywords: "about Klenzo, Mitul Zalavadiya, Shopify app studio, AI Section Hub about, Klenzo team",
+    keywords: "Mitul Zalavadiya, Shopify app developer, Shopify engineer portfolio, AI Section Hub, Variant Swatch",
     schema: [
       {
         "@context": "https://schema.org",
         "@type": "AboutPage",
         "@id": "https://klenzo.app/about#webpage",
         "url": "https://klenzo.app/about",
-        "name": "About Klenzo",
-        "description": "Learn about Klenzo, the AI-powered Shopify app studio helping 2,300+ merchants boost conversions.",
+        "name": "About Mitul Zalavadiya",
+        "description": "Learn about Mitul Zalavadiya, Shopify apps engineer helping 2,300+ merchants boost conversions.",
         "isPartOf": { "@id": "https://klenzo.app/#website" },
         "about": { "@id": "https://klenzo.app/#organization" },
         "breadcrumb": {
@@ -175,7 +175,7 @@ export function AboutPage() {
                   </span>
                 </h2>
                 <p className="text-zinc-400 text-base md:text-lg max-w-lg mx-auto mb-10">
-                  Join 2,300+ merchants using Klenzo apps to grow faster, convert more, and sell smarter.
+                  Join 2,300+ merchants using our apps to grow faster, convert more, and sell smarter.
                 </p>
 
                 <div className="flex flex-col sm:flex-row justify-center gap-4">

@@ -26,9 +26,9 @@ import sectionImg4 from "@/ai section hub images/2 line images/purevea-glass-spl
 export function ShopifyAppsPage() {
   useSEO({
     title: "Shopify Apps by Mitul Zalavadiya — AI Section Hub & Variant Swatch",
-    description: "Discover production-grade Shopify apps built by Mitul Zalavadiya. AI Section Hub (700+ native Liquid sections) and Klenzo: Variant Swatch (AI visual swatches) trusted by 2,300+ merchants.",
+    description: "Discover production-grade Shopify apps built by Mitul Zalavadiya. AI Section Hub (700+ native Liquid sections) and Variant Swatch (AI visual swatches) trusted by 2,300+ merchants.",
     canonical: "https://klenzo.app/shopify-apps",
-    keywords: "Shopify apps, AI Section Hub, Klenzo Variant Swatch, Shopify Liquid sections, color swatches, Mitul Zalavadiya apps",
+    keywords: "Shopify apps, AI Section Hub, Variant Swatch, Shopify Liquid sections, color swatches, Mitul Zalavadiya apps",
   })
 
   const [activeAppTab, setActiveAppTab] = useState<"all" | "section-hub" | "variant-swatch">("all")
@@ -75,7 +75,7 @@ export function ShopifyAppsPage() {
   const faqs = [
     {
       q: "Do your Shopify apps require coding or Liquid template editing?",
-      a: "No! Both AI Section Hub and Klenzo: Variant Swatch feature 1-click zero-code installations. Everything integrates directly into your native Shopify Theme Customizer with simple toggle and styling controls."
+      a: "No! Both AI Section Hub and Variant Swatch feature 1-click zero-code installations. Everything integrates directly into your native Shopify Theme Customizer with simple toggle and styling controls."
     },
     {
       q: "Will installing these apps slow down my store's Google Lighthouse score?",
@@ -386,12 +386,12 @@ export function ShopifyAppsPage() {
                   <div className="flex items-center gap-3.5">
                     <img 
                       src={klenzoLogo} 
-                      alt="Klenzo Variant Swatch Logo" 
+                      alt="Variant Swatch Logo" 
                       className="w-12 h-12 rounded-xl object-contain border border-zinc-700" 
                     />
                     <div>
                       <h2 className="text-3xl sm:text-4xl font-headings font-extrabold text-white tracking-tight">
-                        Klenzo: Variant Swatch
+                        Variant Swatch
                       </h2>
                       <p className="text-xs text-zinc-400 font-medium">Auto-Detecting Variant Color & Image Swatches</p>
                     </div>
@@ -453,7 +453,7 @@ export function ShopifyAppsPage() {
               ARCHITECTURAL ADVANTAGE
             </span>
             <h3 className="text-3xl sm:text-5xl font-headings font-extrabold text-white tracking-tight">
-              Why Klenzo Apps Outperform Traditional Page Builders
+              Why Our Apps Outperform Traditional Page Builders
             </h3>
             <p className="text-zinc-400 text-sm sm:text-base mt-3">
               Traditional page builders inject hundreds of kilobytes of render-blocking JavaScript. We build with native Liquid that runs natively on Shopify servers.
@@ -465,7 +465,7 @@ export function ShopifyAppsPage() {
               <thead>
                 <tr className="border-b border-zinc-800 bg-zinc-900/60 text-zinc-300">
                   <th className="py-4 px-6 font-bold">Feature / Performance Metric</th>
-                  <th className="py-4 px-6 font-bold text-white bg-zinc-800/40">Klenzo Apps (Native Liquid)</th>
+                  <th className="py-4 px-6 font-bold text-white bg-zinc-800/40">Our Apps (Native Liquid)</th>
                   <th className="py-4 px-6 font-bold text-zinc-400">Traditional Page Builders</th>
                 </tr>
               </thead>
@@ -565,7 +565,7 @@ export function ShopifyAppsPage() {
               Explore Our Apps or Build Bespoke Storefronts
             </h3>
             <p className="text-zinc-400 max-w-2xl mx-auto text-sm sm:text-base mb-8">
-              Install AI Section Hub and Klenzo: Variant Swatch directly on Shopify, or partner with Mitul Zalavadiya for custom e-commerce engineering.
+              Install AI Section Hub and Variant Swatch directly on Shopify, or partner with Mitul Zalavadiya for custom e-commerce engineering.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
