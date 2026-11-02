@@ -2,8 +2,8 @@
 
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
-import klenzoVideo from "@/videos/klenzo ai vriant main video.mp4";
 import klenzoLogo from "@/images/klenzo logo.jpg";
+import variantSwatchImage from "@/images/CP37lIGBm5cDEAE=.webp";
 import { trackAppInstallClick } from "@/components/ui/AnalyticsTracker";
 
 const features = [
@@ -36,7 +36,7 @@ export function AppShowcase() {
         {/* Two-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-28 items-center">
 
-          {/* LEFT — Autoplay Muted Video */}
+          {/* LEFT — Variant Swatch Image */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -44,13 +44,11 @@ export function AppShowcase() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-full max-w-xl mx-auto rounded-2xl overflow-hidden border border-zinc-800 shadow-[0_0_60px_8px_rgba(255,255,255,0.05)] bg-zinc-950/40"
           >
-            <video
-              src={klenzoVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
+            <img
+              src={variantSwatchImage}
+              alt="Variant Swatch Product Showcase"
               className="w-full h-auto object-cover rounded-2xl"
+              loading="lazy"
             />
           </motion.div>
 

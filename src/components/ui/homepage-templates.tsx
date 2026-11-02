@@ -139,6 +139,9 @@ export function HomepageTemplatesSection() {
                   alt={template.title}
                   loading="lazy"
                   decoding="async"
+                  fetchpriority="low"
+                  width={288}
+                  height={640}
                   className="w-full h-auto object-cover object-top transition-transform duration-[1000ms] group-hover:duration-[3000ms] ease-in group-hover:-translate-y-[calc(100%-500px)] sm:group-hover:-translate-y-[calc(100%-560px)] lg:group-hover:-translate-y-[calc(100%-640px)]"
                 />
 
@@ -220,6 +223,8 @@ export function HomepageTemplatesSection() {
                 <img
                   src={selectedTemplate.src}
                   alt={selectedTemplate.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto rounded-lg object-contain"
                 />
               </div>

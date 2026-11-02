@@ -1,42 +1,49 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, lazy, Suspense } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { SiteLoader } from '@/components/ui/site-loader'
 import { Header1 } from "@/components/ui/header"
 import { Hero } from "@/components/ui/hero-1"
-import { OsmoParallax } from "@/components/ui/osmo-parallax"
 import { CursorFollower } from "@/components/ui/cursor-follower"
-import { AppShowcase } from "@/components/ui/app-showcase"
-// import { CoverflowShowcase } from "@/components/ui/coverflow-showcase"
-import { SectionlyShowcase } from "@/components/ui/sectionly-showcase"
-import { HomepageTemplatesSection } from "@/components/ui/homepage-templates"
-import { AnimatedCarousel } from "@/components/ui/logo-carousel"
-import { HeroScrollDemo } from "@/components/ui/hero-scroll-demo"
-import { FeedbackSection } from "@/components/ui/feedback-section"
 import { MinimalFooter } from "@/components/ui/minimal-footer"
-import Demo from "@/components/ui/demo"
 import { useSEO } from "@/lib/useSEO"
 
-// Public pages
-import { AboutPage }    from "@/pages/about"
-import { ConnectPage }  from "@/pages/connect"
-import { ContactPage }  from "@/pages/contact"
-import { PrivacyPage }  from "@/pages/privacy"
-import { TermsPage }    from "@/pages/terms"
-import { GuidePage }    from "@/pages/guide"
-import { FaqPage }      from "@/pages/faq"
-import { ShopifyWebsitePage } from "@/pages/shopify-website"
-import { ShopifyAppsPage } from "@/pages/shopify-apps"
-import { NotFoundPage } from "@/pages/not-found"
+// Lazy load heavy components for better initial load
+const AppShowcase = lazy(() => import("@/components/ui/app-showcase").then(m => ({ default: m.AppShowcase })))
+const SectionlyShowcase = lazy(() => import("@/components/ui/sectionly-showcase").then(m => ({ default: m.SectionlyShowcase })))
+const HomepageTemplatesSection = lazy(() => import("@/components/ui/homepage-templates").then(m => ({ default: m.HomepageTemplatesSection })))
+const AnimatedCarousel = lazy(() => import("@/components/ui/logo-carousel").then(m => ({ default: m.AnimatedCarousel })))
+const HeroScrollDemo = lazy(() => import("@/components/ui/hero-scroll-demo").then(m => ({ default: m.HeroScrollDemo })))
+const FeedbackSection = lazy(() => import("@/components/ui/feedback-section").then(m => ({ default: m.FeedbackSection })))
+const Demo = lazy(() => import("@/components/ui/demo"))
+const TechStackSection = lazy(() => import("@/components/ui/tech-stack-section").then(m => ({ default: m.TechStackSection })))
+
+// Lazy load pages
+const AboutPage = lazy(() => import("@/pages/about").then(m => ({ default: m.AboutPage })))
+const ConnectPage = lazy(() => import("@/pages/connect").then(m => ({ default: m.ConnectPage })))
+const ContactPage = lazy(() => import("@/pages/contact").then(m => ({ default: m.ContactPage })))
+const PrivacyPage = lazy(() => import("@/pages/privacy").then(m => ({ default: m.PrivacyPage })))
+const TermsPage = lazy(() => import("@/pages/terms").then(m => ({ default: m.TermsPage })))
+const GuidePage = lazy(() => import("@/pages/guide").then(m => ({ default: m.GuidePage })))
+const FaqPage = lazy(() => import("@/pages/faq").then(m => ({ default: m.FaqPage })))
+const ShopifyWebsitePage = lazy(() => import("@/pages/shopify-website").then(m => ({ default: m.ShopifyWebsitePage })))
+const ShopifyAppsPage = lazy(() => import("@/pages/shopify-apps").then(m => ({ default: m.ShopifyAppsPage })))
+const NotFoundPage = lazy(() => import("@/pages/not-found").then(m => ({ default: m.NotFoundPage })))
+const LoginPage = lazy(() => import("@/pages/login").then(m => ({ default: m.LoginPage })))
+const DashboardPage = lazy(() => import("@/pages/dashboard").then(m => ({ default: m.DashboardPage })))
 
 // Auth + protected
 import { AuthProvider }    from "@/context/AuthContext"
 import { GoogleOAuthProvider } from "@react-oauth/google"
 import { ProtectedRoute }  from "@/components/ui/ProtectedRoute"
-import { LoginPage }       from "@/pages/login"
-import { DashboardPage }   from "@/pages/dashboard"
 import { AnalyticsTracker } from "@/components/ui/AnalyticsTracker"
 import { ScrollToTop } from "@/components/ui/scroll-to-top"
-import { TechStackSection } from "@/components/ui/tech-stack-section"
+
+// Loading fallback component
+const PageLoader = () => (
+  <div className="min-h-screen bg-black flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+  </div>
+)
 
 function HomePage() {
   useSEO({
@@ -106,28 +113,28 @@ function HomePage() {
       <Header1 />
       <main className="pt-0">
         <Hero />
-        <OsmoParallax />
-        <Demo />
-        <SectionlyShowcase />
-        {/* <CoverflowShowcase /> */}
-        <HomepageTemplatesSection />
-        <AppShowcase />
-        <AnimatedCarousel
-          title="Trusted by Modern Shopify Teams"
-          logos={partnerLogos}
-          autoPlay={true}
-          autoPlayInterval={3000}
-          itemsPerViewMobile={3}
-          itemsPerViewDesktop={5}
-          logoContainerWidth="w-40"
-          logoContainerHeight="h-20"
-          logoImageWidth="w-auto"
-          logoImageHeight="h-8"
-          padding="pt-12 lg:pt-16 pb-0"
-        />
-        <HeroScrollDemo />
-        <FeedbackSection />
-        <TechStackSection />
+        <Suspense fallback={<div className="h-screen bg-black" />}>
+          <Demo />
+          <SectionlyShowcase />
+          <HomepageTemplatesSection />
+          <AppShowcase />
+          <AnimatedCarousel
+            title="Trusted by Modern Shopify Teams"
+            logos={partnerLogos}
+            autoPlay={true}
+            autoPlayInterval={3000}
+            itemsPerViewMobile={3}
+            itemsPerViewDesktop={5}
+            logoContainerWidth="w-40"
+            logoContainerHeight="h-20"
+            logoImageWidth="w-auto"
+            logoImageHeight="h-8"
+            padding="pt-12 lg:pt-16 pb-0"
+          />
+          <HeroScrollDemo />
+          <FeedbackSection />
+          <TechStackSection />
+        </Suspense>
       </main>
       <MinimalFooter />
     </div>
@@ -146,30 +153,32 @@ function App() {
       <AuthProvider>
         <AnalyticsTracker />
         <ScrollToTop />
-        <Routes>
-          {/* ── Public ─────────────────────────────────── */}
-          <Route path="/"        element={<HomePage />} />
-          <Route path="/about"   element={<AboutPage />} />
-          <Route path="/connect" element={<ConnectPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/privacy" element={<PrivacyPage />} />
-          <Route path="/terms"   element={<TermsPage />} />
-          <Route path="/guide"   element={<GuidePage />} />
-          <Route path="/faq"     element={<FaqPage />} />
-          <Route path="/shopify-website"  element={<ShopifyWebsitePage />} />
-          <Route path="/shopify-websites" element={<ShopifyWebsitePage />} />
-          <Route path="/shopify-apps"     element={<ShopifyAppsPage />} />
-          <Route path="/shopify-app"      element={<ShopifyAppsPage />} />
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            {/* ── Public ─────────────────────────────────── */}
+            <Route path="/"        element={<HomePage />} />
+            <Route path="/about"   element={<AboutPage />} />
+            <Route path="/connect" element={<ConnectPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/terms"   element={<TermsPage />} />
+            <Route path="/guide"   element={<GuidePage />} />
+            <Route path="/faq"     element={<FaqPage />} />
+            <Route path="/shopify-website"  element={<ShopifyWebsitePage />} />
+            <Route path="/shopify-websites" element={<ShopifyWebsitePage />} />
+            <Route path="/shopify-apps"     element={<ShopifyAppsPage />} />
+            <Route path="/shopify-app"      element={<ShopifyAppsPage />} />
 
-          {/* ── Merchant auth ──────────────────────────── */}
-          <Route path="/login"   element={<LoginPage />} />
-          <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<DashboardPage />} />
-          </Route>
+            {/* ── Merchant auth ──────────────────────────── */}
+            <Route path="/login"   element={<LoginPage />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/dashboard" element={<DashboardPage />} />
+            </Route>
 
-          {/* ── 404 ────────────────────────────────────── */}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+            {/* ── 404 ────────────────────────────────────── */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
         {showIntro && <SiteLoader onComplete={handleIntroComplete} />}
       </AuthProvider>
     </GoogleOAuthProvider>

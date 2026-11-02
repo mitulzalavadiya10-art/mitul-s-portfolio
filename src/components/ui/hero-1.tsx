@@ -120,7 +120,12 @@ export function Hero() {
           <img
             ref={imageRef}
             src="https://assets-global.website-files.com/63ec206c5542613e2e5aa784/643312a6bc4ac122fc4e3afa_main%20home.webp"
-            alt="image"
+            alt="Hero background image"
+            loading="eager"
+            decoding="async"
+            width="1920"
+            height="1080"
+            fetchpriority="high"
             onLoad={() => ScrollTrigger.refresh()}
           />
         </div>
