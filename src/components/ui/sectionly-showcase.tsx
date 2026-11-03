@@ -57,7 +57,7 @@ function MarqueeRow({ images, direction }: { images: string[]; direction: "left"
               height={176}
               loading="lazy"
               decoding="async"
-              fetchpriority="low"
+              fetchPriority="low"
               className="w-full h-full object-cover will-change-transform"
             />
           </div>

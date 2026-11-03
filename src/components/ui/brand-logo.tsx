@@ -31,8 +31,8 @@ export function BrandLogo({
   };
 
   const badgeBg = inverted ? "bg-black text-white" : "bg-white text-black";
-  const textColor = inverted ? "text-black" : "text-white";
-  const subColor = inverted ? "text-zinc-600" : "text-zinc-400";
+  const textColor = inverted ? "text-black group-hover:text-zinc-800" : "text-white group-hover:text-zinc-200";
+  const subColor = inverted ? "text-zinc-600 group-hover:text-zinc-900" : "text-zinc-400 group-hover:text-zinc-200";
 
   return (
     <div className={`inline-flex items-center gap-3 select-none group ${className}`}>

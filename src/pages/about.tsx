@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 import { motion, useInView, animate } from "motion/react"
-import { ArrowUpRight, Zap, Layers, Sparkles, Globe, Star } from "lucide-react"
+import { ArrowUpRight, Zap, Layers, Sparkles, Globe, Star, Briefcase, GraduationCap, Code2, MapPin } from "lucide-react"
 import { Header1 } from "@/components/ui/header"
 import { MinimalFooter } from "@/components/ui/minimal-footer"
 import { CursorFollower } from "@/components/ui/cursor-follower"
@@ -140,6 +140,131 @@ export function AboutPage() {
         </div>
       </section>
 
+      {/* ══ EXPERIENCE & EDUCATION ═════════════════════════ */}
+      <section className="py-24 border-t border-zinc-900 bg-black relative">
+        <div className="container mx-auto max-w-5xl px-6 md:px-8">
+          
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-zinc-800 bg-zinc-900/80 text-zinc-400 text-xs uppercase tracking-widest font-semibold mb-4">
+              <Briefcase className="w-3.5 h-3.5 text-emerald-400" />
+              Career &amp; Background
+            </span>
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-4">
+              Experience &amp; Expertise
+            </h2>
+            <p className="text-zinc-400 text-sm md:text-base leading-relaxed">
+              Shopify Developer with hands-on experience building high-quality websites, custom themes, and production-grade apps like AI Section Hub.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            {/* Work Experience (Left 7 Cols) */}
+            <div className="lg:col-span-7 flex flex-col gap-6">
+              <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                <Briefcase className="w-5 h-5 text-emerald-400" /> Work Experience
+              </h3>
+
+              {/* Solvifytech */}
+              <div className="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-6 backdrop-blur hover:border-zinc-700 transition-colors">
+                <div className="flex justify-between items-start flex-wrap gap-2 mb-2">
+                  <div>
+                    <h4 className="text-lg font-bold text-white">Shopify Developer &amp; App Engineer</h4>
+                    <span className="text-sm text-emerald-400 font-semibold">Solvifytech</span>
+                  </div>
+                  <span className="text-xs px-3 py-1 rounded-full bg-zinc-800 text-zinc-400 border border-zinc-700 font-medium">
+                    2026 – Present
+                  </span>
+                </div>
+                <ul className="space-y-2 mt-4 text-xs md:text-sm text-zinc-400 leading-relaxed list-disc list-inside">
+                  <li>Building and maintaining <span className="text-white font-medium">AI Section Hub</span>, a Shopify app for ready-made sections and custom storefront solutions using Shopify APIs, Liquid, React, and JavaScript.</li>
+                  <li>Creating custom Shopify sections, templates, and theme components with focus on responsive design, customization, and reusable solutions.</li>
+                  <li>Developing and customizing high-converting Shopify websites with custom themes, responsive storefronts, and dynamic product experiences.</li>
+                </ul>
+              </div>
+
+              {/* Identiq Infotech */}
+              <div className="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-6 backdrop-blur hover:border-zinc-700 transition-colors">
+                <div className="flex justify-between items-start flex-wrap gap-2 mb-2">
+                  <div>
+                    <h4 className="text-lg font-bold text-white">React Native Developer</h4>
+                    <span className="text-sm text-blue-400 font-semibold">Identiq Infotech</span>
+                  </div>
+                  <span className="text-xs px-3 py-1 rounded-full bg-zinc-800 text-zinc-400 border border-zinc-700 font-medium">
+                    2025 – 2026
+                  </span>
+                </div>
+                <ul className="space-y-2 mt-4 text-xs md:text-sm text-zinc-400 leading-relaxed list-disc list-inside">
+                  <li>Developed cross-platform mobile applications using React Native, Redux, Redux Persist, and AsyncStorage.</li>
+                  <li>Integrated REST APIs, Firebase backend services, camera features, contact management, and advertising systems.</li>
+                </ul>
+              </div>
+
+            </div>
+
+            {/* Education & Skills (Right 5 Cols) */}
+            <div className="lg:col-span-5 flex flex-col gap-6">
+              
+              {/* Education */}
+              <div className="flex flex-col gap-4">
+                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                  <GraduationCap className="w-5 h-5 text-blue-400" /> Education
+                </h3>
+
+                <div className="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-5 backdrop-blur hover:border-zinc-700 transition-colors">
+                  <div className="flex justify-between items-start mb-1">
+                    <h4 className="text-base font-bold text-white">GLS University, Ahmedabad</h4>
+                    <span className="text-xs text-zinc-400 font-medium">2022 – 2025</span>
+                  </div>
+                  <p className="text-sm text-zinc-300 font-medium">Bachelor of Computer Applications (BCA)</p>
+                </div>
+
+                <div className="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-5 backdrop-blur hover:border-zinc-700 transition-colors">
+                  <h4 className="text-base font-bold text-white">Aspire Public School</h4>
+                  <p className="text-sm text-zinc-400">Higher Secondary — Commerce (12th)</p>
+                  <p className="text-xs text-zinc-500 mt-2">P. P. Savani Vidhyabhavan — Secondary School (10th)</p>
+                </div>
+              </div>
+
+              {/* Skills Grid */}
+              <div className="flex flex-col gap-3">
+                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                  <Code2 className="w-5 h-5 text-amber-400" /> Core Skills
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "Shopify Website Development",
+                    "Shopify App Development",
+                    "Shopify Liquid & OS 2.0",
+                    "Custom Themes & Sections",
+                    "React & JavaScript",
+                    "Responsive Storefront Design",
+                    "Shopify APIs",
+                    "React Native & Redux",
+                    "Firebase",
+                  ].map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="text-xs px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 font-medium hover:border-zinc-700 hover:text-white transition-colors"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Location Badge */}
+              <div className="p-4 rounded-xl bg-zinc-900/40 border border-zinc-800/60 flex items-center gap-3 text-xs text-zinc-400">
+                <MapPin className="w-4 h-4 text-red-400 shrink-0" />
+                <span>Mota Varachha, Surat, Gujarat, India • Available for global Shopify projects</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
 
       {/* ══ CTA ═══════════════════════════════════════════ */}
       <section className="py-28 border-t border-zinc-900 relative overflow-hidden">
@@ -191,7 +316,7 @@ export function AboutPage() {
                     <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </motion.a>
                   <motion.a
-                    href="mailto:mitulzalavadiya10@gmail.com"
+                    href="mailto:mitulzalavadiya11@gmail.com"
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent text-white font-bold text-sm rounded-full border border-zinc-700 hover:border-zinc-400 backdrop-blur transition-all duration-300"

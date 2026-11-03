@@ -28,7 +28,7 @@ export function HeroScrollDemo() {
           height={675}
           loading="lazy"
           decoding="async"
-          fetchpriority="low"
+          fetchPriority="low"
           className="mx-auto rounded-2xl object-cover h-full w-full object-top shadow-[0_0_80px_20px_rgba(255,255,255,0.08)]"
           draggable={false}
         />

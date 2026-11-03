@@ -26,15 +26,14 @@ export default defineConfig({
     // Reduce chunk size warnings
     chunkSizeWarningLimit: 1000,
     // Enable minification
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.logs in production
-        drop_debugger: true,
-      }
-    },
+    minify: 'esbuild',
     // Optimize CSS
     cssMinify: true,
+    // Image optimization hints
+    assetsInlineLimit: 4096, // Inline assets smaller than 4kb
+  },
+  esbuild: {
+    drop: ['console', 'debugger'],
   },
   // Optimize dev server
   server: {
@@ -42,6 +41,4 @@ export default defineConfig({
       overlay: false // Reduce HMR overlay noise
     }
   },
-  // Image optimization hints
-  assetsInlineLimit: 4096, // Inline assets smaller than 4kb
 })

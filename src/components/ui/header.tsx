@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Menu, MoveRight, X, LayoutDashboard, LogOut, ChevronDown } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { BrandLogo } from "@/components/ui/brand-logo";
 import shopifyBadge from "@/images/shopify badge.png"
@@ -24,30 +24,9 @@ function Header1() {
             description: "",
         },
         {
-            title: "Company",
-            description: "Learn more about Mitul Zalavadiya, tutorials, apps, and merchant resources.",
-            items: [
-                {
-                    title: "About us",
-                    href: "/about",
-                },
-                {
-                    title: "Connect with us",
-                    href: "/connect",
-                },
-                {
-                    title: "Contact us",
-                    href: "/contact",
-                },
-                {
-                    title: "FAQs",
-                    href: "/faq",
-                },
-                {
-                    title: "User Guide",
-                    href: "/guide",
-                },
-            ],
+            title: "About us",
+            href: "/about",
+            description: "",
         },
         {
             title: "Work",
@@ -64,14 +43,27 @@ function Header1() {
             ],
         },
         {
-            title: "About us",
-            href: "/about",
-            description: "",
-        },
-        {
             title: "Contact us",
             href: "/contact",
             description: "",
+        },
+        {
+            title: "Connect us",
+            description: "Learn more about Mitul Zalavadiya, tutorials, apps, and merchant resources.",
+            items: [
+                {
+                    title: "Connect with us",
+                    href: "/connect",
+                },
+                {
+                    title: "FAQs",
+                    href: "/faq",
+                },
+                {
+                    title: "User Guide",
+                    href: "/guide",
+                },
+            ],
         },
     ];
 
@@ -112,20 +104,24 @@ function Header1() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [lastScrollY, isOpen]);
 
-    // Dark luxury theme across all pages & new dark hero
-    const isDarkHeader = true;
+    const location = useLocation();
+    const isHomePage = location.pathname === "/";
+    // On homepage top, use white header matching hero; when scrolled past hero or on dark pages, use dark luxury
+    const isDarkHeader = !isHomePage || scrolled;
 
     return (
         <header className={`w-full z-40 fixed top-0 left-0 transition-all duration-300 ease-in-out ${
-            scrolled ? "bg-zinc-950/90 border-b border-zinc-800/80 shadow-lg" : "bg-zinc-950/60 border-b border-zinc-800/30"
-        } text-white backdrop-blur-md ${
+            isDarkHeader 
+                ? (scrolled ? "bg-zinc-950/95 border-b border-zinc-800 shadow-xl text-white" : "bg-zinc-950/70 border-b border-zinc-800/40 text-white")
+                : (scrolled ? "bg-white/95 border-b border-zinc-200 shadow-lg text-black" : "bg-white/90 border-b border-zinc-100 text-black")
+        } backdrop-blur-md ${
             visible ? "translate-y-0" : "-translate-y-full"
         }`}>
             <div className="container relative mx-auto min-h-20 flex justify-between items-center px-4 lg:px-6">
                 {/* Logo on Left */}
                 <div className="flex items-center shrink-0">
                     <Link to="/" className="cursor-pointer flex items-center" aria-label="Mitul Zalavadiya Home">
-                        <BrandLogo size="md" />
+                        <BrandLogo size="md" inverted={!isDarkHeader} />
                     </Link>
                 </div>
 
@@ -138,32 +134,30 @@ function Header1() {
                                     {item.href ? (
                                         <>
                                             <NavigationMenuLink asChild>
-                                                <Link to={item.href}>
-                                                    <Button 
-                                                        variant="ghost"
-                                                        className={`font-headings text-sm px-2.5 xl:px-3 transition-colors ${
-                                                            isDarkHeader 
-                                                              ? "text-zinc-200 hover:text-white hover:bg-zinc-900" 
-                                                              : "text-zinc-800 hover:text-black hover:bg-zinc-100"
-                                                        }`}
-                                                    >
-                                                        {item.title}
-                                                    </Button>
+                                                <Link 
+                                                    to={item.href}
+                                                    className={`inline-flex items-center justify-center font-headings text-sm font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer select-none ${
+                                                        isDarkHeader 
+                                                          ? "text-zinc-200 hover:text-white hover:bg-zinc-900" 
+                                                          : "text-zinc-800 hover:text-black hover:bg-zinc-100"
+                                                    }`}
+                                                >
+                                                    {item.title}
                                                 </Link>
                                             </NavigationMenuLink>
                                         </>
                                     ) : (
                                         <>
                                             <NavigationMenuTrigger 
-                                                className={`font-headings font-medium text-sm px-2.5 xl:px-3 transition-colors ${
+                                                className={`font-headings font-medium text-sm px-3 py-2 rounded-lg transition-colors cursor-pointer ${
                                                     isDarkHeader 
-                                                      ? "text-zinc-200 hover:text-white hover:bg-zinc-900 bg-transparent focus:bg-transparent data-[state=open]:bg-zinc-900" 
-                                                      : "text-zinc-800 hover:text-black hover:bg-zinc-100 bg-transparent focus:bg-transparent data-[state=open]:bg-zinc-100"
+                                                      ? "text-zinc-200 hover:text-white hover:bg-zinc-900 bg-transparent focus:bg-transparent data-[state=open]:bg-zinc-900 data-[state=open]:text-white" 
+                                                      : "text-zinc-800 hover:text-black hover:bg-zinc-100 bg-transparent focus:bg-transparent data-[state=open]:bg-zinc-100 data-[state=open]:text-black"
                                                 }`}
                                             >
                                                 {item.title}
                                             </NavigationMenuTrigger>
-                                            <NavigationMenuContent className="!w-[450px] p-4 rounded-xl border shadow-2xl bg-zinc-950 border-zinc-800 text-zinc-100">
+                                            <NavigationMenuContent className="!w-[450px] p-4 rounded-xl border shadow-2xl bg-zinc-950 border-zinc-800 text-zinc-100 left-0">
                                                 <div className="flex flex-col lg:grid grid-cols-2 gap-4">
                                                     <div className="flex flex-col h-full justify-between">
                                                         <div className="flex flex-col">
@@ -173,7 +167,7 @@ function Header1() {
                                                             </p>
                                                         </div>
                                                         <Button size="sm" className="mt-10 !bg-white !text-zinc-950 hover:!bg-zinc-200 font-semibold" asChild>
-                                                            <a href="mailto:mitulzalavadiya10@gmail.com">
+                                                            <a href="mailto:mitulzalavadiya11@gmail.com">
                                                                 Email us today
                                                             </a>
                                                         </Button>
@@ -189,7 +183,7 @@ function Header1() {
                                                                         href={subItem.href}
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
-                                                                        className="flex flex-row justify-between items-center py-2 px-4 rounded-lg transition-colors hover:bg-zinc-850/80 text-zinc-300 hover:text-white"
+                                                                        className="flex flex-row justify-between items-center py-2 px-4 rounded-lg transition-colors hover:bg-zinc-900 text-zinc-300 hover:text-white"
                                                                     >
                                                                         <span>{subItem.title}</span>
                                                                         <MoveRight className="w-4 h-4 text-zinc-500" />
@@ -202,7 +196,7 @@ function Header1() {
                                                                 >
                                                                     <Link
                                                                         to={subItem.href}
-                                                                        className="flex flex-row justify-between items-center py-2 px-4 rounded-lg transition-colors hover:bg-zinc-850/80 text-zinc-300 hover:text-white"
+                                                                        className="flex flex-row justify-between items-center py-2 px-4 rounded-lg transition-colors hover:bg-zinc-900 text-zinc-300 hover:text-white"
                                                                     >
                                                                         <span>{subItem.title}</span>
                                                                         <MoveRight className="w-4 h-4 text-zinc-500" />
@@ -291,27 +285,32 @@ function Header1() {
                     ) : (
                         /* ── Not logged in: Login button ── */
                         <Link to="/login">
-                            <Button size="lg" className="cursor-pointer font-bold bg-[#0B0B0B] hover:bg-zinc-900 text-white border border-zinc-800 hover:border-zinc-700 rounded-lg px-5 text-sm transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.02)]">
+                            <span className={`inline-flex items-center justify-center font-bold px-5 py-2 rounded-lg text-sm transition-all duration-300 shadow-md cursor-pointer ${
+                                isDarkHeader
+                                  ? "bg-white hover:bg-zinc-200 text-black border border-white"
+                                  : "bg-black hover:bg-zinc-800 text-white border border-black hover:border-zinc-800"
+                            }`}>
                                 Login
-                            </Button>
+                            </span>
                         </Link>
                     )}
 
                     {/* Mobile Hamburger Toggle */}
                     <div className="flex lg:hidden items-center">
-                        <Button 
-                            variant="ghost" 
+                        <button 
                             onClick={() => setOpen(!isOpen)} 
-                            size="icon"
-                            className={isDarkHeader ? "text-white hover:bg-zinc-900" : "text-zinc-900 hover:bg-zinc-100"}
+                            className={`p-2 rounded-lg transition-colors cursor-pointer ${isDarkHeader ? "text-white hover:bg-zinc-900" : "text-zinc-900 hover:bg-zinc-100"}`}
+                            aria-label="Toggle Navigation"
                         >
                             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                        </Button>
+                        </button>
                     </div>
                 </div>
 
                 {isOpen && (
-                        <div className="absolute top-20 border-t flex flex-col w-full right-0 shadow-2xl py-6 px-6 gap-6 z-50 transition-all bg-zinc-950 border-zinc-800 text-white">
+                        <div className={`absolute top-20 border-t flex flex-col w-full right-0 shadow-2xl py-6 px-6 gap-6 z-50 transition-all ${
+                            isDarkHeader ? "bg-zinc-950 border-zinc-800 text-white" : "bg-white border-zinc-200 text-black"
+                        }`}>
                             {navigationItems.map((item) => (
                                 <div key={item.title}>
                                     <div className="flex flex-col gap-2">
@@ -322,7 +321,9 @@ function Header1() {
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     onClick={() => setOpen(false)}
-                                                    className="flex justify-between items-center py-1 font-semibold text-zinc-100 hover:text-white"
+                                                    className={`flex justify-between items-center py-1 font-semibold ${
+                                                        isDarkHeader ? "text-zinc-200 hover:text-white" : "text-zinc-800 hover:text-black"
+                                                    }`}
                                                 >
                                                     <span className="text-lg font-medium">{item.title}</span>
                                                     <MoveRight className="w-4 h-4 stroke-1 text-zinc-500" />
@@ -331,14 +332,16 @@ function Header1() {
                                                 <Link
                                                     to={item.href}
                                                     onClick={() => setOpen(false)}
-                                                    className="flex justify-between items-center py-1 font-semibold text-zinc-100 hover:text-white"
+                                                    className={`flex justify-between items-center py-1 font-semibold ${
+                                                        isDarkHeader ? "text-zinc-200 hover:text-white" : "text-zinc-800 hover:text-black"
+                                                    }`}
                                                 >
                                                     <span className="text-lg font-medium">{item.title}</span>
                                                     <MoveRight className="w-4 h-4 stroke-1 text-zinc-500" />
                                                 </Link>
                                             )
                                         ) : (
-                                            <p className="text-lg font-semibold text-zinc-300">{item.title}</p>
+                                            <p className={`text-lg font-semibold ${isDarkHeader ? "text-zinc-200" : "text-zinc-800"}`}>{item.title}</p>
                                         )}
                                         {item.items &&
                                             item.items.map((subItem) => (
@@ -349,7 +352,9 @@ function Header1() {
                                                         onClick={() => setOpen(false)}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="flex justify-between items-center pl-4 py-1.5 transition-colors text-zinc-400 hover:text-white"
+                                                        className={`flex justify-between items-center pl-4 py-1.5 transition-colors ${
+                                                            isDarkHeader ? "text-zinc-400 hover:text-white" : "text-zinc-600 hover:text-black"
+                                                        }`}
                                                     >
                                                         <span>
                                                             {subItem.title}
@@ -361,7 +366,9 @@ function Header1() {
                                                         key={subItem.title}
                                                         to={subItem.href}
                                                         onClick={() => setOpen(false)}
-                                                        className="flex justify-between items-center pl-4 py-1.5 transition-colors text-zinc-400 hover:text-white"
+                                                        className={`flex justify-between items-center pl-4 py-1.5 transition-colors ${
+                                                            isDarkHeader ? "text-zinc-400 hover:text-white" : "text-zinc-600 hover:text-black"
+                                                        }`}
                                                     >
                                                         <span>
                                                             {subItem.title}
@@ -373,7 +380,7 @@ function Header1() {
                                     </div>
                                 </div>
                             ))}
-                            <div className="border-t border-zinc-800 pt-4 mt-2">
+                            <div className={`border-t pt-4 mt-2 ${isDarkHeader ? "border-zinc-800" : "border-zinc-200"}`}>
                                  {token && user ? (
                                      <div className="flex flex-col gap-2">
                                          {/* Mobile profile info */}
@@ -383,7 +390,7 @@ function Header1() {
                                                      src={user.picture}
                                                      alt={user.name}
                                                      referrerPolicy="no-referrer"
-                                                     className="w-10 h-10 rounded-full border-2 border-zinc-700 object-cover shrink-0"
+                                                     className={`w-10 h-10 rounded-full border-2 object-cover shrink-0 ${isDarkHeader ? "border-zinc-700" : "border-zinc-300"}`}
                                                  />
                                              ) : (
                                                  <div className="w-10 h-10 rounded-full bg-zinc-800 border-2 border-zinc-700 flex items-center justify-center shrink-0">
@@ -391,7 +398,7 @@ function Header1() {
                                                  </div>
                                              )}
                                              <div className="flex flex-col min-w-0">
-                                                 <span className="text-sm font-semibold text-white truncate">{user.name}</span>
+                                                 <span className={`text-sm font-semibold truncate ${isDarkHeader ? "text-white" : "text-black"}`}>{user.name}</span>
                                                  <span className="text-xs text-zinc-500 truncate">{user.email}</span>
                                              </div>
                                          </div>
@@ -400,8 +407,8 @@ function Header1() {
                                              onClick={() => setOpen(false)}
                                              className="flex justify-between items-center py-2"
                                          >
-                                             <span className="text-lg font-medium text-emerald-400">Console</span>
-                                             <MoveRight className="w-4 h-4 stroke-1 text-emerald-400" />
+                                             <span className="text-lg font-medium text-blue-500">Console</span>
+                                             <MoveRight className="w-4 h-4 stroke-1 text-blue-500" />
                                          </Link>
                                          <button
                                              onClick={() => {
@@ -409,7 +416,7 @@ function Header1() {
                                                  clearAnalyticsUserContext();
                                                  setOpen(false);
                                              }}
-                                             className="w-full text-left py-2 text-red-400 font-medium text-lg cursor-pointer"
+                                             className="w-full text-left py-2 text-red-500 font-medium text-lg cursor-pointer"
                                          >
                                              Sign Out
                                          </button>
@@ -420,8 +427,8 @@ function Header1() {
                                          onClick={() => setOpen(false)}
                                          className="flex justify-between items-center py-2"
                                      >
-                                         <span className="text-lg font-medium text-white">Login</span>
-                                         <MoveRight className="w-4 h-4 stroke-1 text-white" />
+                                         <span className={`text-lg font-medium ${isDarkHeader ? "text-white" : "text-black"}`}>Login</span>
+                                         <MoveRight className={`w-4 h-4 stroke-1 ${isDarkHeader ? "text-white" : "text-black"}`} />
                                      </Link>
                                  )}
                              </div>

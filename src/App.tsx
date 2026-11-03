@@ -2,7 +2,7 @@ import { useState, useCallback, lazy, Suspense } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { SiteLoader } from '@/components/ui/site-loader'
 import { Header1 } from "@/components/ui/header"
-import { Hero } from "@/components/ui/hero-1"
+import { Hero as AnimatedHero } from "@/components/ui/animated-hero"
 import { CursorFollower } from "@/components/ui/cursor-follower"
 import { MinimalFooter } from "@/components/ui/minimal-footer"
 import { useSEO } from "@/lib/useSEO"
@@ -108,11 +108,12 @@ function HomePage() {
   ]
 
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
+    <div className="relative min-h-screen bg-white text-black overflow-x-hidden">
       <CursorFollower />
       <Header1 />
       <main className="pt-0">
-        <Hero />
+        <AnimatedHero />
+        {/* <Hero /> */}
         <Suspense fallback={<div className="h-screen bg-black" />}>
           <Demo />
           <SectionlyShowcase />

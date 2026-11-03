@@ -125,7 +125,7 @@ export function Hero() {
             decoding="async"
             width="1920"
             height="1080"
-            fetchpriority="high"
+            fetchPriority="high"
             onLoad={() => ScrollTrigger.refresh()}
           />
         </div>

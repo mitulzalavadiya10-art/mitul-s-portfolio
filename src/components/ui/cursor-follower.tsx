@@ -86,36 +86,41 @@ export function CursorFollower() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center mix-blend-difference"
+      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center backdrop-blur-[1px]"
       style={{
         x: cursorX,
         y: cursorY,
-        width: 20,
-        height: 20,
-        backgroundColor: "white",
-        // Position offset to center the element on cursor point
+        width: 24,
+        height: 24,
         translateX: "-50%",
         translateY: "-50%",
       }}
       animate={{
-        scale: !isMoving ? 0 : (isHovered ? 3.5 : 1),
-        opacity: !isMoving ? 0 : 1,
-        // When hovered, the circle turns outline or filled to invert colors underneath
-        backgroundColor: isHovered ? "rgba(255, 255, 255, 1)" : "rgba(255, 255, 255, 1)",
+        scale: !isMoving ? 0 : (isHovered ? 1.4 : 1),
+        opacity: !isMoving ? 0 : (isHovered ? 0.95 : 0.6),
+        backgroundColor: isHovered ? "rgba(16, 185, 129, 0.12)" : "rgba(24, 24, 27, 0.15)",
+        borderColor: isHovered ? "rgba(16, 185, 129, 0.85)" : "rgba(161, 161, 170, 0.6)",
+        borderWidth: isHovered ? 2 : 1.5,
       }}
       transition={{
         type: "spring",
-        stiffness: 300,
-        damping: 28,
-        mass: 0.5,
+        stiffness: 350,
+        damping: 25,
+        mass: 0.4,
       }}
     >
-      {/* Tiny descriptive text rendered inside inverting cursor */}
+      {/* Tiny inner center dot */}
+      <span
+        className={`w-1.5 h-1.5 rounded-full transition-colors duration-200 ${
+          isHovered ? "bg-emerald-500" : "bg-zinc-700 dark:bg-zinc-200"
+        }`}
+      />
+      {/* Tiny descriptive text rendered inside cursor when hover text is provided */}
       {isHovered && hoverText && (
         <motion.span
           initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="text-[3px] font-black tracking-widest text-black uppercase select-none font-mono"
+          className="absolute -top-6 text-[9px] font-bold tracking-widest text-emerald-400 bg-zinc-950/90 px-1.5 py-0.5 rounded border border-emerald-500/30 uppercase select-none font-mono whitespace-nowrap"
         >
           {hoverText}
         </motion.span>
