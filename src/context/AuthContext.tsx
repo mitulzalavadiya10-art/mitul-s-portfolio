@@ -7,7 +7,7 @@ export interface UserProfile {
 }
 
 import { setAnalyticsUserContext, clearAnalyticsUserContext } from '@/components/ui/AnalyticsTracker';
-import { recordUserLogin } from '@/lib/blogStore';
+import { recordUserLogin } from '@/lib/userStore';
 
 interface AuthContextType {
   user: UserProfile | null;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import { X, Sparkles, CheckCircle2, ArrowRight, ShieldCheck, Zap, Store, Check, Flame } from "lucide-react"
-import { addLead } from "@/lib/blogStore"
+import { addLead } from "@/lib/userStore"
 
 import img1 from "@/images/images1.jpg"
 import img2 from "@/images/images2.jpg"

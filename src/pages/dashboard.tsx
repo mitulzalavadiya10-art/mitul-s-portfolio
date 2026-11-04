@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { trackStoreConnection, trackEvent } from "@/components/ui/AnalyticsTracker";
-import { updateUserShopUrl } from "@/lib/blogStore";
+import { updateUserShopUrl } from "@/lib/userStore";
 import { useSEO } from "@/lib/useSEO";
 
 export function DashboardPage() {

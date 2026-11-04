@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ReactGA from 'react-ga4';
-import { logUserActivity } from '@/lib/blogStore';
+import { logUserActivity } from '@/lib/userStore';
 
 // Helper to safely hash email addresses to comply with Google's strict No-PII policy
 export function getAnonymousUserId(email: string): string {

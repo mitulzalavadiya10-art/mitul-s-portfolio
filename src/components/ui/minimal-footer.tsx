@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Send, CheckCircle2 } from "lucide-react";
-import { addLead } from "@/lib/blogStore";
+import { addLead } from "@/lib/userStore";
 import HalftoneWordmarkFooter from "@/components/ui/halftone-wordmark-footer";
 
 export function MinimalFooter() {
