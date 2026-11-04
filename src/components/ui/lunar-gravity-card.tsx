@@ -505,7 +505,7 @@ export default function LunarGravityCard({
       id="about-mitul"
       onPointerMove={onPointerMove}
       className={cn(
-        "relative w-full min-h-[780px] lg:min-h-[720px] bg-black flex flex-col md:flex-row overflow-hidden border-y border-white/[0.06]",
+        "relative w-full min-h-[960px] md:min-h-[980px] lg:min-h-[1050px] xl:min-h-[1120px] bg-black flex flex-col md:flex-row overflow-hidden border-y border-white/[0.06]",
         className
       )}
     >
@@ -515,7 +515,7 @@ export default function LunarGravityCard({
 
       <motion.div
         style={{ y: copyParallaxSmooth }}
-        className="w-full md:w-[54%] lg:w-[50%] flex flex-col justify-center px-4 sm:px-8 md:px-0 md:pl-10 lg:pl-16 xl:pl-20 py-10 md:py-14 relative z-20"
+        className="w-full md:w-[54%] lg:w-[50%] flex flex-col justify-center px-4 sm:px-8 md:px-0 md:pl-10 lg:pl-16 xl:pl-20 py-24 md:py-32 lg:py-40 relative z-20"
       >
         <motion.div
           variants={revealContainer}
@@ -625,8 +625,84 @@ export default function LunarGravityCard({
 
       <motion.div
         style={{ y: moonParallaxSmooth }}
-        className="relative md:absolute md:right-0 md:top-0 w-full h-[460px] md:h-full md:w-[55%] lg:w-[58%] pointer-events-auto z-[5] flex items-center justify-center"
+        className="relative md:absolute md:right-0 md:top-0 w-full h-[620px] md:h-full md:w-[55%] lg:w-[58%] pointer-events-auto z-[5] flex items-center justify-center"
       >
+        {/* ── Handwritten "CLICK ME" Doodle Arrow directly above the 3D Moon ── */}
+        <motion.div
+          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+          animate={{
+            opacity: ringState === 'hidden' ? 1 : 0,
+            scale: ringState === 'hidden' ? 1 : 0.85,
+            y: ringState === 'hidden' ? [0, -6, 0] : -10,
+          }}
+          transition={{
+            opacity: { duration: 0.35 },
+            scale: { duration: 0.35 },
+            y: { duration: 2.8, repeat: Infinity, ease: "easeInOut" }
+          }}
+          onClick={() => {
+            if (ringState === 'hidden') setRingState('animating');
+          }}
+          className={cn(
+            "absolute z-20 select-none group cursor-pointer pointer-events-auto",
+            "bottom-[calc(50%+215px)] sm:bottom-[calc(50%+235px)] md:bottom-[calc(50%+260px)] lg:bottom-[calc(50%+285px)] xl:bottom-[calc(50%+305px)]",
+            "left-1/2 -translate-x-[42%] md:-translate-x-[36%]",
+            ringState !== 'hidden' && "pointer-events-none"
+          )}
+          title="Click to see the magic!"
+        >
+          <div className="flex items-start gap-1.5 sm:gap-2.5 transition-transform duration-300 group-hover:scale-105">
+            {/* Handwritten Text */}
+            <div className="flex flex-col items-end pt-1 sm:pt-2">
+              <span
+                style={{ fontFamily: "'Caveat', cursive, sans-serif" }}
+                className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-wider leading-none group-hover:text-emerald-300 transition-colors drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]"
+              >
+                CLICK ME
+              </span>
+              <span
+                style={{ fontFamily: "'Caveat', cursive, sans-serif" }}
+                className="text-xs sm:text-sm md:text-base font-semibold text-emerald-400 leading-tight tracking-wide mt-0.5 group-hover:text-emerald-200 transition-colors flex items-center gap-1 drop-shadow-[0_2px_8px_rgba(16,185,129,0.5)]"
+              >
+                <span>see the magic</span>
+                <span className="text-[11px] sm:text-xs">✨</span>
+              </span>
+            </div>
+
+            {/* Handwritten Doodle Arrow pointing downwards at the Moon */}
+            <svg
+              className="w-12 h-18 sm:w-14 sm:h-22 md:w-16 md:h-26 text-white group-hover:text-emerald-400 transition-colors duration-300 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] overflow-visible shrink-0"
+              viewBox="0 0 75 100"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {/* Main hand-drawn curved downward shaft */}
+              <path
+                d="M 6 18 C 24 10, 52 14, 60 38 C 68 60, 62 80, 44 96"
+                strokeWidth="3.2"
+              />
+              {/* Left arrowhead barb */}
+              <path
+                d="M 32 72 C 34 80, 39 90, 44 96"
+                strokeWidth="3.2"
+              />
+              {/* Right arrowhead barb */}
+              <path
+                d="M 66 78 C 58 86, 51 92, 44 96"
+                strokeWidth="3.2"
+              />
+              {/* Subtle sketchy accent stroke for authentic hand-drawn feel */}
+              <path
+                d="M 44 94 C 45 88, 48 80, 50 74"
+                strokeWidth="1.8"
+                className="text-emerald-400/80 group-hover:text-emerald-300"
+              />
+            </svg>
+          </div>
+        </motion.div>
+
         <div className="absolute inset-0 w-full h-full md:translate-x-[4%]">
           <CanvasErrorBoundary>
             <Canvas shadows camera={{ position: [0, 4, 10], fov: 45 }} dpr={[1, 2]}>
