@@ -44,12 +44,12 @@ function LunarParticleSphereCanvas({
       powerPreference: "high-performance",
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     mount.appendChild(renderer.domElement);
 
     // ── Generate Fibonacci Sphere Particles ─────────────────────
-    const SPHERE_COUNT = 3800;
-    const AMBIENT_COUNT = 900;
+    const SPHERE_COUNT = 1100;
+    const AMBIENT_COUNT = 250;
     const TOTAL = SPHERE_COUNT + AMBIENT_COUNT;
 
     const positions = new Float32Array(TOTAL * 3);
@@ -273,7 +273,7 @@ export function SiteLoader({ onComplete }: SiteLoaderProps) {
       exitProgress.current,
       {
         v: 1,
-        duration: 1.15,
+        duration: 0.5,
         ease: "power3.inOut",
       },
       0.08
@@ -288,7 +288,7 @@ export function SiteLoader({ onComplete }: SiteLoaderProps) {
         opacity: 0,
         filter: "blur(10px)",
         stagger: 0.03,
-        duration: 0.85,
+        duration: 0.4,
         ease: "power3.in",
       },
       0.15
@@ -300,7 +300,7 @@ export function SiteLoader({ onComplete }: SiteLoaderProps) {
       {
         opacity: 0,
         y: -18,
-        duration: 0.45,
+        duration: 0.25,
         ease: "power2.in",
       },
       0.1
@@ -311,7 +311,7 @@ export function SiteLoader({ onComplete }: SiteLoaderProps) {
       containerRef.current,
       {
         clipPath: "circle(0% at 50% 50%)",
-        duration: 1.05,
+        duration: 0.5,
         ease: "power4.inOut",
       },
       0.2
@@ -327,13 +327,13 @@ export function SiteLoader({ onComplete }: SiteLoaderProps) {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     document.body.style.overflow = "hidden";
 
-    const skipTimer = window.setTimeout(() => setCanSkip(true), reducedMotion ? 200 : 500);
+    const skipTimer = window.setTimeout(() => setCanSkip(true), 50);
 
     // Smooth counter from 0 to 100% over 3.8s
     const pctObj = { v: 0 };
     const counterTween = gsap.to(pctObj, {
       v: 100,
-      duration: reducedMotion ? 0.8 : 3.8,
+      duration: reducedMotion ? 0.4 : 1.1,
       ease: "power2.inOut",
       onUpdate: () => {
         const val = Math.round(pctObj.v);

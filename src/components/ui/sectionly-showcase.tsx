@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { CosmosGalleryModal } from "@/components/ui/cosmos-gallery-modal";
@@ -106,6 +106,75 @@ const row2Items: MediaItem[] = [
   { type: "video", src: r2_v7, poster: r2_p7, title: "Sticky Scroll Images" },
 ];
 
+/**
+ * High-performance smart card:
+ * Only mounts and plays the <video> when the card is in the visible viewport (or hovered).
+ * When offscreen, displays the lightweight PNG poster image, completely preventing
+ * browser memory saturation, GPU decoder crashes, and tab reload loops.
+ */
+function MarqueeCard({ item }: { item: MediaItem }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el || item.type !== "video") return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setInView(entry.isIntersecting);
+      },
+      {
+        root: null,
+        rootMargin: "250px", // Pre-buffer just before scrolling into view
+        threshold: 0.05,
+      }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [item.type]);
+
+  const shouldPlayVideo = item.type === "video" && (inView || isHovered);
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="shrink-0 w-[300px] h-[185px] sm:w-[360px] sm:h-[220px] md:w-[420px] md:h-[255px] rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 flex items-center justify-center opacity-90 hover:opacity-100 hover:border-zinc-700 transition-all duration-300 shadow-lg group relative transform-gpu"
+    >
+      {shouldPlayVideo ? (
+        <video
+          src={item.src}
+          poster={item.poster}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="none"
+          className="w-full h-full object-cover will-change-transform"
+        />
+      ) : (
+        <img
+          src={item.poster || item.src}
+          alt={item.title}
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover will-change-transform"
+        />
+      )}
+
+      {/* Hover section title badge */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3.5 pointer-events-none">
+        <span className="text-xs font-semibold text-zinc-200 tracking-wide">{item.title}</span>
+      </div>
+    </div>
+  );
+}
+
 function MarqueeRow({ 
   items, 
   direction, 
@@ -115,8 +184,9 @@ function MarqueeRow({
   direction: "left" | "right"; 
   duration?: number;
 }) {
-  // 3x repetition for seamless ultra-wide coverage
-  const repeated = [...items, ...items, ...items];
+  // 2x repetition is mathematically sufficient for a seamless 0% -> -50% infinite marquee
+  // without creating redundant video decoders or freezing the browser.
+  const repeated = [...items, ...items];
 
   return (
     <div className="overflow-hidden w-full py-1">
@@ -124,8 +194,8 @@ function MarqueeRow({
         className="flex gap-4 sm:gap-6 items-center"
         animate={{
           x: direction === "left"
-            ? ["0%", "-33.333%"]
-            : ["-33.333%", "0%"],
+            ? ["0%", "-50%"]
+            : ["-50%", "0%"],
         }}
         transition={{
           duration,
@@ -135,34 +205,7 @@ function MarqueeRow({
         style={{ width: "max-content" }}
       >
         {repeated.map((item, i) => (
-          <div
-            key={i}
-            className="shrink-0 w-[300px] h-[185px] sm:w-[360px] sm:h-[220px] md:w-[420px] md:h-[255px] rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 flex items-center justify-center opacity-90 hover:opacity-100 hover:border-zinc-700 transition-all duration-300 shadow-lg group relative"
-          >
-            {item.type === "video" ? (
-              <video
-                src={item.src}
-                poster={item.poster}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                className="w-full h-full object-cover will-change-transform"
-              />
-            ) : (
-              <img
-                src={item.src}
-                alt={item.title}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover will-change-transform"
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3.5 pointer-events-none">
-              <span className="text-xs font-semibold text-zinc-200 tracking-wide">{item.title}</span>
-            </div>
-          </div>
+          <MarqueeCard key={`${item.title}-${i}`} item={item} />
         ))}
       </motion.div>
     </div>

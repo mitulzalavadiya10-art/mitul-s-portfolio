@@ -145,8 +145,19 @@ function HomePage() {
 function App() {
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "mock-client-id"
   const location = useLocation()
-  const [introDone, setIntroDone] = useState(false)
-  const handleIntroComplete = useCallback(() => setIntroDone(true), [])
+  const [introDone, setIntroDone] = useState(() => {
+    try {
+      return sessionStorage.getItem("mitul_intro_seen") === "true"
+    } catch {
+      return false
+    }
+  })
+  const handleIntroComplete = useCallback(() => {
+    setIntroDone(true)
+    try {
+      sessionStorage.setItem("mitul_intro_seen", "true")
+    } catch {}
+  }, [])
   const showIntro = location.pathname === '/' && !introDone
 
   return (
