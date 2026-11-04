@@ -18,10 +18,10 @@ import klenzoLogo from "@/images/klenzo logo.jpg"
 import klenzoVideo from "@/videos/klenzo ai vriant main video.mp4"
 
 // AI Section Hub Preview Images
-import sectionImg1 from "@/ai section hub images/1 line images/Theory Hero Banner.png"
-import sectionImg2 from "@/ai section hub images/1 line images/shop-by-category-preview.png"
-import sectionImg3 from "@/ai section hub images/2 line images/alo-hero-section.png"
-import sectionImg4 from "@/ai section hub images/2 line images/purevea-glass-split.png"
+import sectionImg1 from "@/ai section hub images/row 1/minimal-product-grid.png"
+import sectionImg2 from "@/ai section hub images/row 2/shop-by-category-preview.png"
+import sectionImg3 from "@/ai section hub images/row 1/scratch-card-modal-popup-4.png"
+import sectionImg4 from "@/ai section hub images/row 2/sticky-collection-slider-preview.png"
 
 export function ShopifyAppsPage() {
   useSEO({
@@ -292,12 +292,12 @@ export function ShopifyAppsPage() {
                   <div className="group rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900/60 aspect-[4/3] relative">
                     <img 
                       src={sectionImg1} 
-                      alt="Theory Hero Banner Section" 
+                      alt="Minimal Product Grid Section" 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy" 
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                      <span className="text-xs font-bold text-white">Theory Luxury Hero Banner</span>
+                      <span className="text-xs font-bold text-white">Minimal Product Grid</span>
                     </div>
                   </div>
 
@@ -316,24 +316,24 @@ export function ShopifyAppsPage() {
                   <div className="group rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900/60 aspect-[4/3] relative">
                     <img 
                       src={sectionImg3} 
-                      alt="Alo Yoga Style Hero Section" 
+                      alt="Scratch Card Modal Popup Section" 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy" 
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                      <span className="text-xs font-bold text-white">Athletic Hero Layout</span>
+                      <span className="text-xs font-bold text-white">Scratch Card Interactive Popup</span>
                     </div>
                   </div>
 
                   <div className="group rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900/60 aspect-[4/3] relative">
                     <img 
                       src={sectionImg4} 
-                      alt="Glass Split Promo Banner" 
+                      alt="Sticky Collection Slider Section" 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy" 
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                      <span className="text-xs font-bold text-white">Glassmorphism Split Banner</span>
+                      <span className="text-xs font-bold text-white">Sticky Collection Slider</span>
                     </div>
                   </div>
                 </div>

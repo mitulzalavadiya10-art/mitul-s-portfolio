@@ -2,15 +2,15 @@
 
 import { ImageStreamHero } from "@/components/ui/image-stream-hero";
 
-import img1 from "@/ai section hub images/1 line images/Theory Hero Banner.png";
-import img2 from "@/ai section hub images/1 line images/promo-split-banner.png";
-import img3 from "@/ai section hub images/1 line images/shop-by-category-preview.png";
-import img4 from "@/ai section hub images/1 line images/sticky-collection-slider-preview.png";
-import img5 from "@/ai section hub images/1 line images/trend-report-slider-preview.png";
-import img6 from "@/ai section hub images/2 line images/alo-hero-section.png";
-import img7 from "@/ai section hub images/2 line images/purevea-glass-split.png";
-import img8 from "@/ai section hub images/2 line images/stretch-event-countdown.png";
-import img9 from "@/ai section hub images/2 line images/dynamic-hero-slider-C8XX3dwT.png";
+import img1 from "@/ai section hub images/row 1/minimal-product-grid.png";
+import img2 from "@/ai section hub images/row 1/scratch-card-modal-popup-4.png";
+import img3 from "@/ai section hub images/row 1/stretch-event-countdown.png";
+import img4 from "@/ai section hub images/row 1/1791536108194-Atelier_Hero_Slider-one.png";
+import img5 from "@/ai section hub images/row 2/1791536108169-Atelier_Hero_Slider-two.png";
+import img6 from "@/ai section hub images/row 2/shop-by-category-preview.png";
+import img7 from "@/ai section hub images/row 2/sticky-collection-slider-preview.png";
+import img8 from "@/ai section hub images/row 1/posters/shoppable-video-reels-feed.png";
+import img9 from "@/ai section hub images/row 2/posters/helix-stacking-cards-main-video.png";
 
 const STREAM_IMAGES = [
   { src: img1, alt: "Theory Hero Banner Section" },

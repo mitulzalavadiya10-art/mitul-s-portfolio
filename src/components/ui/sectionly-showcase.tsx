@@ -6,60 +6,162 @@ import { ArrowUpRight } from "lucide-react";
 import { CosmosGalleryModal } from "@/components/ui/cosmos-gallery-modal";
 import { trackAppInstallClick } from "@/components/ui/AnalyticsTracker";
 
-import row1Img1 from "@/ai section hub images/1 line images/ScreenRecording2026-08-06155135-ezgif.com-optimize.gif";
-import row1Img2 from "@/ai section hub images/1 line images/Theory Hero Banner.png";
-import row1Img3 from "@/ai section hub images/1 line images/build you ring.gif";
-import row1Img4 from "@/ai section hub images/1 line images/promo-split-banner.png";
-import row1Img5 from "@/ai section hub images/1 line images/shop-by-category-preview.png";
-import row1Img6 from "@/ai section hub images/1 line images/sticky-collection-slider-preview.png";
-import row1Img7 from "@/ai section hub images/1 line images/trend-report-slider-preview.png";
+// ── ROW 1 MEDIA ────────────────────────────────────────────────────────
+import r1_v1 from "@/ai section hub images/row 1/1790071863636-Telescope_Brand_Zoom.mp4";
+import r1_p1 from "@/ai section hub images/row 1/posters/1790071863636-Telescope_Brand_Zoom.png";
 
-import row2Img1 from "@/ai section hub images/2 line images/alo-hero-section.png";
-import row2Img2 from "@/ai section hub images/2 line images/discover-shapes-slider.gif";
-import row2Img3 from "@/ai section hub images/2 line images/gb footer.png";
-import row2Img4 from "@/ai section hub images/2 line images/purevea-glass-split.png";
-import row2Img5 from "@/ai section hub images/2 line images/stretch-event-countdown.png";
-import row2Img6 from "@/ai section hub images/2 line images/trend-report-slider-preview.png";
-import row2Img7 from "@/ai section hub images/2 line images/dynamic-hero-slider-C8XX3dwT.png";
+import r1_v2 from "@/ai section hub images/row 1/1791365297843-Sticky_Lookbook-three.mp4";
+import r1_p2 from "@/ai section hub images/row 1/posters/1791365297843-Sticky_Lookbook-three.png";
 
-// Row 1 scrolls right→left, Row 2 scrolls left→right
-const row1 = [row1Img1, row1Img2, row1Img3, row1Img4, row1Img5, row1Img6, row1Img7];
-const row2 = [row2Img1, row2Img2, row2Img3, row2Img4, row2Img5, row2Img6, row2Img7];
+import r1_v3 from "@/ai section hub images/row 1/1791368489751-Editorial_Story_Stepper-3__1_ (1).mp4";
+import r1_p3 from "@/ai section hub images/row 1/posters/1791368489751-Editorial_Story_Stepper-3__1_ (1).png";
 
-function MarqueeRow({ images, direction }: { images: string[]; direction: "left" | "right" }) {
-  const repeated = [...images, ...images, ...images, ...images]; // 4x repetition for seamless ultra-wide coverage
+import r1_v4 from "@/ai section hub images/row 1/1791521819628-Multi-Layout_Slideshow-two.mp4";
+import r1_p4 from "@/ai section hub images/row 1/posters/1791521819628-Multi-Layout_Slideshow-two.png";
+
+import r1_v5 from "@/ai section hub images/row 1/1791521819634-Multi-Layout_Slideshow-one.mp4";
+import r1_p5 from "@/ai section hub images/row 1/posters/1791521819634-Multi-Layout_Slideshow-one.png";
+
+import r1_i1 from "@/ai section hub images/row 1/1791536108194-Atelier_Hero_Slider-one.png";
+
+import r1_v6 from "@/ai section hub images/row 1/1791539942400-video2__1_.mp4";
+import r1_p6 from "@/ai section hub images/row 1/posters/1791539942400-video2__1_.png";
+
+import r1_v7 from "@/ai section hub images/row 1/1792562020479-Spread_Zoom_Story-1.mp4";
+import r1_p7 from "@/ai section hub images/row 1/posters/1792562020479-Spread_Zoom_Story-1.png";
+
+import r1_v8 from "@/ai section hub images/row 1/1792578223340-Ambient_Category_Tabs-3.mp4";
+import r1_p8 from "@/ai section hub images/row 1/posters/1792578223340-Ambient_Category_Tabs-3.png";
+
+import r1_i2 from "@/ai section hub images/row 1/minimal-product-grid.png";
+import r1_i3 from "@/ai section hub images/row 1/scratch-card-modal-popup-4.png";
+
+import r1_v9 from "@/ai section hub images/row 1/shoppable-video-reels-feed.mp4";
+import r1_p9 from "@/ai section hub images/row 1/posters/shoppable-video-reels-feed.png";
+
+import r1_i4 from "@/ai section hub images/row 1/stretch-event-countdown.png";
+
+// ── ROW 2 MEDIA ────────────────────────────────────────────────────────
+import r2_v1 from "@/ai section hub images/row 2/1790763770209-Cursor_Trail_Hero-white__1_.mp4";
+import r2_p1 from "@/ai section hub images/row 2/posters/1790763770209-Cursor_Trail_Hero-white__1_.png";
+
+import r2_v2 from "@/ai section hub images/row 2/1790835594954-Bouncing_Image_Hero-white.mp4";
+import r2_p2 from "@/ai section hub images/row 2/posters/1790835594954-Bouncing_Image_Hero-white.png";
+
+import r2_v3 from "@/ai section hub images/row 2/1791365281940-Sticky_Lookbook-two.mp4";
+import r2_p3 from "@/ai section hub images/row 2/posters/1791365281940-Sticky_Lookbook-two.png";
+
+import r2_v4 from "@/ai section hub images/row 2/1791366420789-Editorial_Story_Stepper-2__1_.mp4";
+import r2_p4 from "@/ai section hub images/row 2/posters/1791366420789-Editorial_Story_Stepper-2__1_.png";
+
+import r2_i1 from "@/ai section hub images/row 2/1791536108169-Atelier_Hero_Slider-two.png";
+
+import r2_v5 from "@/ai section hub images/row 2/1791539855848-video1.mp4";
+import r2_p5 from "@/ai section hub images/row 2/posters/1791539855848-video1.png";
+
+import r2_v6 from "@/ai section hub images/row 2/helix-stacking-cards-main-video.mp4";
+import r2_p6 from "@/ai section hub images/row 2/posters/helix-stacking-cards-main-video.png";
+
+import r2_i2 from "@/ai section hub images/row 2/shop-by-category-preview.png";
+import r2_i3 from "@/ai section hub images/row 2/sticky-collection-slider-preview.png";
+
+import r2_v7 from "@/ai section hub images/row 2/sticky-scroll-images.mp4";
+import r2_p7 from "@/ai section hub images/row 2/posters/sticky-scroll-images.png";
+
+export interface MediaItem {
+  type: "video" | "image";
+  src: string;
+  poster?: string;
+  title: string;
+}
+
+// Row 1 items
+const row1Items: MediaItem[] = [
+  { type: "video", src: r1_v1, poster: r1_p1, title: "Telescope Brand Zoom" },
+  { type: "image", src: r1_i2, title: "Minimal Product Grid" },
+  { type: "video", src: r1_v2, poster: r1_p2, title: "Sticky Lookbook" },
+  { type: "image", src: r1_i1, title: "Atelier Hero Slider" },
+  { type: "video", src: r1_v3, poster: r1_p3, title: "Editorial Story Stepper" },
+  { type: "image", src: r1_i3, title: "Scratch Card Modal Popup" },
+  { type: "video", src: r1_v4, poster: r1_p4, title: "Multi-Layout Slideshow" },
+  { type: "video", src: r1_v5, poster: r1_p5, title: "Dynamic Slideshow Hero" },
+  { type: "image", src: r1_i4, title: "Stretch Event Countdown" },
+  { type: "video", src: r1_v6, poster: r1_p6, title: "Interactive Video Section" },
+  { type: "video", src: r1_v7, poster: r1_p7, title: "Spread Zoom Story" },
+  { type: "video", src: r1_v8, poster: r1_p8, title: "Ambient Category Tabs" },
+  { type: "video", src: r1_v9, poster: r1_p9, title: "Shoppable Video Reels Feed" },
+];
+
+// Row 2 items
+const row2Items: MediaItem[] = [
+  { type: "video", src: r2_v1, poster: r2_p1, title: "Cursor Trail Hero" },
+  { type: "image", src: r2_i2, title: "Shop by Category" },
+  { type: "video", src: r2_v2, poster: r2_p2, title: "Bouncing Image Hero" },
+  { type: "video", src: r2_v3, poster: r2_p3, title: "Sticky Lookbook Two" },
+  { type: "image", src: r2_i1, title: "Atelier Hero Slider Two" },
+  { type: "video", src: r2_v4, poster: r2_p4, title: "Editorial Story Stepper" },
+  { type: "image", src: r2_i3, title: "Sticky Collection Slider" },
+  { type: "video", src: r2_v5, poster: r2_p5, title: "Product Feature Video" },
+  { type: "video", src: r2_v6, poster: r2_p6, title: "Helix Stacking Cards" },
+  { type: "video", src: r2_v7, poster: r2_p7, title: "Sticky Scroll Images" },
+];
+
+function MarqueeRow({ 
+  items, 
+  direction, 
+  duration = 65 
+}: { 
+  items: MediaItem[]; 
+  direction: "left" | "right"; 
+  duration?: number;
+}) {
+  // 3x repetition for seamless ultra-wide coverage
+  const repeated = [...items, ...items, ...items];
 
   return (
-    <div className="overflow-hidden w-full">
+    <div className="overflow-hidden w-full py-1">
       <motion.div
-        className="flex gap-4 items-center"
+        className="flex gap-4 sm:gap-6 items-center"
         animate={{
           x: direction === "left"
-            ? ["0%", "-25%"]
-            : ["-25%", "0%"],
+            ? ["0%", "-33.333%"]
+            : ["-33.333%", "0%"],
         }}
         transition={{
-          duration: 30,
+          duration,
           repeat: Infinity,
           ease: "linear",
         }}
         style={{ width: "max-content" }}
       >
-        {repeated.map((src, i) => (
+        {repeated.map((item, i) => (
           <div
             key={i}
-            className="shrink-0 h-44 w-72 rounded-xl overflow-hidden border border-zinc-800 bg-white flex items-center justify-center opacity-90 hover:opacity-100 transition-opacity duration-300"
+            className="shrink-0 w-[300px] h-[185px] sm:w-[360px] sm:h-[220px] md:w-[420px] md:h-[255px] rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 flex items-center justify-center opacity-90 hover:opacity-100 hover:border-zinc-700 transition-all duration-300 shadow-lg group relative"
           >
-            <img
-              src={src}
-              alt={`AI Section Hub — Shopify theme section preview ${(i % images.length) + 1}`}
-              width={288}
-              height={176}
-              loading="lazy"
-              decoding="async"
-              fetchPriority="low"
-              className="w-full h-full object-cover will-change-transform"
-            />
+            {item.type === "video" ? (
+              <video
+                src={item.src}
+                poster={item.poster}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover will-change-transform"
+              />
+            ) : (
+              <img
+                src={item.src}
+                alt={item.title}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover will-change-transform"
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3.5 pointer-events-none">
+              <span className="text-xs font-semibold text-zinc-200 tracking-wide">{item.title}</span>
+            </div>
           </div>
         ))}
       </motion.div>
@@ -137,22 +239,22 @@ export function SectionlyShowcase() {
         </div>
       </div>
 
-      {/* 2. MIDDLE — Full-Bleed 100% Edge-to-Edge Dual Marquee Rows (Zero side margins) */}
+      {/* 2. MIDDLE — Full-Bleed 100% Edge-to-Edge Dual Marquee Rows */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="relative flex flex-col gap-4 overflow-hidden w-full my-6"
+        className="relative flex flex-col gap-5 overflow-hidden w-full my-6"
       >
         {/* Subtle Edge Fade Masks */}
-        <div className="pointer-events-none absolute left-0 top-0 h-full w-8 md:w-16 z-10 bg-gradient-to-r from-black to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 h-full w-8 md:w-16 z-10 bg-gradient-to-l from-black to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 h-full w-8 md:w-20 z-10 bg-gradient-to-r from-black to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-8 md:w-20 z-10 bg-gradient-to-l from-black to-transparent" />
 
-        {/* Row 1: scrolls right → left */}
-        <MarqueeRow images={row1} direction="left" />
-        {/* Row 2: scrolls left → right */}
-        <MarqueeRow images={row2} direction="right" />
+        {/* Row 1: scrolls right → left (Calm & smooth speed) */}
+        <MarqueeRow items={row1Items} direction="left" duration={65} />
+        {/* Row 2: scrolls left → right (Calm & smooth speed) */}
+        <MarqueeRow items={row2Items} direction="right" duration={72} />
       </motion.div>
 
       {/* 3. BOTTOM — Minimal Trust & Stats Bar */}
