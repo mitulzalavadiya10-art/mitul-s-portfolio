@@ -167,7 +167,7 @@ function Header1() {
                                                             </p>
                                                         </div>
                                                         <Button size="sm" className="mt-10 !bg-white !text-zinc-950 hover:!bg-zinc-200 font-semibold" asChild>
-                                                            <a href="mailto:mitulzalavadiya11@gmail.com">
+                                                            <a href="mailto:mitulzalavadiya10@gmail.com">
                                                                 Email us today
                                                             </a>
                                                         </Button>

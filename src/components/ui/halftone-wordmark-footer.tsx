@@ -87,7 +87,7 @@ export const MITUL_DEFAULT_COLUMNS: FooterColumn[] = [
   {
     title: "Connect & Direct",
     links: [
-      { label: "mitulzalavadiya11@gmail.com", href: "mailto:mitulzalavadiya11@gmail.com" },
+      { label: "mitulzalavadiya10@gmail.com", href: "mailto:mitulzalavadiya10@gmail.com" },
       { label: "+91 90991 05448", href: "tel:+919099105448" },
       { label: "LinkedIn Profile", href: "https://www.linkedin.com/in/mitul-zalavadiya-784873369?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
       { label: "YouTube Tutorials", href: "https://youtube.com/@ai-section-hub?si=Rop3U0a3xRipzLpX" },

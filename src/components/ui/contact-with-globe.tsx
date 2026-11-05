@@ -21,14 +21,14 @@ const smoothEase = [0.25, 0.1, 0.25, 1] as const;
 const CONTACT_LINKS = [
   {
     icon: Mail,
-    label: "mitulzalavadiya11@gmail.com",
-    href: "mailto:mitulzalavadiya11@gmail.com",
+    label: "mitulzalavadiya10@gmail.com",
+    href: "mailto:mitulzalavadiya10@gmail.com",
   },
   { icon: Phone, label: "+91 90991 05448", href: "tel:+919099105448" },
   {
     icon: Headphones,
     label: "Shopify Developer Support",
-    href: "mailto:mitulzalavadiya11@gmail.com",
+    href: "mailto:mitulzalavadiya10@gmail.com",
   },
 ];
 
