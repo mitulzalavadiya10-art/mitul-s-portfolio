@@ -24,13 +24,13 @@ function Header1() {
             description: "",
         },
         {
-            title: "About us",
+            title: "About Me",
             href: "/about",
             description: "",
         },
         {
             title: "Work",
-            description: "Explore our production-ready Shopify apps and 3D client store websites.",
+            description: "Explore my production-ready Shopify apps and 3D client store websites.",
             items: [
                 {
                     title: "Shopify Apps",
@@ -43,16 +43,16 @@ function Header1() {
             ],
         },
         {
-            title: "Contact us",
+            title: "Contact",
             href: "/contact",
             description: "",
         },
         {
-            title: "Connect us",
+            title: "Connect",
             description: "Learn more about Mitul Zalavadiya, tutorials, apps, and merchant resources.",
             items: [
                 {
-                    title: "Connect with us",
+                    title: "Connect with me",
                     href: "/connect",
                 },
                 {

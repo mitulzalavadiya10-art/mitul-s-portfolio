@@ -254,6 +254,16 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
             "opacity-100 translate-y-0"
           )}>
             
+            {section.badge && (
+              <div className={cn(
+                "inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-zinc-700/80 bg-zinc-900/90 text-zinc-200 text-xs sm:text-sm font-semibold mb-4 sm:mb-6 backdrop-blur-sm shadow-sm",
+                section.align === 'center' ? "mx-auto" : ""
+              )}>
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                {section.badge}
+              </div>
+            )}
+
             <h1 className={cn(
               "font-bold mb-6 sm:mb-8 leading-[1.1] tracking-tight",
               index === 0 
@@ -282,14 +292,14 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
             )}>
               <p className="mb-3 sm:mb-4">{section.description}</p>
               {index === 0 && (
-                <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground/60 mt-4 sm:mt-6">
-                  <div className="flex items-center gap-1.5 sm:gap-2">
-                    <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
-                    <span>Interactive Experience</span>
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground/70 mt-4 sm:mt-6">
+                  <div className="flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-zinc-200 font-medium shadow-sm">
+                    <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                    <span>Shopify Developer at Solvifytech</span>
                   </div>
-                  <div className="flex items-center gap-1.5 sm:gap-2">
-                    <div className="w-1 h-1 rounded-full bg-primary animate-pulse" style={{ animationDelay: '0.5s' }} />
-                    <span>Scroll to Explore</span>
+                  <div className="flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/60 border border-zinc-800 text-zinc-300">
+                    <div className="w-1.5 h-1.5 rounded-full bg-zinc-400 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                    <span>Scroll to Explore Story</span>
                   </div>
                 </div>
               )}
@@ -332,7 +342,7 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
                     key={action.label}
                     onClick={action.onClick}
                     className={cn(
-                      "group relative px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-medium transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] text-sm sm:text-base",
+                      "group relative px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-medium transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] text-sm sm:text-base cursor-pointer",
                       "hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/20 w-full sm:w-auto",
                       action.variant === 'primary' 
                         ? "!bg-white !text-zinc-950 hover:!bg-zinc-200 shadow-lg font-bold" 
@@ -360,46 +370,95 @@ export default function GlobeScrollDemo() {
   const demoSections = [
     {
       id: "hero",
-      badge: "Welcome",
-      title: "Explore",
-      subtitle: "Our World",
-      description: "Journey through an immersive experience where technology meets innovation. Watch as perspectives shift and possibilities unfold with every interaction, creating a symphony of digital artistry.",
+      badge: "Shopify & Full-Stack Developer",
+      title: "Mitul Zalavadiya",
+      subtitle: "Shopify Developer & Solo App Creator",
+      description: "Hey, I'm Mitul — a passionate software developer based in Surat, India. Currently engineering custom Online Store 2.0 themes, modular Liquid architectures, and production Shopify apps trusted by 2,300+ global merchants — engineered with 0ms speed bloat.",
       align: "left" as const,
       actions: [
-        { label: "Begin Journey", variant: "primary" as const, onClick: () => console.log("Get started clicked") },
-        { label: "Learn More", variant: "secondary" as const, onClick: () => console.log("Learn more clicked") },
+        { 
+          label: "Connect on LinkedIn", 
+          variant: "primary" as const, 
+          onClick: () => window.open("https://www.linkedin.com/in/mitul-zalavadiya-784873369/", "_blank") 
+        },
+        { 
+          label: "Explore My Work", 
+          variant: "secondary" as const, 
+          onClick: () => {
+            const el = document.getElementById("journey");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+            else window.open("https://apps.shopify.com/ai-section-hub", "_blank");
+          } 
+        },
       ]
     },
     {
       id: "innovation",
-      badge: "Innovation",
-      title: "Connected Worldwide",
-      description: "From every corner of the globe, we witness the interconnected web of human achievement. Each connection represents progress, every interaction drives innovation forward into uncharted territories.",
+      badge: "Global Impact & Merchant Trust",
+      title: "Global Reach",
+      subtitle: "2,300+ Active Merchants Running My Code",
+      description: "From fast-growing D2C lifestyle brands to high-volume international Shopify stores, my custom theme sections and production apps power millions of shopper interactions across North America, Europe, Australia, and India.",
       align: "center" as const,
+      actions: [
+        { 
+          label: "View LinkedIn Profile", 
+          variant: "primary" as const, 
+          onClick: () => window.open("https://www.linkedin.com/in/mitul-zalavadiya-784873369/", "_blank") 
+        },
+        { 
+          label: "Read My Story", 
+          variant: "secondary" as const, 
+          onClick: () => {
+            const el = document.getElementById("journey");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          } 
+        },
+      ]
     },
     {
       id: "discovery",
-      badge: "Discovery",
-      title: "Expanding",
-      subtitle: "Possibilities",
-      description: "As we push beyond familiar boundaries, new worlds of opportunity emerge from the horizon. What seemed impossible yesterday becomes tomorrow's foundation for extraordinary achievements.",
+      badge: "Solo App & Theme Engineering",
+      title: "Built Solo",
+      subtitle: "From Scratch to Shopify Production",
+      description: "I love building complete products. I don't wait for designer handoffs or rely on heavy page-builder apps — I independently research e-commerce conversion patterns and architect native, lightning-fast solutions hitting 90+ Lighthouse scores.",
       align: "left" as const,
       features: [
-        { title: "Limitless Exploration", description: "Discover new dimensions of possibility and innovation" },
-        { title: "Seamless Integration", description: "Where cutting-edge technology meets human intuition" },
-        { title: "Future-Ready Solutions", description: "Built for tomorrow's challenges and opportunities" }
+        { 
+          title: "AI Section Hub (700+ Native Liquid Sections)", 
+          description: "Engineered single-handedly from scratch. Modular, zero-dependency sections designed directly for Shopify Theme Customizer." 
+        },
+        { 
+          title: "Variant Swatch Shopify App", 
+          description: "Built solo to give merchants fast, high-converting product variant selectors with instant visual rendering." 
+        },
+        { 
+          title: "Pure Native Liquid & 90+ Speed Scores", 
+          description: "Completely eliminating bloated page builders like PageFly and GemPages, delivering pure storefront performance." 
+        }
       ]
     },
     {
       id: "future",
-      badge: "Future",
-      title: "Our Shared",
-      subtitle: "Tomorrow",
-      description: "In this moment of unity, we see not just a planet, but a canvas of infinite human potential. Every connection represents hope, every innovation builds bridges to our collective future of endless possibilities.",
+      badge: "Open for Opportunities",
+      title: "Let's Build",
+      subtitle: "Full-Time Roles • Custom Themes • App Architecture",
+      description: "Currently engineering high-performance Shopify solutions at Solvifytech. Available for high-impact full-time developer roles, bespoke Shopify theme development, and custom e-commerce applications.",
       align: "center" as const,
       actions: [
-        { label: "Join the Movement", variant: "primary" as const, onClick: () => console.log("Join clicked") },
-        { label: "Explore More", variant: "secondary" as const, onClick: () => console.log("Explore clicked") }
+        { 
+          label: "Connect on LinkedIn", 
+          variant: "primary" as const, 
+          onClick: () => window.open("https://www.linkedin.com/in/mitul-zalavadiya-784873369/", "_blank") 
+        },
+        { 
+          label: "Get in Touch", 
+          variant: "secondary" as const, 
+          onClick: () => {
+            const el = document.getElementById("contact");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+            else window.open("https://www.linkedin.com/in/mitul-zalavadiya-784873369/", "_blank");
+          } 
+        }
       ]
     }
   ];
