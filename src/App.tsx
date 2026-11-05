@@ -1,6 +1,6 @@
-import { useState, useCallback, lazy, Suspense } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
-import { SiteLoader } from '@/components/ui/site-loader'
+import { useEffect, lazy, Suspense } from 'react'
+import { Routes, Route } from 'react-router-dom'
+
 import { Header1 } from "@/components/ui/header"
 import { Hero as AnimatedHero } from "@/components/ui/animated-hero"
 import { CursorFollower } from "@/components/ui/cursor-follower"
@@ -144,21 +144,10 @@ function HomePage() {
 
 function App() {
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "mock-client-id"
-  const location = useLocation()
-  const [introDone, setIntroDone] = useState(() => {
-    try {
-      return sessionStorage.getItem("mitul_intro_seen") === "true"
-    } catch {
-      return false
-    }
-  })
-  const handleIntroComplete = useCallback(() => {
-    setIntroDone(true)
-    try {
-      sessionStorage.setItem("mitul_intro_seen", "true")
-    } catch {}
-  }, [])
-  const showIntro = location.pathname === '/' && !introDone
+
+  useEffect(() => {
+    document.body.style.overflow = "";
+  }, []);
 
   return (
     <GoogleOAuthProvider clientId={googleClientId}>
@@ -191,7 +180,7 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
-        {showIntro && <SiteLoader onComplete={handleIntroComplete} />}
+
       </AuthProvider>
     </GoogleOAuthProvider>
   )
