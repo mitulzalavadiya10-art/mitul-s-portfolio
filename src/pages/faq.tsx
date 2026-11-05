@@ -16,7 +16,7 @@ function LinkedinIcon({ className = "w-4 h-4" }: { className?: string }) {
 
 interface FaqItem {
   id: string
-  category: "About Mitul" | "Shopify & Liquid" | "AI Section Hub" | "Mobile & Tech Stack" | "Hiring & Process"
+  category: "About & Experience" | "Shopify & Themes" | "Solo Apps Built" | "Speed & Performance" | "Hiring & Availability"
   question: string
   answer: string
 }
@@ -24,73 +24,85 @@ interface FaqItem {
 const PORTFOLIO_FAQS: FaqItem[] = [
   {
     id: "who-is-mitul",
-    category: "About Mitul",
-    question: "Who is Mitul Zalavadiya and what is your core expertise?",
-    answer: "I am a Shopify Developer and Shopify App Architect based in Surat, Gujarat, holding a Bachelor of Computer Applications (BCA) from GLS University, Ahmedabad. My core expertise lies in developing custom high-converting Shopify storefronts, bespoke Online Store 2.0 Liquid sections, and full-featured public/custom Shopify apps such as AI Section Hub (700+ theme sections). I also build cross-platform mobile apps using React Native."
+    category: "About & Experience",
+    question: "Who is Mitul Zalavadiya and what is your developer background?",
+    answer: "I am a Shopify Developer and Solo App Creator based in Surat, Gujarat. Currently working at Solvifytech, I specialize in engineering high-converting Online Store 2.0 themes, modular Liquid sections, and scalable Shopify apps. As a solo creator, I single-handedly architected, coded, and launched 2 production Shopify apps: AI Section Hub (700+ sections) and Variant Swatch, now powering over 2,300+ global merchants with 0ms speed bloat. I also have a professional background in building cross-platform mobile apps with React Native."
   },
   {
-    id: "education-experience",
-    category: "About Mitul",
-    question: "What is your educational background and work experience?",
-    answer: "I completed my Bachelor of Computer Applications (BCA) at GLS University, Ahmedabad (2022–2025). Professionally, I work as a Shopify Developer & App Developer at Solvifytech (2026–Present), building custom e-commerce websites and developing the AI Section Hub app. Previously, I worked as a React Native Developer at Identiq Infotech (2025–2026), building cross-platform mobile applications with Redux, Firebase, and native device integrations."
+    id: "work-experience",
+    category: "About & Experience",
+    question: "What is your professional work experience and background?",
+    answer: "• Shopify Developer & Solo App Creator at Solvifytech (2026–Present): Single-handedly engineered AI Section Hub (700+ modular Liquid sections) and Variant Swatch. Built custom high-converting Online Store 2.0 storefronts, GraphQL API integrations, and video tutorial series.\n• React Native Mobile Developer at Identiq Infotech (2025–2026): Built production cross-platform iOS and Android mobile apps using React Native, Redux Persist for offline-first state, Firebase auth & Firestore, and native device APIs.\n• Education: Bachelor of Computer Applications (BCA) from GLS University, Ahmedabad."
+  },
+  {
+    id: "figma-research-workflow",
+    category: "Shopify & Themes",
+    question: "Do you require Figma designs to build custom themes and sections?",
+    answer: "No! While I can implement exact Figma or Adobe XD mockups pixel-for-pixel, I specialize in independent e-commerce research. I don't wait for designer handoffs or rely on pre-made design files. I independently study top-converting global D2C stores, analyze buyer psychology, and conceptualize, design, and code high-converting sections and themes from scratch based on proven conversion patterns."
   },
   {
     id: "shopify-services",
-    category: "Shopify & Liquid",
-    question: "What specific Shopify development services do you offer?",
-    answer: "I offer end-to-end Shopify engineering services:\n• Custom Theme Development: Pixel-perfect builds from Figma, Adobe XD, or custom design concepts.\n• Reusable Online Store 2.0 Sections: Drag-and-drop Liquid sections (heroes, interactive sliders, shoppable video reels, lookbooks, sticky grids).\n• Performance & Speed Optimization: Achieving 90+ Google Lighthouse scores with clean native code.\n• Shopify App Architecture: Building custom apps using Shopify Admin/Storefront APIs, Node.js, and React.\n• Theme Migrations: Upgrading vintage themes to modular Online Store 2.0 architecture."
-  },
-  {
-    id: "speed-liquid-vs-builders",
-    category: "Shopify & Liquid",
-    question: "Why choose custom Liquid sections over page builders like PageFly or GemPages?",
-    answer: "Third-party page builders often inject hundreds of kilobytes of render-blocking JavaScript and external CSS that drastically degrade mobile page load speeds and SEO rankings. In contrast, I write lightweight, native Shopify Liquid code directly into your theme. My sections integrate seamlessly into your native Shopify Theme Customizer, require zero third-party script overhead, and compile natively on Shopify's lightning-fast edge servers."
+    category: "Shopify & Themes",
+    question: "What specific Shopify development services do you provide?",
+    answer: "I provide complete, end-to-end Shopify engineering:\n• Bespoke Theme Engineering: Building custom Online Store 2.0 themes from scratch with modular, drag-and-drop sections.\n• Reusable Liquid Sections: High-converting native sections (shoppable reels, sticky lookbooks, story steppers, FAQ accordions, variant pills).\n• Page Builder Migrations: Recoding bloated PageFly, GemPages, or Shogun pages into 100% native Liquid for 90+ mobile Lighthouse scores.\n• Shopify App Architecture: Public and private custom embedded apps with Shopify App Bridge, Admin GraphQL & REST APIs, and Storefront APIs.\n• Conversion Optimization: Sub-second mobile loads, instant variant switching, and streamlined checkout flows."
   },
   {
     id: "os2-compatibility",
-    category: "Shopify & Liquid",
-    question: "Are your custom sections compatible with Shopify Online Store 2.0 and free themes?",
-    answer: "Yes, 100%. All sections and components are architected following Shopify's official theme architecture guidelines. They work out of the box with Dawn, Sense, Refresh, Craft, Prestige, Impulse, and any custom or headless Shopify theme without breaking existing styles."
+    category: "Shopify & Themes",
+    question: "Are your sections compatible with all Shopify Online Store 2.0 themes?",
+    answer: "Yes, 100%. Everything I build strictly follows Shopify's official Online Store 2.0 theme architecture. My sections work seamlessly with Dawn, Sense, Craft, Prestige, Impulse, Refresh, and bespoke custom or headless themes without breaking existing store CSS."
   },
   {
-    id: "ai-section-hub-role",
-    category: "AI Section Hub",
-    question: "What is AI Section Hub and what was your role in building it?",
-    answer: "AI Section Hub is a flagship Shopify app offering merchants over 700+ pre-built, conversion-boosting theme sections (curved carousels, 3D lookbooks, sticky layered heroes, WhatsApp chat, and flash sale countdowns). At Solvifytech, I built and actively maintain the app using Shopify APIs, Liquid, React, and JavaScript. I also authored 30+ hands-on tutorial videos on our official YouTube channel (@ai-section-hub)."
+    id: "solo-apps-built",
+    category: "Solo Apps Built",
+    question: "Which Shopify apps have you built single-handedly?",
+    answer: "I single-handedly designed, coded, and launched 2 production apps on the official Shopify App Store:\n1. AI Section Hub (700+ Sections): Eliminates recurring page-builder subscriptions by giving merchants 700+ drag-and-drop, zero-dependency native Liquid sections directly inside the Shopify Theme Customizer.\n2. Variant Swatch: Replaces clunky variant dropdowns with instant visual color swatches, image patterns, and size pills, achieving an average 15–25% lift in product page conversions.\nTogether, these apps power 2,300+ active merchants worldwide across North America, Europe, Australia, and India."
+  },
+  {
+    id: "tutorials-youtube",
+    category: "Solo Apps Built",
+    question: "Do you create documentation and tutorials for merchants and developers?",
+    answer: "Yes! As a tech educator, I have authored 30+ hands-on video tutorials on YouTube (@ai-section-hub) showing merchants step-by-step how to install, configure, and maximize sales with their sections. Every custom solution I build includes clean documentation and intuitive Shopify Theme Customizer settings."
+  },
+  {
+    id: "speed-liquid-vs-builders",
+    category: "Speed & Performance",
+    question: "Why is native Liquid superior to page builders like PageFly or GemPages?",
+    answer: "Third-party page builders inject 15+ external tracking scripts, heavy runtime JavaScript bundles, and bloated CSS that drastically slow down mobile load times and hurt Google rankings.\nIn contrast, I engineer pure native Shopify Liquid and clean scoped CSS with 0 external runtime dependencies. The code compiles directly on Shopify's global edge servers, loads in sub-second time, and guarantees 90+ Lighthouse speed scores with 0ms script bloat."
   },
   {
     id: "tech-stack-details",
-    category: "Mobile & Tech Stack",
-    question: "What technologies and frameworks do you use in your development stack?",
-    answer: "My core technical toolbox includes:\n• Web & E-commerce: Shopify Liquid, JavaScript (ES6+), TypeScript, HTML5, CSS3, Tailwind CSS, React, Vite\n• Mobile Apps: React Native, Redux, Redux Persist, AsyncStorage, Firebase\n• Backend & APIs: Shopify Storefront & Admin REST/GraphQL APIs, Node.js, PostgreSQL, Supabase\n• Tools & Workflows: Git, GitHub, Theme Kit / Shopify CLI, Figma, VS Code"
+    category: "Speed & Performance",
+    question: "What is your complete technical toolbox?",
+    answer: "• Shopify Ecosystem: Shopify Liquid, Online Store 2.0 Schemas, Theme Kit, Shopify CLI, Admin GraphQL API, Storefront REST/GraphQL APIs, Checkout Extensibility, Theme App Extensions.\n• Frontend: JavaScript (ES6+), TypeScript, React.js, Tailwind CSS, HTML5, CSS3 Animations, Framer Motion, Vite.\n• Mobile & Backend: React Native (iOS & Android with Redux Persist), Node.js, Express, PostgreSQL, Firebase.\n• Tools & Performance: Google Lighthouse (90+), Chrome DevTools Profiling, Git & GitHub, Postman."
   },
   {
     id: "react-native-skills",
-    category: "Mobile & Tech Stack",
-    question: "Can you build cross-platform mobile apps for iOS and Android?",
-    answer: "Yes. From my experience at Identiq Infotech, I have hands-on experience building production React Native apps with smooth navigation, persistent Redux state management, Firebase backend integration, contact management, camera integration, and push notification systems."
+    category: "Speed & Performance",
+    question: "What is your cross-platform mobile development experience?",
+    answer: "From my tenure as a mobile developer at Identiq Infotech, I have hands-on experience building production React Native applications for iOS and Android. My work covers persistent offline-first state with Redux Persist, Firebase authentication, cloud Firestore, native device camera & contact APIs, and push notifications."
   },
   {
-    id: "project-turnaround",
-    category: "Hiring & Process",
-    question: "What is your typical project timeline and workflow?",
-    answer: "My workflow is structured and transparent:\n1. Discovery & Scope: Reviewing your requirements, Figma designs, or reference stores.\n2. Sandbox Development: Developing inside a private development or duplicate theme to ensure zero downtime on your live store.\n3. Responsive QA: Rigorous testing across mobile, tablet, and desktop on Safari, Chrome, and Firefox.\n4. Handover & Walkthrough: Deploying the code and providing a walkthrough on how to customize settings via the theme editor.\nIndividual sections typically take 24–48 hours, while full store setups take 1–2 weeks."
+    id: "roles-availability",
+    category: "Hiring & Availability",
+    question: "What types of roles and freelance projects are you currently open to?",
+    answer: "I am actively open to:\n• Full-Time Software Engineering Roles (Shopify Developer / Frontend Engineer)\n• Long-term contract & monthly retainers for high-growth e-commerce brands\n• Bespoke Shopify theme & section builds (OS 2.0)\n• Speed optimization and page builder migration projects\n• Custom Shopify app architecture (Public & Private)"
   },
   {
     id: "availability-contact",
-    category: "Hiring & Process",
-    question: "Are you available for freelance projects, contract roles, or full-time opportunities?",
-    answer: "Yes! I am actively available for freelance projects, ongoing store retainers, and full-time software engineering roles. You can reach out directly via email at mitulzalavadiya10@gmail.com, connect on LinkedIn (linkedin.com/in/mitul-zalavadiya-784873369), or call/WhatsApp me at +91 9099105448."
+    category: "Hiring & Availability",
+    question: "What is your location, timezone, and communication process?",
+    answer: "I am based in Surat, Gujarat, India (IST), but I have flexible working hours to overlap with teams in North America (EST/PST), Europe (GMT/CET), Australia (AEST), and India.\nI communicate proactively via Slack, WhatsApp (+91 9099105448), LinkedIn (linkedin.com/in/mitul-zalavadiya-784873369), or email (mitulzalavadiya10@gmail.com)."
   }
 ]
 
 const CATEGORIES = [
   "All",
-  "About Mitul",
-  "Shopify & Liquid",
-  "AI Section Hub",
-  "Mobile & Tech Stack",
-  "Hiring & Process"
+  "About & Experience",
+  "Shopify & Themes",
+  "Solo Apps Built",
+  "Speed & Performance",
+  "Hiring & Availability"
 ] as const
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/mitul-zalavadiya-784873369?utm_source=share_via&utm_content=profile&utm_medium=member_android"
@@ -222,20 +234,20 @@ export function FaqPage() {
         {/* Quick Highlights Summary Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
           <div className="p-4 sm:p-5 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 backdrop-blur text-center">
-            <span className="text-xl sm:text-2xl font-black text-white block">1+ Year</span>
-            <span className="text-zinc-500 text-[11px] font-bold uppercase tracking-wider mt-1 block">Shopify Experience</span>
+            <span className="text-xl sm:text-2xl font-black text-white block">2,300+</span>
+            <span className="text-zinc-500 text-[11px] font-bold uppercase tracking-wider mt-1 block">Active Merchants</span>
+          </div>
+          <div className="p-4 sm:p-5 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 backdrop-blur text-center">
+            <span className="text-xl sm:text-2xl font-black text-white block">2 Apps</span>
+            <span className="text-zinc-500 text-[11px] font-bold uppercase tracking-wider mt-1 block">Built Solo on Shopify</span>
           </div>
           <div className="p-4 sm:p-5 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 backdrop-blur text-center">
             <span className="text-xl sm:text-2xl font-black text-white block">700+</span>
-            <span className="text-zinc-500 text-[11px] font-bold uppercase tracking-wider mt-1 block">Liquid Sections Built</span>
+            <span className="text-zinc-500 text-[11px] font-bold uppercase tracking-wider mt-1 block">Native Liquid Sections</span>
           </div>
           <div className="p-4 sm:p-5 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 backdrop-blur text-center">
-            <span className="text-xl sm:text-2xl font-black text-white block">BCA</span>
-            <span className="text-zinc-500 text-[11px] font-bold uppercase tracking-wider mt-1 block">GLS University</span>
-          </div>
-          <div className="p-4 sm:p-5 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 backdrop-blur text-center">
-            <span className="text-xl sm:text-2xl font-black text-white block">AI App</span>
-            <span className="text-zinc-500 text-[11px] font-bold uppercase tracking-wider mt-1 block">AI Section Hub</span>
+            <span className="text-xl sm:text-2xl font-black text-white block">90+</span>
+            <span className="text-zinc-500 text-[11px] font-bold uppercase tracking-wider mt-1 block">Lighthouse Speed</span>
           </div>
         </div>
 

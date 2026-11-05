@@ -24,28 +24,33 @@ export function FaqSection() {
   const faqs: FaqItem[] = [
     {
       number: "01",
-      question: "Who is Mitul Zalavadiya and what is your core expertise?",
-      answer: "I am a Shopify Developer & Shopify App Architect based in Surat, Gujarat (BCA graduate from GLS University, Ahmedabad). I specialize in custom Online Store 2.0 themes, bespoke Liquid sections, high-performing storefronts, Shopify apps like AI Section Hub (700+ sections), and cross-platform mobile apps with React Native.",
+      question: "Who is Mitul Zalavadiya and what is your core developer focus?",
+      answer: "I am a Shopify Developer and Solo App Creator based in Surat, Gujarat. At Solvifytech, I specialize in custom Online Store 2.0 themes, modular Liquid sections, and scalable apps. Single-handedly, I architected, coded, and launched 2 production Shopify apps: AI Section Hub (700+ sections) and Variant Swatch, powering 2,300+ merchants globally. I also have professional experience building cross-platform mobile apps with React Native.",
     },
     {
       number: "02",
-      question: "What specific Shopify development services do you provide?",
-      answer: "I provide end-to-end Shopify engineering: pixel-perfect custom theme development from Figma, bespoke reusable Liquid sections, 90+ Google PageSpeed performance optimization, custom Shopify app development using Shopify APIs/React, and seamless theme migrations to Online Store 2.0.",
+      question: "Do you require Figma designs to build custom themes and sections?",
+      answer: "Not at all. While I can build pixel-perfect themes from Figma or Adobe XD, I specialize in independent e-commerce research. I don't wait for designer handoffs—I independently research top-performing global D2C stores, analyze buyer psychology, and design & code high-converting sections and themes from scratch based on proven conversion patterns.",
     },
     {
       number: "03",
-      question: "Why choose custom Liquid code over page builders like PageFly or GemPages?",
-      answer: "Third-party page builders inject heavy render-blocking JavaScript and external CSS that drastically degrade page speed and conversion rates. I build clean, native Shopify Liquid sections directly into your theme. They load instantly, compile on Shopify edge servers, and work seamlessly with the native theme customizer.",
+      question: "Which Shopify apps have you built as a solo developer?",
+      answer: "I single-handedly designed, built, and launched 2 production apps on the official Shopify App Store: 1) AI Section Hub (700+ native Liquid sections eliminating recurring page-builder subscriptions), and 2) Variant Swatch (replacing clunky dropdowns with instant visual swatches for a 15–25% conversion lift). Together, they power 2,300+ active merchants worldwide.",
     },
     {
       number: "04",
-      question: "What is AI Section Hub and what was your role in it?",
-      answer: "AI Section Hub is a flagship Shopify app featuring 700+ premium conversion-boosting sections (curved carousels, 3D lookbooks, sticky layered heroes, flash sale timers). At Solvifytech, I built and maintain the app using Shopify APIs, Liquid, React, and JavaScript, while also creating 30+ official video tutorials on YouTube.",
+      question: "Why write custom Liquid code instead of using page builders like PageFly or GemPages?",
+      answer: "Page builders inject heavy JavaScript bundles and tracking tags that drag mobile Lighthouse scores down. In contrast, I write pure native Shopify Liquid and scoped CSS directly into your theme. It compiles on Shopify's global edge servers, loads with 0ms script bloat, and consistently delivers 90+ Google Lighthouse speed scores.",
     },
     {
       number: "05",
-      question: "Are you available for freelance projects or full-time opportunities?",
-      answer: "Yes! I am actively open to freelance client projects, e-commerce development retainers, and full-time software engineering roles. You can reach out directly via email at mitulzalavadiya10@gmail.com, message me on LinkedIn, or call +91 9099105448.",
+      question: "What is your technical stack across Shopify, frontend, and mobile?",
+      answer: "Shopify Liquid, Online Store 2.0 Schemas, Shopify CLI, Admin GraphQL & Storefront APIs, Theme App Extensions; Modern Frontend: React.js, TypeScript, Tailwind CSS, JavaScript (ES6+), Framer Motion; Mobile & Backend: React Native (iOS & Android with Redux Persist), Node.js, Express, Firebase.",
+    },
+    {
+      number: "06",
+      question: "Are you available for freelance projects, retainers, or full-time roles?",
+      answer: "Yes! I am actively open to full-time engineering roles, long-term brand retainers, and bespoke theme/section projects. I work on IST with flexible hours for US, EU, AU, and Indian teams. Reach out directly at mitulzalavadiya10@gmail.com, LinkedIn, or WhatsApp at +91 9099105448.",
     },
   ];
 
